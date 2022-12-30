@@ -16,7 +16,7 @@ class CreateLevelsTable extends Migration
         Schema::create('levels', function (Blueprint $table) {
             $table->id();
             $table->string('role', 15);
-            $table->string('badge_color', 10);
+            $table->string('badge_color', 10)->default('#222');
             $table->string('text_color')->default('#fff');
             $table->timestamps();
         });
