@@ -17,8 +17,7 @@ class CreateCuberCompetitionsTable extends Migration
             $table->id();
             $table->bigInteger('competition_id');
             $table->bigInteger('cuber_id');
-            $table->timestamp('created_at')->nullable();
-            $table->timestamp('updated_at')->nullable();
+            $table->timestamps();
         });
     }
 

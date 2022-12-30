@@ -17,8 +17,7 @@ class CreateBlogCommentsTable extends Migration
             $table->id();
             $table->bigInteger('user_id');
             $table->text('comment');
-            $table->timestamp('created_at')->nullable();
-            $table->timestamp('updated_at')->nullable();
+            $table->timestamps();
         });
     }
 

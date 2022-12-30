@@ -15,11 +15,10 @@ class CreateBlogTagsTable extends Migration
     {
         Schema::create('blog_tags', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('slug');
-            $table->timestamp('created_at')->nullable();
-            $table->timestamp('updated_at')->nullable();
-            $table->timestamp('deleted_at')->nullable();
+            $table->string('name', 30);
+            $table->string('slug', 30);
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

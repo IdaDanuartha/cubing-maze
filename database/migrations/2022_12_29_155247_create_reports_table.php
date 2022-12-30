@@ -15,11 +15,10 @@ class CreateReportsTable extends Migration
     {
         Schema::create('reports', function (Blueprint $table) {
             $table->id();
-            $table->enum('option');
-            $table->string('title');
+            $table->enum('option', ['Report bugs', 'Request new feature', 'Ask for collaboration', 'Out of topic']);
+            $table->string('title', 50);
             $table->text('description');
-            $table->timestamp('created_at')->nullable();
-            $table->timestamp('updated_at')->nullable();
+            $table->timestamps();
         });
     }
 

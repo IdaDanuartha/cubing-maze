@@ -17,15 +17,14 @@ class CreateBlogsTable extends Migration
             $table->id();
             $table->bigInteger('blog_category_id');
             $table->bigInteger('user_id');
-            $table->string('title');
-            $table->string('slug');
-            $table->string('blog_img');
+            $table->string('title', 50);
+            $table->string('slug', 50);
+            $table->string('blog_img', 150);
             $table->longText('content');
-            $table->enum('status')->default('draft');
+            $table->enum('status', ['published', 'draft'])->default('draft');
             $table->dateTime('published_at')->nullable();
-            $table->timestamp('created_at')->nullable();
-            $table->timestamp('updated_at')->nullable();
-            $table->timestamp('deleted_at')->nullable();
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

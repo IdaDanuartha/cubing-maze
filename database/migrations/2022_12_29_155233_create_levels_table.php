@@ -15,12 +15,10 @@ class CreateLevelsTable extends Migration
     {
         Schema::create('levels', function (Blueprint $table) {
             $table->id();
-            $table->string('role');
-            $table->string('badge_color');
+            $table->string('role', 15);
+            $table->string('badge_color', 10);
             $table->string('text_color')->default('#fff');
-            $table->timestamp('created_at')->nullable();
-            $table->timestamp('updated_at')->nullable();
-            $table->timestamp('deleted_at')->nullable();
+            $table->timestamps();
         });
     }
 

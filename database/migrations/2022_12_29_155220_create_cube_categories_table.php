@@ -15,12 +15,11 @@ class CreateCubeCategoriesTable extends Migration
     {
         Schema::create('cube_categories', function (Blueprint $table) {
             $table->id();
-            $table->string('icon_img');
-            $table->string('name');
-            $table->string('short_name');
-            $table->timestamp('created_at')->nullable();
-            $table->timestamp('updated_at')->nullable();
-            $table->timestamp('deleted_at')->nullable();
+            $table->string('icon_img', 150);
+            $table->string('name', 15);
+            $table->string('short_name', 10);
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

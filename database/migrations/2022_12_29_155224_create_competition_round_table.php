@@ -16,10 +16,9 @@ class CreateCompetitionRoundTable extends Migration
         Schema::create('competition_round', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('competition_id');
-            $table->bigInteger('round_name');
-            $table->timestamp('created_at')->nullable();
-            $table->timestamp('updated_at')->nullable();
-            $table->timestamp('deleted_at')->nullable();
+            $table->string('round_name', 15);
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

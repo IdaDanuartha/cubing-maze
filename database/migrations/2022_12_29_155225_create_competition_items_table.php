@@ -18,10 +18,9 @@ class CreateCompetitionItemsTable extends Migration
             $table->bigInteger('competition_id');
             $table->bigInteger('competition_round_id');
             $table->bigInteger('cube_category_id');
-            $table->string('scramble_img');
-            $table->timestamp('created_at')->nullable();
-            $table->timestamp('updated_at')->nullable();
-            $table->timestamp('deleted_at')->nullable();
+            $table->string('scramble_img', 150);
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

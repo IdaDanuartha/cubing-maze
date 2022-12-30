@@ -15,10 +15,9 @@ class CreateCompetitionEventRoundsTable extends Migration
     {
         Schema::create('competition_event_rounds', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('round_id');
+            $table->bigInteger('competition_round_id');
             $table->bigInteger('cube_category_id');
-            $table->timestamp('created_at')->nullable();
-            $table->timestamp('updated_at')->nullable();
+            $table->timestamps();
         });
     }
 

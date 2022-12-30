@@ -16,16 +16,15 @@ class CreateCubersTable extends Migration
         Schema::create('cubers', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('user_id');
-            $table->string('wca_id')->nullable();
-            $table->bigInteger('youtube_id')->nullable();
-            $table->bigInteger('instagram_id')->nullable();
-            $table->bigInteger('twitter_id')->nullable();
-            $table->string('country')->nullable();
-            $table->string('city')->nullable();
-            $table->enum('sex')->nullable();
+            $table->string('wca_id', 10)->nullable();
+            $table->bigInteger('youtube_id', 50)->nullable();
+            $table->bigInteger('instagram_id', 50)->nullable();
+            $table->bigInteger('twitter_id', 50)->nullable();
+            $table->string('country', 30)->nullable();
+            $table->string('city', 30)->nullable();
+            $table->enum('sex', ['male', 'female', 'anonymous'])->default('anonymous');
             $table->text('about_me')->nullable();
-            $table->timestamp('created_at')->nullable();
-            $table->timestamp('updated_at')->nullable();
+            $table->timestamps();
         });
     }
 

@@ -15,10 +15,9 @@ class CreateCourseCategoriesTable extends Migration
     {
         Schema::create('course_categories', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->timestamp('created_at')->nullable();
-            $table->timestamp('updated_at')->nullable();
-            $table->timestamp('deleted_at')->nullable();
+            $table->string('name', 30);
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

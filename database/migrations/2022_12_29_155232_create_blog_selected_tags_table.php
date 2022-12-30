@@ -16,9 +16,8 @@ class CreateBlogSelectedTagsTable extends Migration
         Schema::create('blog_selected_tags', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('blog_id');
-            $table->bigInteger('tag_id');
-            $table->timestamp('created_at')->nullable();
-            $table->timestamp('updated_at')->nullable();
+            $table->bigInteger('blog_tag_id');
+            $table->timestamps();
         });
     }
 

@@ -15,19 +15,17 @@ class CreateCompetitionsTable extends Migration
     {
         Schema::create('competitions', function (Blueprint $table) {
             $table->id();
-            $table->string('competition_img');
-            $table->string('name');
+            $table->string('competition_img', 150);
+            $table->string('name', 100);
             $table->longText('description');
-            $table->bigInteger('competitor_limit');
-            $table->enum('type')->default('free');
+            $table->integer('competitor_limit');
+            $table->enum('type', ['free', 'paid']);
             $table->integer('fee')->nullable();
-            $table->integer('discount')->nullable();
             $table->dateTime('date_start');
             $table->dateTime('date_end');
-            $table->string('password')->nullable();
-            $table->timestamp('created_at')->nullable();
-            $table->timestamp('updated_at')->nullable();
-            $table->timestamp('deleted_at')->nullable();
+            $table->string('password', 20)->nullable();
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

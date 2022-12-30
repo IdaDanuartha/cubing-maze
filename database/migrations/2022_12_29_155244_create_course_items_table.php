@@ -17,11 +17,10 @@ class CreateCourseItemsTable extends Migration
             $table->id();
             $table->bigInteger('sub_course_item_id');
             $table->bigInteger('course_id');
-            $table->string('name');
-            $table->text('url_video');
-            $table->bigInteger('description');
-            $table->timestamp('created_at')->nullable();
-            $table->timestamp('updated_at')->nullable();
+            $table->string('name', 50);
+            $table->text('url_video', 200);
+            $table->longText('description');
+            $table->timestamps();
         });
     }
 

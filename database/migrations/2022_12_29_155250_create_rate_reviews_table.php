@@ -18,8 +18,7 @@ class CreateRateReviewsTable extends Migration
             $table->bigInteger('course_id');
             $table->tinyInteger('rating');
             $table->text('review');
-            $table->timestamp('created_at')->nullable();
-            $table->timestamp('updated_at')->nullable();
+            $table->timestamps();
         });
     }
 

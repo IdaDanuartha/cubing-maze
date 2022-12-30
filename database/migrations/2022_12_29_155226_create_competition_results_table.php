@@ -17,15 +17,14 @@ class CreateCompetitionResultsTable extends Migration
             $table->id();
             $table->bigInteger('competition_item_id');
             $table->bigInteger('cuber_id');
-            $table->bigInteger('solve1');
-            $table->bigInteger('solve2');
-            $table->bigInteger('solve3');
-            $table->bigInteger('solve4')->nullable();
-            $table->bigInteger('solve5')->nullable();
-            $table->bigInteger('average');
-            $table->string('link_video')->nullable();
-            $table->timestamp('created_at')->nullable();
-            $table->timestamp('updated_at')->nullable();
+            $table->float('solve1');
+            $table->float('solve2');
+            $table->float('solve3');
+            $table->float('solve4')->nullable();
+            $table->float('solve5')->nullable();
+            $table->float('average');
+            $table->string('link_video', 200)->nullable();
+            $table->timestamps();
         });
     }
 

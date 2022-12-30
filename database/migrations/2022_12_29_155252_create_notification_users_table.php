@@ -17,8 +17,7 @@ class CreateNotificationUsersTable extends Migration
             $table->id();
             $table->bigInteger('notification_id');
             $table->bigInteger('user_id');
-            $table->timestamp('created_at')->nullable();
-            $table->timestamp('updated_at')->nullable();
+            $table->timestamps();
         });
     }
 

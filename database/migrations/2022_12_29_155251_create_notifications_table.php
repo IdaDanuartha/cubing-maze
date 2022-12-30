@@ -15,11 +15,10 @@ class CreateNotificationsTable extends Migration
     {
         Schema::create('notifications', function (Blueprint $table) {
             $table->id();
-            $table->string('subject');
+            $table->string('subject', 30);
             $table->text('message');
-            $table->tinyInteger('send_to_all');
-            $table->timestamp('created_at')->nullable();
-            $table->timestamp('updated_at')->nullable();
+            $table->boolean('send_to_all');
+            $table->timestamps();
         });
     }
 

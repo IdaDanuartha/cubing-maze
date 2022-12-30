@@ -18,8 +18,7 @@ class CreateCuberCoursesTable extends Migration
             $table->bigInteger('cuber_id');
             $table->bigInteger('course_id');
             $table->integer('course_price');
-            $table->timestamp('created_at')->nullable();
-            $table->timestamp('updated_at')->nullable();
+            $table->timestamps();
         });
     }
 

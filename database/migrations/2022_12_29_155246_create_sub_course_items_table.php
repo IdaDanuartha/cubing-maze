@@ -16,10 +16,9 @@ class CreateSubCourseItemsTable extends Migration
         Schema::create('sub_course_items', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('course_id');
-            $table->string('name');
-            $table->timestamp('created_at')->nullable();
-            $table->timestamp('updated_at')->nullable();
-            $table->timestamp('deleted_at');
+            $table->string('name', 30);
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

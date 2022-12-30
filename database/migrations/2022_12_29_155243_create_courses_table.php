@@ -16,17 +16,16 @@ class CreateCoursesTable extends Migration
         Schema::create('courses', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('course_category_id');
-            $table->string('name');
-            $table->string('course_img');
-            $table->enum('level');
-            $table->text('description');
-            $table->enum('type')->default('free');
+            $table->string('name', 50);
+            $table->string('course_img', 150);
+            $table->enum('level', ['Beginner', 'Intermediate', 'Advanced', 'Expert']);
+            $table->longText('description');
+            $table->enum('type', ['free', 'paid']);
             $table->integer('price')->nullable();
             $table->integer('discount')->nullable();
-            $table->enum('status')->default('draft');
-            $table->timestamp('created_at')->nullable();
-            $table->timestamp('updated_at')->nullable();
-            $table->timestamp('deleted_at')->nullable();
+            $table->enum('status', ['published', 'draft']);
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 
