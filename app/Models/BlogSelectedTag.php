@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class BlogSelectedTag extends Model
 {
     use HasFactory;
+
+    protected $table = 'blog_selected_tags';
+    protected $guarded = [];
 }

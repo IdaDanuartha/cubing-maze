@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCompetitionRoundTable extends Migration
+class CreateCompetitionRoundsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateCompetitionRoundTable extends Migration
      */
     public function up()
     {
-        Schema::create('competition_round', function (Blueprint $table) {
+        Schema::create('competition_rounds', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('competition_id');
             $table->string('round_name', 15);
@@ -29,6 +29,6 @@ class CreateCompetitionRoundTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('competition_round');
+        Schema::dropIfExists('competition_rounds');
     }
 }

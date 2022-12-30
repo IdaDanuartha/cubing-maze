@@ -17,9 +17,9 @@ class CreateCubersTable extends Migration
             $table->id();
             $table->bigInteger('user_id');
             $table->string('wca_id', 10)->nullable();
-            $table->bigInteger('youtube_id', 50)->nullable();
-            $table->bigInteger('instagram_id', 50)->nullable();
-            $table->bigInteger('twitter_id', 50)->nullable();
+            $table->string('youtube_id', 50)->nullable();
+            $table->string('instagram_id', 50)->nullable();
+            $table->string('twitter_id', 50)->nullable();
             $table->string('country', 30)->nullable();
             $table->string('city', 30)->nullable();
             $table->enum('sex', ['male', 'female', 'anonymous'])->default('anonymous');

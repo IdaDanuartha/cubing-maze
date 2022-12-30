@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class CubeCategory extends Model
 {
     use HasFactory;
+
+    protected $table = 'cube_categories';
+    protected $guarded = [];
 }

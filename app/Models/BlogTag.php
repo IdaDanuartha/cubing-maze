@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class BlogTag extends Model
 {
     use HasFactory;
+
+    protected $table = 'blog_tags';
+    protected $guarded = [];
 }

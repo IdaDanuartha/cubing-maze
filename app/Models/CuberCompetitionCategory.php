@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class CuberCompetitionCategory extends Model
 {
     use HasFactory;
+
+    protected $table = 'cuber_competition_categories';
+    protected $guarded = [];
 }

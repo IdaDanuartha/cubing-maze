@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Competition extends Model
 {
     use HasFactory;
+
+    protected $table = 'competitions';
+    protected $guarded = [];
 }

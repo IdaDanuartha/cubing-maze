@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class SubCourseItem extends Model
 {
     use HasFactory;
+
+    protected $table = 'sub_course_items';
+    protected $guarded = [];
 }
