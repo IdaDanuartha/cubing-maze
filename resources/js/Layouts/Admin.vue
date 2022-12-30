@@ -1,49 +1,33 @@
 <template>
-    <nav class="navbar navbar-dark navbar-theme-primary px-4 col-12 d-lg-none">
-        <a class="navbar-brand me-lg-5" href="/">
-            <img class="navbar-brand-dark" src=""/> 
-            <img class="navbar-brand-light" src=""/>
-        </a>
-        <div class="d-flex align-items-center">
-            <button class="navbar-toggler d-lg-none collapsed" type="button" data-bs-toggle="collapse"
-                data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-        </div>
-    </nav>
-
-    <!-- sidebar -->
-    <Sidebar />
-
-    <main class="content">
-
-        <!-- navbar -->
-        <Navbar />
-
-        <!-- content -->
-        <slot />
-
-    </main>
-
+  <div class="w-full h-full flex">
+    <Sidebar :dataOpenSideBar="openSidebar" />
+    <div class="w-full h-full">
+      <Header :dataOpenSideBar="openSidebar" :clickHambuger="toggleSidebar" />
+      <div class="w-full h-[calc(100vh-50px)]">
+        <router-view></router-view>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
-    //import navbar
-    import Navbar from "../Components/Navbar.vue";
+import Header from '../Components/HeaderComponent2.vue'
+import Sidebar from '../Components/SidebarComponent.vue'
 
-    //import sidebar
-    import Sidebar from '../Components/Sidebar.vue';
-
-    export default {
-
-        //register components
-        components: {
-            Navbar,
-            Sidebar
-        },
+export default {
+  components: { Header, Sidebar },
+  data() {
+    return {
+      openSidebar: true
     }
+  },
+  methods: {
+    toggleSidebar() {
+      this.openSidebar = !this.openSidebar
+    }
+  }
 
+}
 </script>
 
 <style>

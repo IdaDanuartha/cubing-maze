@@ -125,7 +125,7 @@
     //import layout Admin
     import LayoutAdmin from '../../../Layouts/Admin.vue';
 
-    //import Heade from Inertia
+    //import Header from Inertia
     import {
         Head,
     } from '@inertiajs/inertia-vue3';
