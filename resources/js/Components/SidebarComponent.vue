@@ -1,73 +1,535 @@
 <template>
-  <div class="h-screen   bg-gray-800" id="side-bar" :class="dataOpenSideBar == true ? 'side-bar-visible' : 'side-bar-close'">
-    <div class="bg-gray-700 h-[50px] flex justify-center items-center ">
-      <div class="text-xl font-bold text-center flex items-center justify-center text-white h-full" v-show="dataOpenSideBar">APP DEV</div>
-      <img src="https://avatars.githubusercontent.com/u/97021587?v=4" v-show="!dataOpenSideBar" class="p-1 w-8 h-8 rounded-full ring-2 ring-gray-100 dark:ring-gray-500 " alt="Avatar" />
+  <aside class="w-64" aria-label="Sidebar">
+    <div class="overflow-y-auto h-full py-7 px-5 bg-gray-50 dark:bg-gray-800">
+      <a href="#" class="flex items-center pl-2.5 mb-10">
+        <img
+          src="/assets/img/logo.png"
+          class="mr-3 h-6 sm:h-7"
+          alt="Flowbite Logo"
+        />
+        <span
+          class="
+            self-center
+            text-gray-800
+            dark:text-white
+            text-xl
+            font-semibold
+            whitespace-nowrap
+          "
+          >Cubing Maze</span
+        >
+      </a>
+      <ul class="space-y-3">
+        <li>
+          <a
+            href="#"
+            class="
+              flex
+              items-center
+              p-3
+              text-base
+              font-normal
+              text-gray-900
+              rounded-lg
+              dark:text-white dark:hover:bg-gray-700
+              hover:bg-gray-200
+            "
+          >
+            <img src="/assets/img/sidebar/statistics.svg" alt="" />
+            <span class="ml-3">Statistics</span>
+          </a>
+        </li>
+        <li>
+          <button
+            type="button"
+            class="
+              flex
+              items-center
+              p-3
+              w-full
+              text-base
+              font-normal
+              text-gray-900
+              rounded-lg
+              transition
+              duration-75
+              group
+              hover:bg-gray-200
+              dark:text-white dark:hover:bg-gray-700
+            "
+            @click.prevent="activeDropdown('competitions')"
+            aria-controls="dropdown-example"
+            data-collapse-toggle="dropdown-example"
+          >
+            <img src="/assets/img/sidebar/competitions.svg" alt="">
+            <span
+              class="flex-1 ml-3 text-left whitespace-nowrap"
+              >Competitions</span
+            >
+            <svg
+              class="w-6 h-6 dropdown-icon"
+              :class="{ active: dropdown_competitions }"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                clip-rule="evenodd"
+              ></path>
+            </svg>
+          </button>
+          <ul
+            id="dropdown-example"
+            class="hidden ml-[45px] space-y-3"
+            :class="{ active: dropdown_competitions }"
+          >
+            <li>
+              <a
+                href="#"
+                class="
+                  flex
+                  items-center
+                  px-4
+                  py-2
+                  w-full
+                  text-base
+                  font-normal
+                  text-gray-900
+                  rounded-lg
+                  transition
+                  duration-75
+                  group
+                  hover:bg-gray-200
+                  dark:text-white dark:hover:bg-gray-700
+                "
+                >Index</a
+              >
+            </li>
+            <li>
+              <a
+                href="#"
+                class="
+                  flex
+                  items-center
+                  px-4
+                  py-2
+                  w-full
+                  text-base
+                  font-normal
+                  text-gray-900
+                  rounded-lg
+                  transition
+                  duration-75
+                  group
+                  hover:bg-gray-200
+                  dark:text-white dark:hover:bg-gray-700
+                "
+                >Category</a
+              >
+            </li>
+          </ul>
+        </li>
+        <li>
+          <button
+            type="button"
+            class="
+              flex
+              items-center
+              p-3
+              w-full
+              text-base
+              font-normal
+              text-gray-900
+              rounded-lg
+              transition
+              duration-75
+              group
+              hover:bg-gray-200
+              dark:text-white dark:hover:bg-gray-700
+            "
+            @click.prevent="activeDropdown('courses')"
+            aria-controls="dropdown-example"
+            data-collapse-toggle="dropdown-example"
+          >
+            <img src="/assets/img/sidebar/courses.svg" alt="">
+            <span
+              class="flex-1 ml-3 text-left whitespace-nowrap"
+              >Courses</span
+            >
+            <svg
+              class="w-6 h-6 dropdown-icon"
+              :class="{ active: dropdown_courses }"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                clip-rule="evenodd"
+              ></path>
+            </svg>
+          </button>
+          <ul
+            id="dropdown-example"
+            class="hidden ml-[45px] space-y-3"
+            :class="{ active: dropdown_courses }"
+          >
+            <li>
+              <a
+                href="#"
+                class="
+                  flex
+                  items-center
+                  px-4
+                  py-2
+                  w-full
+                  text-base
+                  font-normal
+                  text-gray-900
+                  rounded-lg
+                  transition
+                  duration-75
+                  group
+                  hover:bg-gray-200
+                  dark:text-white dark:hover:bg-gray-700
+                "
+                >Index</a
+              >
+            </li>
+            <li>
+              <a
+                href="#"
+                class="
+                  flex
+                  items-center
+                  px-4
+                  py-2
+                  w-full
+                  text-base
+                  font-normal
+                  text-gray-900
+                  rounded-lg
+                  transition
+                  duration-75
+                  group
+                  hover:bg-gray-200
+                  dark:text-white dark:hover:bg-gray-700
+                "
+                >Category</a
+              >
+            </li>
+          </ul>
+        </li>
+        <li>
+          <button
+            type="button"
+            class="
+              flex
+              items-center
+              p-3
+              w-full
+              text-base
+              font-normal
+              text-gray-900
+              rounded-lg
+              transition
+              duration-75
+              group
+              hover:bg-gray-200
+              dark:text-white dark:hover:bg-gray-700
+            "
+            @click.prevent="activeDropdown('blogs')"
+            aria-controls="dropdown-example"
+            data-collapse-toggle="dropdown-example"
+          >
+            <img src="/assets/img/sidebar/blogs.svg" alt="">
+            <span
+              class="flex-1 ml-3 text-left whitespace-nowrap"
+              >Blogs</span
+            >
+            <svg
+              class="w-6 h-6 dropdown-icon"
+              :class="{ active: dropdown_blogs }"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                clip-rule="evenodd"
+              ></path>
+            </svg>
+          </button>
+          <ul
+            id="dropdown-example"
+            class="hidden ml-[45px] space-y-3"
+            :class="{ active: dropdown_blogs }"
+          >
+            <li>
+              <a
+                href="#"
+                class="
+                  flex
+                  items-center
+                  px-4
+                  py-2
+                  w-full
+                  text-base
+                  font-normal
+                  text-gray-900
+                  rounded-lg
+                  transition
+                  duration-75
+                  group
+                  hover:bg-gray-200
+                  dark:text-white dark:hover:bg-gray-700
+                "
+                >Index</a
+              >
+            </li>
+            <li>
+              <a
+                href="#"
+                class="
+                  flex
+                  items-center
+                  px-4
+                  py-2
+                  w-full
+                  text-base
+                  font-normal
+                  text-gray-900
+                  rounded-lg
+                  transition
+                  duration-75
+                  group
+                  hover:bg-gray-200
+                  dark:text-white dark:hover:bg-gray-700
+                "
+                >Category</a
+              >
+            </li>
+            <li>
+              <a
+                href="#"
+                class="
+                  flex
+                  items-center
+                  px-4
+                  py-2
+                  w-full
+                  text-base
+                  font-normal
+                  text-gray-900
+                  rounded-lg
+                  transition
+                  duration-75
+                  group
+                  hover:bg-gray-200
+                  dark:text-white dark:hover:bg-gray-700
+                "
+                >Tags</a
+              >
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a
+            href="#"
+            class="
+              flex
+              items-center
+              p-3
+              text-base
+              font-normal
+              text-gray-900
+              rounded-lg
+              dark:text-white dark:hover:bg-gray-700
+              hover:bg-gray-200
+            "
+          >
+            <img src="/assets/img/sidebar/levels.svg" alt="">
+            <span class="flex-1 ml-3 whitespace-nowrap">Level</span>
+          </a>
+        </li>
+        <li>
+          <a
+            href="#"
+            class="
+              flex
+              items-center
+              p-3
+              text-base
+              font-normal
+              text-gray-900
+              rounded-lg
+              dark:text-white dark:hover:bg-gray-700
+              hover:bg-gray-200
+            "
+          >
+            <img src="/assets/img/sidebar/reports.svg" alt="">
+            <span class="flex-1 ml-3 whitespace-nowrap">Reports</span>
+          </a>
+        </li>
+        <li>
+          <a
+            href="#"
+            class="
+              flex
+              items-center
+              p-3
+              text-base
+              font-normal
+              text-gray-900
+              rounded-lg
+              dark:text-white dark:hover:bg-gray-700
+              hover:bg-gray-200
+            "
+          >
+            <img src="/assets/img/sidebar/users.svg" alt="">
+            <span class="flex-1 ml-3 whitespace-nowrap">Users</span>
+          </a>
+        </li>
+        <li>
+          <button
+            type="button"
+            class="
+              flex
+              items-center
+              p-3
+              w-full
+              text-base
+              font-normal
+              text-gray-900
+              rounded-lg
+              transition
+              duration-75
+              group
+              hover:bg-gray-200
+              dark:text-white dark:hover:bg-gray-700
+            "
+            @click.prevent="activeDropdown('settings')"
+            aria-controls="dropdown-example"
+            data-collapse-toggle="dropdown-example"
+          >
+            <img src="/assets/img/sidebar/settings.svg" alt="">
+            <span
+              class="flex-1 ml-3 text-left whitespace-nowrap"
+              >Settings</span
+            >
+            <svg
+              class="w-6 h-6 dropdown-icon"
+              :class="{ active: dropdown_settings }"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                clip-rule="evenodd"
+              ></path>
+            </svg>
+          </button>
+          <ul
+            id="dropdown-example"
+            class="hidden ml-[45px] space-y-3"
+            :class="{ active: dropdown_settings }"
+          >
+            <li>
+              <a
+                href="#"
+                class="
+                  flex
+                  items-center
+                  px-4
+                  py-2
+                  w-full
+                  text-base
+                  font-normal
+                  text-gray-900
+                  rounded-lg
+                  transition
+                  duration-75
+                  group
+                  hover:bg-gray-200
+                  dark:text-white dark:hover:bg-gray-700
+                "
+                >Application</a
+              >
+            </li>
+            <li>
+              <a
+                href="#"
+                class="
+                  flex
+                  items-center
+                  px-4
+                  py-2
+                  w-full
+                  text-base
+                  font-normal
+                  text-gray-900
+                  rounded-lg
+                  transition
+                  duration-75
+                  group
+                  hover:bg-gray-200
+                  dark:text-white dark:hover:bg-gray-700
+                "
+                >Log out</a
+              >
+            </li>
+          </ul>
+        </li>
+      </ul>
     </div>
-    <div class="flex flex-col justify-between h-[calc(100vh-3rem)] bg-gray-900">
-      <div class="menu-man text-left px-2 whitespace-nowrap ">
-        <div class="profile flex justify-center items-center text-center p-5 ">
-          <div class="text-center  text-white" v-show="dataOpenSideBar">
-            <img src="https://avatars.githubusercontent.com/u/97021587?v=4" class="p-1 w-24 h-24 rounded-full ring-2 ring-gray-300 dark:ring-gray-500 mb-4" alt="Avatar" />
-            <h5 class="text-xl font-medium leading-tight mb-2"> My Name</h5>
-            <p class="text-gray-500">Admin </p>
-          </div>
-        </div>
-        <div class="   py-3 rounded-sm cursor-pointer text-gray-300 hover:text-white">
-          <router-link to="/" class="px-2 flex space-x-2"><span class="pi pi-microsoft" v-tooltip.right="'Dashboard'"></span> <span v-show="dataOpenSideBar">Dashboard</span></router-link>
-        </div>
-        <div class="   py-3 rounded-md cursor-pointer  text-gray-300 hover:text-white">
-          <router-link to="/user" class="px-2 flex space-x-2"><span class="pi pi-user " v-tooltip.right="'User'"></span> <span v-show="dataOpenSideBar">User</span></router-link>
-        </div>
-        <div class="   py-3 rounded-md cursor-pointer  text-gray-300 hover:text-white">
-          <router-link to="/product" class="px-2 flex space-x-2"><span class="pi pi-cart-plus " v-tooltip.right="'Product'"></span> <span v-show="dataOpenSideBar">Product</span></router-link>
-        </div>
-        <div class="  py-3 rounded-md cursor-pointer text-gray-300 hover:text-white">
-          <router-link to="/contact" class="px-2 flex space-x-2"><span class="pi pi-whatsapp  " v-tooltip.right="'Contact'"></span> <span v-show="dataOpenSideBar">Contact</span></router-link>
-        </div>
-        <div class="  py-3 rounded-md cursor-pointer text-gray-300 hover:text-white">
-          <router-link to="/customer" class="px-2 flex space-x-2"><span class="pi pi-shield " v-tooltip.right="'Customer'"></span> <span v-show="dataOpenSideBar">Customer</span></router-link>
-        </div>
-        <div class="  py-3 rounded-md cursor-pointer text-gray-300 hover:text-white">
-          <router-link to="/activation" class="px-2 flex space-x-2"><span class="pi  pi-check-circle " v-tooltip.right="'Activation'"></span> <span v-show="dataOpenSideBar">Activation</span></router-link>
-        </div>
-        <div class="  py-3 rounded-md cursor-pointer text-gray-300 hover:text-white">
-          <div class="px-2 flex space-x-2"><span class="pi pi-slack" v-tooltip.right="'Setting'"></span> <span v-show="dataOpenSideBar">Setting</span></div>
-        </div>
-      </div>
-      <div class="menu-man text-left px-2 justify-self-end whitespace-nowrap">
-        <div class="   py-3 rounded-md cursor-pointer text-gray-300 hover:text-white">
-          <a href="https://website-nuxt-front.vercel.app/" target="_blank" class="px-2 flex space-x-2"><span class="pi pi-question" v-tooltip.right="'About Me'"></span> <span v-show="dataOpenSideBar">About Me</span></a>
-        </div>
-      </div>
-    </div>
-  </div>
+  </aside>
 </template>
 
-<script>
-export default {
-  props: {
-    dataOpenSideBar: Boolean
-  },
+<script setup>
+import { ref } from "vue";
 
-}
+let dropdown_competitions = ref(false);
+let dropdown_courses = ref(false);
+let dropdown_blogs = ref(false);
+let dropdown_settings = ref(false);
+
+const activeDropdown = (type) => {
+  switch (type) {
+    case "competitions":
+      dropdown_competitions.value = !dropdown_competitions.value;
+      break;
+    case "courses":
+      dropdown_courses.value = !dropdown_courses.value;
+      break;
+    case "blogs":
+      dropdown_blogs.value = !dropdown_blogs.value;
+      break;
+    case "settings":
+      dropdown_settings.value = !dropdown_settings.value;
+      break;
+  }
+};
 </script>
 
 <style>
-.p-tooltip-text {
-  font-size: 10px !important;
+aside {
+  height: 100vh;
 }
 
-#side-bar {
-  overflow: hidden;
-  transition: 300ms;
+#dropdown-example.active {
+  display: block;
 }
 
-.side-bar-visible {
-  width: 250px !important;
+.dropdown-icon {
+  transition: all .2s ease;
 }
-
-.side-bar-close {
-  width: 50px !important;
+.dropdown-icon.active {
+   transform: rotate(180deg);
 }
 </style>
