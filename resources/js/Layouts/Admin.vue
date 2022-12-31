@@ -3,7 +3,7 @@
     <Sidebar :active="active" @open-sidebar="openSidebar" />
     <div class="md:ml-[256px] ml-0 md:w-[calc(100vw-256px)] w-full">
       <Header :active="active" @open-sidebar="openSidebar" />
-      <div class="md:m-10 m-5">
+      <div class="md:mx-10 mx-5">
         <slot />
       </div>
     </div>

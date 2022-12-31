@@ -1,3 +1,24 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+    font-family: "worksans-light";
+    src: url("/assets/fonts/work-sans/WorkSans-Light.ttf") format("truetype");
+  }
+  
+  @font-face {
+    font-family: "worksans-medium";
+    src: url("/assets/fonts/work-sans/WorkSans-Medium.ttf") format("truetype");
+  }
+  
+  @font-face {
+    font-family: "worksans-semibold";
+    src: url("/assets/fonts/work-sans/WorkSans-SemiBold.ttf") format("truetype");
+  }
+
+@layer base {
+    * {
+        @apply text-[#1B262C] font-worksans-light;
+    }
+}

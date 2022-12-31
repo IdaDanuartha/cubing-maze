@@ -1,6 +1,6 @@
 <template>
   <aside class="w-64 fixed" :class="active ? 'active' : 'left-[-300px] md:left-0 md:block'" aria-label="Sidebar">
-    <div class="overflow-y-auto sidebar h-full py-7 px-5 bg-gray-50 dark:bg-gray-800 relative">
+    <div class="overflow-y-auto sidebar h-full py-7 px-5 bg-[#3282B8] dark:bg-[#0F4C75] relative">
       <div class="close-icon right-5 absolute block md:hidden top-3 cursor-pointer bg-white p-1.5 py-0 rounded-full" @click="$emit('openSidebar')">
         <i class="fa-solid fa-xmark"></i>
       </div>
@@ -13,8 +13,7 @@
         <span
           class="
             self-center
-            text-gray-800
-            dark:text-white
+            text-white
             text-xl
             font-semibold
             whitespace-nowrap
@@ -31,15 +30,14 @@
               items-center
               p-3
               text-base
-              font-normal
-              text-gray-900
+              font-normal              
               rounded-lg
-              dark:text-white dark:hover:bg-gray-700
-              hover:bg-gray-200
+              text-white dark:hover:bg-gray-700
+              hover:bg-[rgba(255,255,255,0.1)]
             "
           >
             <img src="/assets/img/sidebar/statistics.svg" alt="" />
-            <span class="ml-3">Statistics</span>
+            <span class="ml-3 text-white">Statistics</span>
           </a>
         </li>
         <li>
@@ -51,14 +49,13 @@
               p-3
               w-full
               text-base
-              font-normal
-              text-gray-900
+              font-normal              
               rounded-lg
               transition
               duration-75
               group
-              hover:bg-gray-200
-              dark:text-white dark:hover:bg-gray-700
+              hover:bg-[rgba(255,255,255,0.1)]
+              text-white dark:hover:bg-gray-700
             "
             @click.prevent="activeDropdown('competitions')"
             aria-controls="dropdown-example"
@@ -66,22 +63,10 @@
           >
             <img src="/assets/img/sidebar/competitions.svg" alt="">
             <span
-              class="flex-1 ml-3 text-left whitespace-nowrap"
+              class="flex-1 ml-3 text-white text-left whitespace-nowrap"
               >Competitions</span
             >
-            <svg
-              class="w-6 h-6 dropdown-icon"
-              :class="{ active: dropdown_competitions }"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                clip-rule="evenodd"
-              ></path>
-            </svg>
+            <img src="/assets/img/sidebar/chevron-down.svg" class="dropdown-icon" :class="{ active: dropdown_competitions }" alt="">
           </button>
           <ul            
             class="dropdown-sidebar hidden opacity-0 ml-[45px] space-y-3"
@@ -97,14 +82,13 @@
                   py-2
                   w-full
                   text-base
-                  font-normal
-                  text-gray-900
+                  font-normal                  
                   rounded-lg
                   transition
                   duration-75
                   group
-                  hover:bg-gray-200
-                  dark:text-white dark:hover:bg-gray-700
+                  hover:bg-[rgba(255,255,255,0.1)]
+                  text-white dark:hover:bg-gray-700
                 "
                 >Index</a
               >
@@ -119,14 +103,13 @@
                   py-2
                   w-full
                   text-base
-                  font-normal
-                  text-gray-900
+                  font-normal                  
                   rounded-lg
                   transition
                   duration-75
                   group
-                  hover:bg-gray-200
-                  dark:text-white dark:hover:bg-gray-700
+                  hover:bg-[rgba(255,255,255,0.1)]
+                  text-white dark:hover:bg-gray-700
                 "
                 >Category</a
               >
@@ -142,14 +125,13 @@
               p-3
               w-full
               text-base
-              font-normal
-              text-gray-900
+              font-normal              
               rounded-lg
               transition
               duration-75
               group
-              hover:bg-gray-200
-              dark:text-white dark:hover:bg-gray-700
+              hover:bg-[rgba(255,255,255,0.1)]
+              text-white dark:hover:bg-gray-700
             "
             @click.prevent="activeDropdown('courses')"
             aria-controls="dropdown-example"
@@ -157,22 +139,10 @@
           >
             <img src="/assets/img/sidebar/courses.svg" alt="">
             <span
-              class="flex-1 ml-3 text-left whitespace-nowrap"
+              class="flex-1 ml-3 text-white text-left whitespace-nowrap"
               >Courses</span
             >
-            <svg
-              class="w-6 h-6 dropdown-icon"
-              :class="{ active: dropdown_courses }"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                clip-rule="evenodd"
-              ></path>
-            </svg>
+            <img src="/assets/img/sidebar/chevron-down.svg" class="dropdown-icon" :class="{ active: dropdown_courses }" alt="">
           </button>
           <ul            
             class="dropdown-sidebar hidden opacity-0 ml-[45px] space-y-3"
@@ -188,14 +158,13 @@
                   py-2
                   w-full
                   text-base
-                  font-normal
-                  text-gray-900
+                  font-normal                  
                   rounded-lg
                   transition
                   duration-75
                   group
-                  hover:bg-gray-200
-                  dark:text-white dark:hover:bg-gray-700
+                  hover:bg-[rgba(255,255,255,0.1)]
+                  text-white dark:hover:bg-gray-700
                 "
                 >Index</a
               >
@@ -210,14 +179,13 @@
                   py-2
                   w-full
                   text-base
-                  font-normal
-                  text-gray-900
+                  font-normal                  
                   rounded-lg
                   transition
                   duration-75
                   group
-                  hover:bg-gray-200
-                  dark:text-white dark:hover:bg-gray-700
+                  hover:bg-[rgba(255,255,255,0.1)]
+                  text-white dark:hover:bg-gray-700
                 "
                 >Category</a
               >
@@ -233,14 +201,13 @@
               p-3
               w-full
               text-base
-              font-normal
-              text-gray-900
+              font-normal              
               rounded-lg
               transition
               duration-75
               group
-              hover:bg-gray-200
-              dark:text-white dark:hover:bg-gray-700
+              hover:bg-[rgba(255,255,255,0.1)]
+              text-white dark:hover:bg-gray-700
             "
             @click.prevent="activeDropdown('blogs')"
             aria-controls="dropdown-example"
@@ -248,22 +215,10 @@
           >
             <img src="/assets/img/sidebar/blogs.svg" alt="">
             <span
-              class="flex-1 ml-3 text-left whitespace-nowrap"
+              class="flex-1 ml-3 text-white text-left whitespace-nowrap"
               >Blogs</span
             >
-            <svg
-              class="w-6 h-6 dropdown-icon"
-              :class="{ active: dropdown_blogs }"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                clip-rule="evenodd"
-              ></path>
-            </svg>
+            <img src="/assets/img/sidebar/chevron-down.svg" class="dropdown-icon" :class="{ active: dropdown_blogs }" alt="">
           </button>
           <ul            
             class="dropdown-sidebar hidden opacity-0 ml-[45px] space-y-3"
@@ -279,14 +234,13 @@
                   py-2
                   w-full
                   text-base
-                  font-normal
-                  text-gray-900
+                  font-normal                  
                   rounded-lg
                   transition
                   duration-75
                   group
-                  hover:bg-gray-200
-                  dark:text-white dark:hover:bg-gray-700
+                  hover:bg-[rgba(255,255,255,0.1)]
+                  text-white dark:hover:bg-gray-700
                 "
                 >Index</a
               >
@@ -301,14 +255,13 @@
                   py-2
                   w-full
                   text-base
-                  font-normal
-                  text-gray-900
+                  font-normal                  
                   rounded-lg
                   transition
                   duration-75
                   group
-                  hover:bg-gray-200
-                  dark:text-white dark:hover:bg-gray-700
+                  hover:bg-[rgba(255,255,255,0.1)]
+                  text-white dark:hover:bg-gray-700
                 "
                 >Category</a
               >
@@ -323,14 +276,13 @@
                   py-2
                   w-full
                   text-base
-                  font-normal
-                  text-gray-900
+                  font-normal                  
                   rounded-lg
                   transition
                   duration-75
                   group
-                  hover:bg-gray-200
-                  dark:text-white dark:hover:bg-gray-700
+                  hover:bg-[rgba(255,255,255,0.1)]
+                  text-white dark:hover:bg-gray-700
                 "
                 >Tags</a
               >
@@ -345,15 +297,14 @@
               items-center
               p-3
               text-base
-              font-normal
-              text-gray-900
+              font-normal              
               rounded-lg
-              dark:text-white dark:hover:bg-gray-700
-              hover:bg-gray-200
+              text-white dark:hover:bg-gray-700
+              hover:bg-[rgba(255,255,255,0.1)]
             "
           >
             <img src="/assets/img/sidebar/levels.svg" alt="">
-            <span class="flex-1 ml-3 whitespace-nowrap">Level</span>
+            <span class="flex-1 ml-3 text-white whitespace-nowrap">Level</span>
           </a>
         </li>
         <li>
@@ -364,15 +315,14 @@
               items-center
               p-3
               text-base
-              font-normal
-              text-gray-900
+              font-normal              
               rounded-lg
-              dark:text-white dark:hover:bg-gray-700
-              hover:bg-gray-200
+              text-white dark:hover:bg-gray-700
+              hover:bg-[rgba(255,255,255,0.1)]
             "
           >
             <img src="/assets/img/sidebar/reports.svg" alt="">
-            <span class="flex-1 ml-3 whitespace-nowrap">Reports</span>
+            <span class="flex-1 ml-3 text-white whitespace-nowrap">Reports</span>
           </a>
         </li>
         <li>
@@ -383,15 +333,14 @@
               items-center
               p-3
               text-base
-              font-normal
-              text-gray-900
+              font-normal              
               rounded-lg
-              dark:text-white dark:hover:bg-gray-700
-              hover:bg-gray-200
+              text-white dark:hover:bg-gray-700
+              hover:bg-[rgba(255,255,255,0.1)]
             "
           >
             <img src="/assets/img/sidebar/users.svg" alt="">
-            <span class="flex-1 ml-3 whitespace-nowrap">Users</span>
+            <span class="flex-1 ml-3 text-white whitespace-nowrap">Users</span>
           </a>
         </li>
         <li>
@@ -403,14 +352,13 @@
               p-3
               w-full
               text-base
-              font-normal
-              text-gray-900
+              font-normal              
               rounded-lg
               transition
               duration-75
               group
-              hover:bg-gray-200
-              dark:text-white dark:hover:bg-gray-700
+              hover:bg-[rgba(255,255,255,0.1)]
+              text-white dark:hover:bg-gray-700
             "
             @click.prevent="activeDropdown('settings')"
             aria-controls="dropdown-example"
@@ -418,22 +366,10 @@
           >
             <img src="/assets/img/sidebar/settings.svg" alt="">
             <span
-              class="flex-1 ml-3 text-left whitespace-nowrap"
+              class="flex-1 ml-3 text-white text-left whitespace-nowrap"
               >Settings</span
             >
-            <svg
-              class="w-6 h-6 dropdown-icon"
-              :class="{ active: dropdown_settings }"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                clip-rule="evenodd"
-              ></path>
-            </svg>
+            <img src="/assets/img/sidebar/chevron-down.svg" class="dropdown-icon" :class="{ active: dropdown_settings }" alt="">
           </button>
           <ul            
             class="dropdown-sidebar hidden opacity-0 ml-[45px] space-y-3"
@@ -449,14 +385,13 @@
                   py-2
                   w-full
                   text-base
-                  font-normal
-                  text-gray-900
+                  font-normal                  
                   rounded-lg
                   transition
                   duration-75
                   group
-                  hover:bg-gray-200
-                  dark:text-white dark:hover:bg-gray-700
+                  hover:bg-[rgba(255,255,255,0.1)]
+                  text-white dark:hover:bg-gray-700
                 "
                 >Application</a
               >
@@ -471,14 +406,13 @@
                   py-2
                   w-full
                   text-base
-                  font-normal
-                  text-gray-900
+                  font-normal                  
                   rounded-lg
                   transition
                   duration-75
                   group
-                  hover:bg-gray-200
-                  dark:text-white dark:hover:bg-gray-700
+                  hover:bg-[rgba(255,255,255,0.1)]
+                  text-white dark:hover:bg-gray-700
                 "
                 >Log out</a
               >
