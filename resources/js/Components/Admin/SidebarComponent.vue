@@ -1,6 +1,9 @@
 <template>
-  <aside class="w-64" aria-label="Sidebar">
-    <div class="overflow-y-auto h-full py-7 px-5 bg-gray-50 dark:bg-gray-800">
+  <aside class="w-64 fixed" :class="active ? 'active' : 'left-[-300px] md:left-0 md:block'" aria-label="Sidebar">
+    <div class="overflow-y-auto sidebar h-full py-7 px-5 bg-gray-50 dark:bg-gray-800 relative">
+      <div class="close-icon right-5 absolute block md:hidden top-3 cursor-pointer bg-white p-1.5 py-0 rounded-full" @click="$emit('openSidebar')">
+        <i class="fa-solid fa-xmark"></i>
+      </div>
       <a href="#" class="flex items-center pl-2.5 mb-10">
         <img
           src="/assets/img/logo.png"
@@ -80,9 +83,8 @@
               ></path>
             </svg>
           </button>
-          <ul
-            id="dropdown-example"
-            class="hidden ml-[45px] space-y-3"
+          <ul            
+            class="dropdown-sidebar hidden opacity-0 ml-[45px] space-y-3"
             :class="{ active: dropdown_competitions }"
           >
             <li>
@@ -172,9 +174,8 @@
               ></path>
             </svg>
           </button>
-          <ul
-            id="dropdown-example"
-            class="hidden ml-[45px] space-y-3"
+          <ul            
+            class="dropdown-sidebar hidden opacity-0 ml-[45px] space-y-3"
             :class="{ active: dropdown_courses }"
           >
             <li>
@@ -264,9 +265,8 @@
               ></path>
             </svg>
           </button>
-          <ul
-            id="dropdown-example"
-            class="hidden ml-[45px] space-y-3"
+          <ul            
+            class="dropdown-sidebar hidden opacity-0 ml-[45px] space-y-3"
             :class="{ active: dropdown_blogs }"
           >
             <li>
@@ -435,9 +435,8 @@
               ></path>
             </svg>
           </button>
-          <ul
-            id="dropdown-example"
-            class="hidden ml-[45px] space-y-3"
+          <ul            
+            class="dropdown-sidebar hidden opacity-0 ml-[45px] space-y-3"
             :class="{ active: dropdown_settings }"
           >
             <li>
@@ -494,6 +493,10 @@
 <script setup>
 import { ref } from "vue";
 
+const props = defineProps({
+  active: Boolean,
+});
+
 let dropdown_competitions = ref(false);
 let dropdown_courses = ref(false);
 let dropdown_blogs = ref(false);
@@ -520,10 +523,26 @@ const activeDropdown = (type) => {
 <style>
 aside {
   height: 100vh;
+  transition: all .3s;
 }
 
-#dropdown-example.active {
+aside.active {
+  left: 0;
+}
+
+.sidebar::-webkit-scrollbar {
+  display: none;
+}
+
+.dropdown-sidebar {
+  transform: translateY(-40px);
+  transition: all .3s ease;
+}
+
+.dropdown-sidebar.active {
+  transform: translateY(0);
   display: block;
+  opacity: 1;
 }
 
 .dropdown-icon {

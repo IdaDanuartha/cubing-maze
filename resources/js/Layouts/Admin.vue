@@ -1,27 +1,26 @@
 <template>
-  <Sidebar />
+  <div class="flex">
+    <Sidebar :active="active" @open-sidebar="openSidebar" />
+    <div class="md:ml-[256px] ml-0 md:w-[calc(100vw-256px)] w-full">
+      <Header :active="active" @open-sidebar="openSidebar" />
+      <div class="md:m-10 m-5">
+        <slot />
+      </div>
+    </div>
+  </div>
 </template>
 
-<script>
-import Header from '../Components/HeaderComponent2.vue'
-import Sidebar from '../Components/SidebarComponent.vue'
+<script setup>
+import Header from "../Components/Admin/HeaderComponent.vue";
+import Sidebar from "../Components/Admin/SidebarComponent.vue";
+import { ref } from 'vue'
 
-export default {
-  components: { Header, Sidebar },
-  data() {
-    return {
-      openSidebar: true
-    }
-  },
-  methods: {
-    toggleSidebar() {
-      this.openSidebar = !this.openSidebar
-    }
-  }
+let active = ref(false);
 
+const openSidebar = () => {
+  active.value = !active.value
 }
 </script>
 
 <style>
-
 </style>
