@@ -3,22 +3,34 @@
 @tailwind utilities;
 
 @font-face {
-    font-family: "worksans-light";
-    src: url("/assets/fonts/work-sans/WorkSans-Light.ttf") format("truetype");
-  }
+  font-family: "worksans-light";
+  src: url("/assets/fonts/work-sans/WorkSans-Light.ttf") format("truetype");
+}
   
-  @font-face {
-    font-family: "worksans-medium";
-    src: url("/assets/fonts/work-sans/WorkSans-Medium.ttf") format("truetype");
-  }
+@font-face {
+  font-family: "worksans-medium";
+  src: url("/assets/fonts/work-sans/WorkSans-Medium.ttf") format("truetype");
+}
   
-  @font-face {
-    font-family: "worksans-semibold";
-    src: url("/assets/fonts/work-sans/WorkSans-SemiBold.ttf") format("truetype");
-  }
+@font-face {
+  font-family: "worksans-semibold";
+  src: url("/assets/fonts/work-sans/WorkSans-SemiBold.ttf") format("truetype");
+}
 
 @layer base {
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+    ::-webkit-scrollbar-track {
+      border-radius: 10px;
+      background: #eee;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(27,38,44,0.8);
+      border-radius: 10px;
+    }
+
     * {
-        @apply text-[#1B262C] font-worksans-light;
+      @apply text-[#1B262C] font-worksans-medium;
     }
 }

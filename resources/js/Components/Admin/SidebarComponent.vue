@@ -4,11 +4,11 @@
       <div class="close-icon right-5 absolute block md:hidden top-3 cursor-pointer" @click="$emit('openSidebar')">
         <i class="fa-solid fa-xmark text-white dark:text-gray-100"></i>
       </div>      
-      <Link href="/admin/dashboard" class="flex items-center pl-2.5 mb-10">
+      <Link href="/admin/dashboard" class="flex flex-col items-center pl-2.5 mb-10">
         <img
           src="/assets/img/logo.png"
-          class="mr-3 h-6 sm:h-7"
-          alt="Flowbite Logo"
+          class="mb-3 h-12 sm:h-16"
+          alt="Cubingmaze Logo"
         />
         <span
           class="
