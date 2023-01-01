@@ -1,9 +1,11 @@
 <template>
   <Head>
-    <title>Statistics - CubingMaze</title>
+    <title>Competitions - CubingMaze</title>
+    <meta name="description" description="Halaman competition management untuk administrator cubingmaze">
+        <meta name="keywords" description="competition management page cubingmaze, halaman competition management cubingmaze, competition management administrator">
   </Head>
   <div class="container-fluid mb-5">
-    
+      
   </div>
 </template>
 

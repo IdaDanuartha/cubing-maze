@@ -1,12 +1,12 @@
 <template>
-  <header class="w-full bg-white dark:bg-[rgba(27,38,44,.3)] md:px-5 md:py-2 p-2 mb-[30px]">
+  <header class="w-full bg-white dark:bg-[#202F37] md:px-5 md:py-4 p-2 mb-[30px]">
     <div class="flex justify-between items-center h-[50px]">
       <div class="flex pl-3 py-6">
         <div
-          class="inline-block md:hidden cursor-pointer mr-3 mt-0.5 hover:bg-gray-50"
+          class="inline-block md:hidden cursor-pointer mr-3 mt-1 transition duration-200 hover:opacity-75"
           @click="$emit('openSidebar')"
         >
-          <i class="fa-solid fa-bars"></i>
+          <i class="fa-solid fa-bars fa-lg dark:text-gray-100"></i>
         </div>
         <h2 class="font-bold text-2xl text-gray-800 dark:text-gray-100">Statistics</h2>
       </div>

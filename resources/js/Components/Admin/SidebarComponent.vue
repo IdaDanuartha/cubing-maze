@@ -1,8 +1,8 @@
 <template>
-  <aside class="w-64 fixed" :class="active ? 'active' : 'left-[-300px] md:left-0 md:block'" aria-label="Sidebar">
+  <aside class="w-64 fixed " :class="active ? 'active' : 'left-[-300px] md:left-0 md:block'" aria-label="Sidebar">
     <div class="overflow-y-auto sidebar h-full py-7 px-5 bg-[#3282B8] dark:bg-[#0F4C75] relative">
-      <div class="close-icon right-5 absolute block md:hidden top-3 cursor-pointer bg-white p-1.5 py-0 rounded-full" @click="$emit('openSidebar')">
-        <i class="fa-solid fa-xmark"></i>
+      <div class="close-icon right-5 absolute block md:hidden top-3 cursor-pointer" @click="$emit('openSidebar')">
+        <i class="fa-solid fa-xmark text-white dark:text-gray-100"></i>
       </div>      
       <Link href="/admin/dashboard" class="flex items-center pl-2.5 mb-10">
         <img
@@ -33,7 +33,7 @@
               text-base
               font-normal              
               rounded-lg
-              text-white dark:hover:bg-gray-700
+              text-white
               hover:bg-[rgba(255,255,255,0.1)]
             "
             :class="{ 'active': $page.url.startsWith('/admin/dashboard') }">          
@@ -57,7 +57,7 @@
               duration-75
               group
               hover:bg-[rgba(255,255,255,0.1)]
-              text-white dark:hover:bg-gray-700
+              text-white
             "
             @click.prevent="activeDropdown('competitions')"
             aria-controls="dropdown-example"
@@ -91,7 +91,7 @@
                   duration-75
                   group
                   hover:bg-[rgba(255,255,255,0.1)]
-                  text-white dark:hover:bg-gray-700
+                  text-white
                 "
                 :class="{ 'active': $page.url.startsWith('/admin/competitions') }"
                 >Index</Link
@@ -114,7 +114,7 @@
                   duration-75
                   group
                   hover:bg-[rgba(255,255,255,0.1)]
-                  text-white dark:hover:bg-gray-700
+                  text-white
                 "
                 :class="{ 'active': $page.url.startsWith('/admin/competitions/category') }"
                 >Category</Link
@@ -138,7 +138,7 @@
               duration-75
               group
               hover:bg-[rgba(255,255,255,0.1)]
-              text-white dark:hover:bg-gray-700
+              text-white
             "
             @click.prevent="activeDropdown('courses')"
             aria-controls="dropdown-example"
@@ -172,7 +172,7 @@
                   duration-75
                   group
                   hover:bg-[rgba(255,255,255,0.1)]
-                  text-white dark:hover:bg-gray-700
+                  text-white
                 "
                 :class="{ 'active': $page.url.startsWith('/admin/courses') }"
                 >Index</Link
@@ -195,7 +195,7 @@
                   duration-75
                   group
                   hover:bg-[rgba(255,255,255,0.1)]
-                  text-white dark:hover:bg-gray-700
+                  text-white
                 "
                 :class="{ 'active': $page.url.startsWith('/admin/courses/category') }"
                 >Category</Link
@@ -219,7 +219,7 @@
               duration-75
               group
               hover:bg-[rgba(255,255,255,0.1)]
-              text-white dark:hover:bg-gray-700
+              text-white
             "
             @click.prevent="activeDropdown('blogs')"
             aria-controls="dropdown-example"
@@ -253,7 +253,7 @@
                   duration-75
                   group
                   hover:bg-[rgba(255,255,255,0.1)]
-                  text-white dark:hover:bg-gray-700
+                  text-white
                 "
                 :class="{ 'active': $page.url.startsWith('/admin/blogs') }"
                 >Index</Link
@@ -276,7 +276,7 @@
                   duration-75
                   group
                   hover:bg-[rgba(255,255,255,0.1)]
-                  text-white dark:hover:bg-gray-700
+                  text-white
                 "
                 :class="{ 'active': $page.url.startsWith('/admin/blogs/category') }"
                 >Category</Link
@@ -299,7 +299,7 @@
                   duration-75
                   group
                   hover:bg-[rgba(255,255,255,0.1)]
-                  text-white dark:hover:bg-gray-700
+                  text-white
                 "
                 :class="{ 'active': $page.url.startsWith('/admin/blogs/tag') }"
                 >Tags</Link
@@ -318,7 +318,7 @@
               text-base
               font-normal              
               rounded-lg
-              text-white dark:hover:bg-gray-700
+              text-white
               hover:bg-[rgba(255,255,255,0.1)]
             "
             :class="{ 'active': $page.url.startsWith('/admin/levels') }"
@@ -338,7 +338,7 @@
               text-base
               font-normal              
               rounded-lg
-              text-white dark:hover:bg-gray-700
+              text-white
               hover:bg-[rgba(255,255,255,0.1)]
             "
             :class="{ 'active': $page.url.startsWith('/admin/reports') }"
@@ -358,7 +358,7 @@
               text-base
               font-normal              
               rounded-lg
-              text-white dark:hover:bg-gray-700
+              text-white
               hover:bg-[rgba(255,255,255,0.1)]
             "
             :class="{ 'active': $page.url.startsWith('/admin/users') }"
@@ -383,7 +383,7 @@
               duration-75
               group
               hover:bg-[rgba(255,255,255,0.1)]
-              text-white dark:hover:bg-gray-700
+              text-white
             "
             @click.prevent="activeDropdown('settings')"
             aria-controls="dropdown-example"
@@ -417,7 +417,7 @@
                   duration-75
                   group
                   hover:bg-[rgba(255,255,255,0.1)]
-                  text-white dark:hover:bg-gray-700
+                  text-white
                 "
                 :class="{ 'active': $page.url.startsWith('/admin/settings/application') }"
                 >Application</Link
@@ -442,7 +442,7 @@
                   duration-75
                   group
                   hover:bg-[rgba(255,255,255,0.1)]
-                  text-white dark:hover:bg-gray-700
+                  text-white
                 "
                 >Log out</Link
               >
