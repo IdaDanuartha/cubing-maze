@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
@@ -45,7 +46,7 @@ class HandleInertiaRequests extends Middleware
                 ],
             //user authenticated
             'auth'  =>[
-                'user'          => auth()->user() ?   auth()->user() : null,
+                'user' => User::where('id', auth()->id())->with('level')->first() ?? null,
             ],
         ]);
     }

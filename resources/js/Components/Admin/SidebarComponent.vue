@@ -71,12 +71,12 @@
             <img src="/assets/img/sidebar/chevron-down.svg" class="dropdown-icon" :class="{ active: dropdown_competitions }" alt="">
           </button>
           <ul            
-            class="dropdown-sidebar hidden opacity-0 ml-[45px] space-y-3"
-            :class="{ active: dropdown_competitions }"
+            class="dropdown-sidebar mt-2 hidden opacity-0 ml-[45px] space-y-3"
+            :class="{ active: dropdown_competitions || $page.url.startsWith('/admin/competitions') }"
           >
             <li>
-              <a
-                href="#"
+              <Link
+                href="/admin/competitions"
                 class="
                   flex
                   nav-item
@@ -93,13 +93,13 @@
                   hover:bg-[rgba(255,255,255,0.1)]
                   text-white dark:hover:bg-gray-700
                 "
-                :class="{ 'active': $page.url.startsWith('/admin/competitions/index') }"
-                >Index</a
+                :class="{ 'active': $page.url.startsWith('/admin/competitions') }"
+                >Index</Link
               >
             </li>
             <li>
-              <a
-                href="#"
+              <Link
+                href="/admin/competitions/category"
                 class="
                   flex
                   nav-item
@@ -117,7 +117,7 @@
                   text-white dark:hover:bg-gray-700
                 "
                 :class="{ 'active': $page.url.startsWith('/admin/competitions/category') }"
-                >Category</a
+                >Category</Link
               >
             </li>
           </ul>
@@ -152,12 +152,12 @@
             <img src="/assets/img/sidebar/chevron-down.svg" class="dropdown-icon" :class="{ active: dropdown_courses }" alt="">
           </button>
           <ul            
-            class="dropdown-sidebar hidden opacity-0 ml-[45px] space-y-3"
-            :class="{ active: dropdown_courses }"
+            class="dropdown-sidebar mt-2 hidden opacity-0 ml-[45px] space-y-3"
+            :class="{ active: dropdown_courses || $page.url.startsWith('/admin/courses') }"
           >
             <li>
-              <a
-                href="#"
+              <Link
+                href="/admin/courses"
                 class="
                   flex
                   nav-item
@@ -174,13 +174,13 @@
                   hover:bg-[rgba(255,255,255,0.1)]
                   text-white dark:hover:bg-gray-700
                 "
-                :class="{ 'active': $page.url.startsWith('/admin/courses/index') }"
-                >Index</a
+                :class="{ 'active': $page.url.startsWith('/admin/courses') }"
+                >Index</Link
               >
             </li>
             <li>
-              <a
-                href="#"
+              <Link
+                href="/admin/courses/category"
                 class="
                   flex
                   nav-item
@@ -198,7 +198,7 @@
                   text-white dark:hover:bg-gray-700
                 "
                 :class="{ 'active': $page.url.startsWith('/admin/courses/category') }"
-                >Category</a
+                >Category</Link
               >
             </li>
           </ul>
@@ -233,12 +233,12 @@
             <img src="/assets/img/sidebar/chevron-down.svg" class="dropdown-icon" :class="{ active: dropdown_blogs }" alt="">
           </button>
           <ul            
-            class="dropdown-sidebar hidden opacity-0 ml-[45px] space-y-3"
-            :class="{ active: dropdown_blogs }"
+            class="dropdown-sidebar mt-2 hidden opacity-0 ml-[45px] space-y-3"
+            :class="{ active: dropdown_blogs || $page.url.startsWith('/admin/blogs') }"
           >
             <li>
-              <a
-                href="#"
+              <Link
+                href="/admin/blogs"
                 class="
                   flex
                   nav-item
@@ -255,13 +255,13 @@
                   hover:bg-[rgba(255,255,255,0.1)]
                   text-white dark:hover:bg-gray-700
                 "
-                :class="{ 'active': $page.url.startsWith('/admin/blogs/index') }"
-                >Index</a
+                :class="{ 'active': $page.url.startsWith('/admin/blogs') }"
+                >Index</Link
               >
             </li>
             <li>
-              <a
-                href="#"
+              <Link
+                href="/admin/blogs/category"
                 class="
                   flex
                   nav-item
@@ -279,12 +279,12 @@
                   text-white dark:hover:bg-gray-700
                 "
                 :class="{ 'active': $page.url.startsWith('/admin/blogs/category') }"
-                >Category</a
+                >Category</Link
               >
             </li>
             <li>
-              <a
-                href="#"
+              <Link
+                href="/admin/blogs/tag"
                 class="
                   flex
                   nav-item
@@ -302,14 +302,14 @@
                   text-white dark:hover:bg-gray-700
                 "
                 :class="{ 'active': $page.url.startsWith('/admin/blogs/tag') }"
-                >Tags</a
+                >Tags</Link
               >
             </li>
           </ul>
         </li>
         <li>
-          <a
-            href="#"
+          <Link
+            href="/admin/levels"
             class="
               flex
               nav-item
@@ -325,11 +325,11 @@
           >
             <img src="/assets/img/sidebar/levels.svg" alt="">
             <span class="flex-1 ml-3 text-white whitespace-nowrap">Level</span>
-          </a>
+          </Link>
         </li>
         <li>
-          <a
-            href="#"
+          <Link
+            href="/admin/reports"
             class="
               flex
               nav-item
@@ -345,11 +345,11 @@
           >
             <img src="/assets/img/sidebar/reports.svg" alt="">
             <span class="flex-1 ml-3 text-white whitespace-nowrap">Reports</span>
-          </a>
+          </Link>
         </li>
         <li>
-          <a
-            href="#"
+          <Link
+            href="/admin/users"
             class="
               flex
               nav-item
@@ -365,7 +365,7 @@
           >
             <img src="/assets/img/sidebar/users.svg" alt="">
             <span class="flex-1 ml-3 text-white whitespace-nowrap">Users</span>
-          </a>
+          </Link>
         </li>
         <li>
           <button
@@ -397,12 +397,12 @@
             <img src="/assets/img/sidebar/chevron-down.svg" class="dropdown-icon" :class="{ active: dropdown_settings }" alt="">
           </button>
           <ul            
-            class="dropdown-sidebar hidden opacity-0 ml-[45px] space-y-3"
-            :class="{ active: dropdown_settings }"
+            class="dropdown-sidebar mt-2 hidden opacity-0 ml-[45px] space-y-3"
+            :class="{ active: dropdown_settings || $page.url.startsWith('/admin/settings/application') }"
           >
             <li>
-              <a
-                href="#"
+              <Link
+                href="/admin/settings/application"
                 class="
                   flex
                   nav-item
@@ -419,13 +419,15 @@
                   hover:bg-[rgba(255,255,255,0.1)]
                   text-white dark:hover:bg-gray-700
                 "
-                :class="{ 'active': $page.url.startsWith('/admin/applications/edit') }"
-                >Application</a
+                :class="{ 'active': $page.url.startsWith('/admin/settings/application') }"
+                >Application</Link
               >
             </li>
             <li>
-              <a
-                href="#"
+              <Link
+                href="/logout"
+                method="POST" 
+                as="button"
                 class="
                   flex
                   nav-item
@@ -442,7 +444,7 @@
                   hover:bg-[rgba(255,255,255,0.1)]
                   text-white dark:hover:bg-gray-700
                 "
-                >Log out</a
+                >Log out</Link
               >
             </li>
           </ul>

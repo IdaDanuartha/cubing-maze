@@ -20,5 +20,6 @@ Route::get('/', function () {
 Route::prefix('admin')->group(function() {
     Route::group(['middleware' => ['auth']], function () {
         Route::get('/dashboard', App\Http\Controllers\Admin\DashboardController::class)->name('admin.dashboard');
+        Route::get('/competitions', [App\Http\Controllers\Admin\CompetitionController::class, 'index'])->name('admin.competitions');
     });
 });

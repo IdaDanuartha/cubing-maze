@@ -55,7 +55,6 @@
 <script>
 import LayoutAdmin from "../../../Layouts/Admin.vue";
 import { Head } from "@inertiajs/inertia-vue3";
-import { onMounted } from 'vue'
 
 export default {
   //layout
