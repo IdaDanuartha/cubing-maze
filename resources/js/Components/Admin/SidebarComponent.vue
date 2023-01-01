@@ -3,8 +3,8 @@
     <div class="overflow-y-auto sidebar h-full py-7 px-5 bg-[#3282B8] dark:bg-[#0F4C75] relative">
       <div class="close-icon right-5 absolute block md:hidden top-3 cursor-pointer bg-white p-1.5 py-0 rounded-full" @click="$emit('openSidebar')">
         <i class="fa-solid fa-xmark"></i>
-      </div>
-      <a href="#" class="flex items-center pl-2.5 mb-10">
+      </div>      
+      <Link href="/admin/dashboard" class="flex items-center pl-2.5 mb-10">
         <img
           src="/assets/img/logo.png"
           class="mr-3 h-6 sm:h-7"
@@ -20,13 +20,14 @@
           "
           >Cubing Maze</span
         >
-      </a>
+      </Link>
       <ul class="space-y-3">
         <li>
-          <a
-            href="#"
+          <Link
+            href="/admin/dashboard"
             class="
               flex
+              nav-item
               items-center
               p-3
               text-base
@@ -35,16 +36,17 @@
               text-white dark:hover:bg-gray-700
               hover:bg-[rgba(255,255,255,0.1)]
             "
-          >
+            :class="{ 'active': $page.url.startsWith('/admin/dashboard') }">          
             <img src="/assets/img/sidebar/statistics.svg" alt="" />
             <span class="ml-3 text-white">Statistics</span>
-          </a>
+          </Link>
         </li>
         <li>
           <button
             type="button"
             class="
               flex
+              nav-item
               items-center
               p-3
               w-full
@@ -77,6 +79,7 @@
                 href="#"
                 class="
                   flex
+                  nav-item
                   items-center
                   px-4
                   py-2
@@ -90,6 +93,7 @@
                   hover:bg-[rgba(255,255,255,0.1)]
                   text-white dark:hover:bg-gray-700
                 "
+                :class="{ 'active': $page.url.startsWith('/admin/competitions/index') }"
                 >Index</a
               >
             </li>
@@ -98,6 +102,7 @@
                 href="#"
                 class="
                   flex
+                  nav-item
                   items-center
                   px-4
                   py-2
@@ -111,6 +116,7 @@
                   hover:bg-[rgba(255,255,255,0.1)]
                   text-white dark:hover:bg-gray-700
                 "
+                :class="{ 'active': $page.url.startsWith('/admin/competitions/category') }"
                 >Category</a
               >
             </li>
@@ -121,6 +127,7 @@
             type="button"
             class="
               flex
+              nav-item
               items-center
               p-3
               w-full
@@ -153,6 +160,7 @@
                 href="#"
                 class="
                   flex
+                  nav-item
                   items-center
                   px-4
                   py-2
@@ -166,6 +174,7 @@
                   hover:bg-[rgba(255,255,255,0.1)]
                   text-white dark:hover:bg-gray-700
                 "
+                :class="{ 'active': $page.url.startsWith('/admin/courses/index') }"
                 >Index</a
               >
             </li>
@@ -174,6 +183,7 @@
                 href="#"
                 class="
                   flex
+                  nav-item
                   items-center
                   px-4
                   py-2
@@ -187,6 +197,7 @@
                   hover:bg-[rgba(255,255,255,0.1)]
                   text-white dark:hover:bg-gray-700
                 "
+                :class="{ 'active': $page.url.startsWith('/admin/courses/category') }"
                 >Category</a
               >
             </li>
@@ -197,6 +208,7 @@
             type="button"
             class="
               flex
+              nav-item
               items-center
               p-3
               w-full
@@ -229,6 +241,7 @@
                 href="#"
                 class="
                   flex
+                  nav-item
                   items-center
                   px-4
                   py-2
@@ -242,6 +255,7 @@
                   hover:bg-[rgba(255,255,255,0.1)]
                   text-white dark:hover:bg-gray-700
                 "
+                :class="{ 'active': $page.url.startsWith('/admin/blogs/index') }"
                 >Index</a
               >
             </li>
@@ -250,6 +264,7 @@
                 href="#"
                 class="
                   flex
+                  nav-item
                   items-center
                   px-4
                   py-2
@@ -263,6 +278,7 @@
                   hover:bg-[rgba(255,255,255,0.1)]
                   text-white dark:hover:bg-gray-700
                 "
+                :class="{ 'active': $page.url.startsWith('/admin/blogs/category') }"
                 >Category</a
               >
             </li>
@@ -271,6 +287,7 @@
                 href="#"
                 class="
                   flex
+                  nav-item
                   items-center
                   px-4
                   py-2
@@ -284,6 +301,7 @@
                   hover:bg-[rgba(255,255,255,0.1)]
                   text-white dark:hover:bg-gray-700
                 "
+                :class="{ 'active': $page.url.startsWith('/admin/blogs/tag') }"
                 >Tags</a
               >
             </li>
@@ -294,6 +312,7 @@
             href="#"
             class="
               flex
+              nav-item
               items-center
               p-3
               text-base
@@ -302,6 +321,7 @@
               text-white dark:hover:bg-gray-700
               hover:bg-[rgba(255,255,255,0.1)]
             "
+            :class="{ 'active': $page.url.startsWith('/admin/levels') }"
           >
             <img src="/assets/img/sidebar/levels.svg" alt="">
             <span class="flex-1 ml-3 text-white whitespace-nowrap">Level</span>
@@ -312,6 +332,7 @@
             href="#"
             class="
               flex
+              nav-item
               items-center
               p-3
               text-base
@@ -320,6 +341,7 @@
               text-white dark:hover:bg-gray-700
               hover:bg-[rgba(255,255,255,0.1)]
             "
+            :class="{ 'active': $page.url.startsWith('/admin/reports') }"
           >
             <img src="/assets/img/sidebar/reports.svg" alt="">
             <span class="flex-1 ml-3 text-white whitespace-nowrap">Reports</span>
@@ -330,6 +352,7 @@
             href="#"
             class="
               flex
+              nav-item
               items-center
               p-3
               text-base
@@ -338,6 +361,7 @@
               text-white dark:hover:bg-gray-700
               hover:bg-[rgba(255,255,255,0.1)]
             "
+            :class="{ 'active': $page.url.startsWith('/admin/users') }"
           >
             <img src="/assets/img/sidebar/users.svg" alt="">
             <span class="flex-1 ml-3 text-white whitespace-nowrap">Users</span>
@@ -348,6 +372,7 @@
             type="button"
             class="
               flex
+              nav-item
               items-center
               p-3
               w-full
@@ -380,6 +405,7 @@
                 href="#"
                 class="
                   flex
+                  nav-item
                   items-center
                   px-4
                   py-2
@@ -393,6 +419,7 @@
                   hover:bg-[rgba(255,255,255,0.1)]
                   text-white dark:hover:bg-gray-700
                 "
+                :class="{ 'active': $page.url.startsWith('/admin/applications/edit') }"
                 >Application</a
               >
             </li>
@@ -401,6 +428,7 @@
                 href="#"
                 class="
                   flex
+                  nav-item
                   items-center
                   px-4
                   py-2
@@ -426,6 +454,7 @@
 
 <script setup>
 import { ref } from "vue";
+import { Link } from '@inertiajs/inertia-vue3';
 
 const props = defineProps({
   active: Boolean,
@@ -484,5 +513,9 @@ aside.active {
 }
 .dropdown-icon.active {
    transform: rotate(180deg);
+}
+
+.nav-item.active {
+  background: rgba(255,255,255,0.1);
 }
 </style>

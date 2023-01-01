@@ -1,18 +1,51 @@
 <template>
   <Head>
-    <title>Dashboard - Aplikasi Ujian Online</title>
+    <title>Statistics - CubingMaze</title>
   </Head>
   <div class="container-fluid mb-5">
     <div class="grid xl:grid-cols-4 lg:grid-cols-2 grid-cols-1 gap-4">
-      <div class="flex px-5 py-4 rounded dashboard-card" v-for="(dashbard, index) in dashboard_datas" :key="index">
+      <div class="flex px-5 py-4 rounded dashboard-card">
         <img
-          class="mr-2 bg-blue-400 px-4 py-4 h-16 rounded-lg"
+          class="mr-3 bg-blue-400 px-4 py-4 h-16 rounded-lg"
           src="/assets/img/dashboard/cuber-registered.svg"
           alt="Cuber registered icon"
         />
-        <div class="flex flex-col">
+        <div class="flex flex-col justify-center">
           <h6 class="text-sm text-gray-500">Cubers Registered (Monthly)</h6>
           <h2 class="font-semibold text-2xl">{{ cubers_count }}</h2>
+        </div>
+      </div>
+      <div class="flex px-5 py-4 rounded dashboard-card">
+        <img
+          class="mr-3 bg-blue-400 px-4 py-4 h-16 rounded-lg"
+          src="/assets/img/dashboard/cuber-registered.svg"
+          alt="Cuber registered icon"
+        />
+        <div class="flex flex-col justify-center">
+          <h6 class="text-sm text-gray-500">Reports (Weekly)</h6>
+          <h2 class="font-semibold text-2xl">{{ reports_count }}</h2>
+        </div>
+      </div>
+      <div class="flex px-5 py-4 rounded dashboard-card">
+        <img
+          class="mr-3 bg-blue-400 px-4 py-4 h-16 rounded-lg"
+          src="/assets/img/dashboard/cuber-registered.svg"
+          alt="Cuber registered icon"
+        />
+        <div class="flex flex-col justify-center">
+          <h6 class="text-sm text-gray-500">Course Students (All time)</h6>
+          <h2 class="font-semibold text-2xl">{{ course_students_count }}</h2>
+        </div>
+      </div>
+      <div class="flex px-5 py-4 rounded dashboard-card">
+        <img
+          class="mr-3 bg-blue-400 px-4 py-4 h-16 rounded-lg"
+          src="/assets/img/dashboard/cuber-registered.svg"
+          alt="Cuber registered icon"
+        />
+        <div class="flex flex-col justify-center">
+          <h6 class="text-sm text-gray-500">Course Revenue (All time)</h6>
+          <h2 class="font-semibold text-2xl">{{ course_revenue }}</h2>
         </div>
       </div>
     </div>
@@ -20,18 +53,10 @@
 </template>
 
 <script>
-//import layout Admin
 import LayoutAdmin from "../../../Layouts/Admin.vue";
-
-//import Header from Inertia
 import { Head } from "@inertiajs/inertia-vue3";
+import { onMounted } from 'vue'
 
-const dashboard_datas = [
-  {name: 'Cubers Registered (Monthly)', data: cubers_count, style: 'text-blue-400', icon: 'cuber-registered.svg'},
-  {name: 'Cubers Registered (Monthly)', data: cubers_count, style: 'text-blue-400', icon: 'cuber-registered.svg'},
-  {name: 'Cubers Registered (Monthly)', data: cubers_count, style: 'text-blue-400', icon: 'cuber-registered.svg'},
-  {name: 'Cubers Registered (Monthly)', data: cubers_count, style: 'text-blue-400', icon: 'cuber-registered.svg'},
-]
 export default {
   //layout
   layout: LayoutAdmin,
