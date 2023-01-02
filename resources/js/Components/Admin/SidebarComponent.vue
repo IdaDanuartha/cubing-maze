@@ -1,9 +1,9 @@
 <template>
   <aside class="w-64 fixed " :class="active ? 'active' : 'left-[-300px] md:left-0 md:block'" aria-label="Sidebar">
     <div class="overflow-y-auto sidebar h-full py-7 px-5 bg-[#3282B8] dark:bg-[#0F4C75] relative">
-      <div class="close-icon right-5 absolute block md:hidden top-3 cursor-pointer" @click="$emit('openSidebar')">
+      <!-- <div class="close-icon right-5 absolute block md:hidden top-3 cursor-pointer" @click="$emit('openSidebar')">
         <i class="fa-solid fa-xmark text-white dark:text-gray-100"></i>
-      </div>      
+      </div>       -->
       <Link href="/admin/dashboard" class="flex flex-col items-center pl-2.5 mb-10">
         <img
           src="/assets/img/logo.png"
@@ -22,7 +22,7 @@
         >
       </Link>
       <ul class="space-y-3">
-        <li>
+        <li @click="$emit('openSidebar')">
           <Link
             href="/admin/dashboard"
             class="
@@ -74,7 +74,7 @@
             class="dropdown-sidebar mt-2 hidden opacity-0 ml-[45px] space-y-3"
             :class="{ active: dropdown_competitions || $page.url.startsWith('/admin/competitions') }"
           >
-            <li>
+            <li @click="$emit('openSidebar')">
               <Link
                 href="/admin/competitions"
                 class="
@@ -97,7 +97,7 @@
                 >Index</Link
               >
             </li>
-            <li>
+            <li @click="$emit('openSidebar')">
               <Link
                 href="/admin/competitions/category"
                 class="
@@ -155,7 +155,7 @@
             class="dropdown-sidebar mt-2 hidden opacity-0 ml-[45px] space-y-3"
             :class="{ active: dropdown_courses || $page.url.startsWith('/admin/courses') }"
           >
-            <li>
+            <li @click="$emit('openSidebar')">
               <Link
                 href="/admin/courses"
                 class="
@@ -178,7 +178,7 @@
                 >Index</Link
               >
             </li>
-            <li>
+            <li @click="$emit('openSidebar')">
               <Link
                 href="/admin/courses/category"
                 class="
@@ -236,7 +236,7 @@
             class="dropdown-sidebar mt-2 hidden opacity-0 ml-[45px] space-y-3"
             :class="{ active: dropdown_blogs || $page.url.startsWith('/admin/blogs') }"
           >
-            <li>
+            <li @click="$emit('openSidebar')">
               <Link
                 href="/admin/blogs"
                 class="
@@ -259,7 +259,7 @@
                 >Index</Link
               >
             </li>
-            <li>
+            <li @click="$emit('openSidebar')">
               <Link
                 href="/admin/blogs/category"
                 class="
@@ -282,7 +282,7 @@
                 >Category</Link
               >
             </li>
-            <li>
+            <li @click="$emit('openSidebar')">
               <Link
                 href="/admin/blogs/tag"
                 class="
@@ -307,7 +307,7 @@
             </li>
           </ul>
         </li>
-        <li>
+        <li @click="$emit('openSidebar')">
           <Link
             href="/admin/levels"
             class="
@@ -327,7 +327,7 @@
             <span class="flex-1 ml-3 text-white whitespace-nowrap">Level</span>
           </Link>
         </li>
-        <li>
+        <li @click="$emit('openSidebar')">
           <Link
             href="/admin/reports"
             class="
@@ -347,7 +347,7 @@
             <span class="flex-1 ml-3 text-white whitespace-nowrap">Reports</span>
           </Link>
         </li>
-        <li>
+        <li @click="$emit('openSidebar')">
           <Link
             href="/admin/users"
             class="
@@ -400,7 +400,7 @@
             class="dropdown-sidebar mt-2 hidden opacity-0 ml-[45px] space-y-3"
             :class="{ active: dropdown_settings || $page.url.startsWith('/admin/settings/application') }"
           >
-            <li>
+            <li @click="$emit('openSidebar')">
               <Link
                 href="/admin/settings/application"
                 class="
@@ -423,7 +423,7 @@
                 >Application</Link
               >
             </li>
-            <li>
+            <li @click="$emit('openSidebar')">
               <Link
                 href="/logout"
                 method="POST" 

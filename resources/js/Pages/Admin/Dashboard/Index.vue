@@ -77,30 +77,67 @@
         </div>
         <div class="mt-10">
           <h5 class="font-semibold dark:text-gray-400 mb-5">
-            Most Favorite Categories
+            Most Favorite Events
           </h5>
-          <table class="flex flex-col">
-            <div class="table-head">
-              <div class="grid grid-cols-12">
-                <div class="data-head col-span-2">No</div>
-                <div class="data-head col-span-4">Category Name</div>
-                <div class="data-head text-center col-span-3">Total Cuber</div>
-                <div class="data-head text-center col-span-3">
-                  Total Competitions
+          <Table>
+            <template v-slot:columns>
+              <div class="data-head col-span-2 pl-[1.125rem]">No</div>
+              <div class="data-head col-span-6 md:col-span-4">
+                Category Name
+              </div>
+              <div class="data-head col-span-4 md:col-span-3">Total Cuber</div>
+              <div class="data-head col-span-3 hidden md:inline-block">
+                Total Competitions
+              </div>
+            </template>
+            <template v-slot:rows>
+              <div class="table-body" v-for="(item, i) in 5" :key="i">
+                <div class="grid grid-cols-12">
+                  <div
+                    class="
+                      data-column
+                      col-span-2
+                      pl-[1.125rem]
+                      dark:text-gray-200 dark:font-light
+                    "
+                  >
+                    {{ i + 1 }}
+                  </div>
+                  <div
+                    class="
+                      data-column
+                      col-span-6
+                      md:col-span-4
+                      dark:text-gray-200 dark:font-light
+                    "
+                  >
+                    3x3x3 cube
+                  </div>
+                  <div
+                    class="
+                      data-column
+                      col-span-4
+                      md:col-span-3
+                      dark:text-gray-200 dark:font-light
+                    "
+                  >
+                    120
+                  </div>
+                  <div
+                    class="
+                      data-column
+                      col-span-3
+                      dark:text-gray-200 dark:font-light
+                      hidden
+                      md:inline-block
+                    "
+                  >
+                    5
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="table-body" v-for="(item, i) in 5" :key="i">
-              <div class="grid grid-cols-12">
-                <div class="data-column col-span-2 pl-[1.125rem]">
-                  {{ i + 1 }}
-                </div>
-                <div class="data-column col-span-4">3x3x3 cube</div>
-                <div class="data-column text-center col-span-3">120</div>
-                <div class="data-column text-center col-span-3">5</div>
-              </div>
-            </div>
-          </table>
+            </template>
+          </Table>
         </div>
       </div>
       <div>
@@ -183,6 +220,7 @@
 import LayoutAdmin from "../../../Layouts/Admin.vue";
 import { Head } from "@inertiajs/inertia-vue3";
 import BarChart from "../../../Components/Admin/BarChartComponent.vue";
+import Table from "../../../Components/Admin/TableComponent.vue";
 import Vue3ChartJs from "@j-t-mcc/vue3-chartjs";
 
 export default {
@@ -193,6 +231,7 @@ export default {
   components: {
     Head,
     BarChart,
+    Table,
   },
 
   //props

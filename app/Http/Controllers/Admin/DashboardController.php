@@ -19,7 +19,7 @@ class DashboardController extends Controller
      */
     public function __invoke(Request $request)
     {
-        $page = 'Statistics';
+        $page_name = 'Statistics';
 
         $cubers_count = Cuber::whereMonth('created_at', Carbon::now()->month)->count();
         $reports_count = Report::whereBetween('created_at', 
@@ -32,6 +32,6 @@ class DashboardController extends Controller
             $course_revenue += $course->course_price;
         }
 
-        return inertia('Admin/Dashboard/Index', compact('page', 'cubers_count', 'reports_count', 'course_students_count', 'course_revenue'));
+        return inertia('Admin/Dashboard/Index', compact('page_name', 'cubers_count', 'reports_count', 'course_students_count', 'course_revenue'));
     }
 }

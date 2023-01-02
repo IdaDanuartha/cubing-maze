@@ -34,3 +34,48 @@
       @apply text-[#1B262C] font-worksans-medium;
     }
 }
+
+@layer components {
+  .table-container {
+    @apply px-6 py-8;
+    box-shadow: 0 10px 10px rgba(0,0,0,.08);
+  }
+  
+  .icon {
+    @apply p-1.5 rounded-full cursor-pointer transition-all duration-200;
+  }
+  
+  .icon.detail-icon {
+    background: rgba(37, 99, 235, .2);
+  }
+  
+  .icon.edit-icon {
+    background: rgba(234, 88, 12, .2);
+  }
+  
+  .icon.delete-icon {
+    background: rgba(220, 38, 38, .2);
+  }
+  
+  .icon:hover {
+    @apply opacity-80 -translate-y-1;
+  }
+
+  .btn {
+    @apply px-4 py-2 border-0 font-semibold rounded transition-all duration-300 hover:opacity-80 focus:outline-4 focus:outline;
+  }
+
+  .btn-create {
+    background: rgba(15,76,117,.25);
+    color: #0F4C75;
+  }
+
+  .btn-create:focus {
+    outline-color: rgba(15,76,117,.1);
+  }
+
+  .search-group {
+    @apply my-5 flex justify-between px-4 py-3 rounded;
+    background: rgba(187, 225, 250, .5);
+  }
+}

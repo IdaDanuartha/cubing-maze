@@ -10,10 +10,10 @@ class CompetitionController extends Controller
 {
     public function index()
     {
-        $page = 'Competitions';
+        $page_name = 'Competitions';
         $competitions = Competition::latest()->paginate(10);
 
-        return inertia('Admin/Competition/Index', compact('page', 'competitions'));
+        return inertia('Admin/Competition/Index', compact('page_name', 'competitions'));
     }
 
     public function show(){}
