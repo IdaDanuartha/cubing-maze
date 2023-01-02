@@ -13,18 +13,20 @@
   <div class="container-fluid mb-5">
     <div class="table-container">
       <div class="flex justify-between">
-        <h2 class="font-semibold text-lg">Table Competitions</h2>
-        <Link href="" class="btn btn-create">Add Competition</Link>
+        <h2 class="font-worksans-medium text-lg dark:text-gray-100">
+          Table Competitions
+        </h2>
+        <Link
+          href=""
+          class="flex btn btn-create dark:bg-third-color"
+        >
+          <div>
+            <i class="fa-solid fa-plus mr-2 dark:text-gray-100"></i>
+          </div>
+          <span class="dark:text-gray-100">Add Competition</span></Link
+        >
       </div>
-      <div class="search-group">
-        <div class="flex">
-          <div><i class="fa-solid fa-magnifying-glass"></i></div>
-          <input type="text" placeholder="Search competition here...">
-        </div>
-        <div class="select-option">
-          bla
-        </div>
-      </div>
+      <SearchGroup />
       <Table>
         <template v-slot:columns>
           <div class="data-head col-span-1 pl-[1.125rem]">No</div>
@@ -111,13 +113,13 @@
                 "
               >
                 <div class="icon detail-icon mr-4">
-                  <img src="/assets/img/icon/detail.svg" width="20" alt="">
+                  <img src="/assets/img/icon/detail.svg" width="20" alt="" />
                 </div>
                 <div class="icon edit-icon mr-4">
-                  <img src="/assets/img/icon/edit.svg" width="20" alt="">
+                  <img src="/assets/img/icon/edit.svg" width="20" alt="" />
                 </div>
                 <div class="icon delete-icon">
-                  <img src="/assets/img/icon/delete.svg" width="20" alt="">
+                  <img src="/assets/img/icon/delete.svg" width="20" alt="" />
                 </div>
               </div>
             </div>
@@ -131,6 +133,7 @@
 <script>
 import LayoutAdmin from "../../../Layouts/Admin.vue";
 import Table from "../../../Components/Admin/TableComponent.vue";
+import SearchGroup from "../../../Components/Admin/SearchGroupComponent.vue";
 import { Head, Link } from "@inertiajs/inertia-vue3";
 
 export default {
@@ -142,6 +145,7 @@ export default {
     Head,
     Link,
     Table,
+    SearchGroup,
   },
 
   //props

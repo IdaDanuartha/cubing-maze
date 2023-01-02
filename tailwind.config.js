@@ -10,10 +10,16 @@ module.exports = {
     extend: {
       fontFamily: {
         "worksans-light": ['worksans-light', 'sans-serif'],
+        "worksans-regular": ['worksans-regular', 'sans-serif'],
         "worksans-medium": ['worksans-medium', 'sans-serif'],
-        "worksans-semibold": ['worksans-semibold', 'sans-serif'],
-      }
-    },
+      },
+      colors: {
+        'main-color': '#1B262C',
+        'secondary-color': '#0F4C75',
+        'third-color': '#3282B8',
+        'fourth-color': '#BBE1FA',
+      },
+    }
   },
   plugins: []
 }

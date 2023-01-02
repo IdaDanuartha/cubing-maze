@@ -4,34 +4,33 @@
 
 @font-face {
   font-family: "worksans-light";
-  src: url("/assets/fonts/work-sans/WorkSans-Light.ttf") format("truetype");
+  src: url("../../public/assets/fonts/work-sans/WorkSans-Light.ttf") format("truetype");
 }
-  
+
+@font-face {
+  font-family: "worksans-regular";
+  src: url("../../public/assets/fonts/work-sans/WorkSans-Regular.ttf") format("truetype");
+}
+
 @font-face {
   font-family: "worksans-medium";
-  src: url("/assets/fonts/work-sans/WorkSans-Medium.ttf") format("truetype");
+  src: url("../../public/assets/fonts/work-sans/WorkSans-Medium.ttf") format("truetype");
 }
   
-@font-face {
-  font-family: "worksans-semibold";
-  src: url("/assets/fonts/work-sans/WorkSans-SemiBold.ttf") format("truetype");
-}
 
 @layer base {
     ::-webkit-scrollbar {
-      width: 10px;
+      @apply w-2.5;
     }
     ::-webkit-scrollbar-track {
-      border-radius: 10px;
-      background: #eee;
+      @apply rounded-[10px] bg-[#eee];
     }
     ::-webkit-scrollbar-thumb {
-      background: rgba(27,38,44,0.8);
-      border-radius: 10px;
+      @apply bg-main-color/80 rounded-[10px];
     }
 
     * {
-      @apply text-[#1B262C] font-worksans-medium;
+      @apply text-main-color font-worksans-regular;
     }
 }
 
@@ -62,20 +61,50 @@
   }
 
   .btn {
-    @apply px-4 py-2 border-0 font-semibold rounded transition-all duration-300 hover:opacity-80 focus:outline-4 focus:outline;
+    @apply px-4 py-2 border-0 font-worksans-medium rounded transition-all duration-300 hover:opacity-80 focus:outline-4 focus:outline;
   }
 
   .btn-create {
-    background: rgba(15,76,117,.25);
-    color: #0F4C75;
+    @apply bg-third-color/25;
+  }
+
+  .btn-create i, .btn-create span {
+    @apply text-secondary-color;
   }
 
   .btn-create:focus {
-    outline-color: rgba(15,76,117,.1);
+    @apply outline-secondary-color/10;
   }
 
   .search-group {
-    @apply my-5 flex justify-between px-4 py-3 rounded;
-    background: rgba(187, 225, 250, .5);
+    @apply my-5 flex justify-between px-4 py-3 rounded bg-fourth-color/50;
+  }
+
+  .input-search {
+    @apply outline-none bg-transparent font-normal min-w-full placeholder:text-third-color/70 text-third-color/70;
+  }
+
+  .select-option {
+    @apply relative;
+  }
+
+  .display-text {
+    @apply flex justify-between cursor-pointer bg-third-color px-3 py-1.5 rounded;
+  }
+
+  .select-option.active .fa-chevron-down {
+    @apply rotate-180 transition-all duration-300;
+  }
+
+  .select-option .option-group {
+    @apply bg-third-color absolute top-10 rounded w-full transition-all duration-300 opacity-0 -translate-y-3;
+  }
+
+  .select-option .option-group.active {
+    @apply inline-block opacity-100 translate-y-0;
+  }
+
+  .select-option .option-item p {
+    @apply text-white px-3 py-1.5 text-sm mb-1 font-worksans-light cursor-pointer hover:bg-fourth-color/10;
   }
 }

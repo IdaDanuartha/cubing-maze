@@ -1,6 +1,6 @@
 <template>
   <table class="flex flex-col">
-    <div class="table-head dark:bg-[rgba(187,225,250,.8)]">
+    <div class="table-head dark:bg-fourth-color/70">
       <div class="grid grid-cols-12">
         <slot name="columns"></slot>
       </div>

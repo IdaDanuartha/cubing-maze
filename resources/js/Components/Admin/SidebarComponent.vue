@@ -2,7 +2,8 @@
   <aside class="w-64 fixed " :class="active ? 'active' : 'left-[-300px] md:left-0 md:block'" aria-label="Sidebar">
     <div class="overflow-y-auto sidebar h-full py-7 px-5 bg-[#3282B8] dark:bg-[#0F4C75] relative">
       <!-- <div class="close-icon right-5 absolute block md:hidden top-3 cursor-pointer" @click="$emit('openSidebar')">
-        <i class="fa-solid fa-xmark text-white dark:text-gray-100"></i>
+        <i class="fa-solid fa-xmark text-gray-100
+        dark:text-gray-300 dark:text-gray-100"></i>
       </div>       -->
       <Link href="/admin/dashboard" class="flex flex-col items-center pl-2.5 mb-10">
         <img
@@ -13,7 +14,8 @@
         <span
           class="
             self-center
-            text-white
+            text-gray-100
+            dark:text-gray-300
             text-xl
             font-semibold
             whitespace-nowrap
@@ -33,12 +35,14 @@
               text-base
               font-normal              
               rounded-lg
-              text-white
+              text-gray-100
+              dark:text-gray-300
               hover:bg-[rgba(255,255,255,0.1)]
             "
             :class="{ 'active': $page.url.startsWith('/admin/dashboard') }">          
-            <img src="/assets/img/sidebar/statistics.svg" alt="" />
-            <span class="ml-3 text-white">Statistics</span>
+            <img class="dark:opacity-80" src="/assets/img/sidebar/statistics.svg" alt="" />
+            <span class="ml-3 text-gray-100
+            dark:text-gray-300">Statistics</span>
           </Link>
         </li>
         <li>
@@ -57,18 +61,20 @@
               duration-75
               group
               hover:bg-[rgba(255,255,255,0.1)]
-              text-white
+              text-gray-100
+              dark:text-gray-300
             "
             @click.prevent="activeDropdown('competitions')"
             aria-controls="dropdown-example"
             data-collapse-toggle="dropdown-example"
           >
-            <img src="/assets/img/sidebar/competitions.svg" alt="">
+            <img class="dark:opacity-80" src="/assets/img/sidebar/competitions.svg" alt="">
             <span
-              class="flex-1 ml-3 text-white text-left whitespace-nowrap"
+              class="flex-1 ml-3 text-gray-100
+              dark:text-gray-300 text-left whitespace-nowrap"
               >Competitions</span
             >
-            <img src="/assets/img/sidebar/chevron-down.svg" class="dropdown-icon" :class="{ active: dropdown_competitions }" alt="">
+            <img src="/assets/img/sidebar/caret-down.svg" class="dark:opacity-80 dropdown-icon" :class="{ active: dropdown_competitions }" alt="">
           </button>
           <ul            
             class="dropdown-sidebar mt-2 hidden opacity-0 ml-[45px] space-y-3"
@@ -91,7 +97,8 @@
                   duration-75
                   group
                   hover:bg-[rgba(255,255,255,0.1)]
-                  text-white
+                  text-gray-100
+                  dark:text-gray-300
                 "
                 :class="{ 'active': $page.url.startsWith('/admin/competitions') }"
                 >Index</Link
@@ -114,7 +121,8 @@
                   duration-75
                   group
                   hover:bg-[rgba(255,255,255,0.1)]
-                  text-white
+                  text-gray-100
+                  dark:text-gray-300
                 "
                 :class="{ 'active': $page.url.startsWith('/admin/competitions/category') }"
                 >Category</Link
@@ -138,18 +146,20 @@
               duration-75
               group
               hover:bg-[rgba(255,255,255,0.1)]
-              text-white
+              text-gray-100
+              dark:text-gray-300
             "
             @click.prevent="activeDropdown('courses')"
             aria-controls="dropdown-example"
             data-collapse-toggle="dropdown-example"
           >
-            <img src="/assets/img/sidebar/courses.svg" alt="">
+            <img class="dark:opacity-80" src="/assets/img/sidebar/courses.svg" alt="">
             <span
-              class="flex-1 ml-3 text-white text-left whitespace-nowrap"
+              class="flex-1 ml-3 text-gray-100
+              dark:text-gray-300 text-left whitespace-nowrap"
               >Courses</span
             >
-            <img src="/assets/img/sidebar/chevron-down.svg" class="dropdown-icon" :class="{ active: dropdown_courses }" alt="">
+            <img src="/assets/img/sidebar/caret-down.svg" class="dark:opacity-80 dropdown-icon" :class="{ active: dropdown_courses || $page.url.startsWith('/admin/courses') }" alt="">
           </button>
           <ul            
             class="dropdown-sidebar mt-2 hidden opacity-0 ml-[45px] space-y-3"
@@ -172,7 +182,8 @@
                   duration-75
                   group
                   hover:bg-[rgba(255,255,255,0.1)]
-                  text-white
+                  text-gray-100
+                  dark:text-gray-300
                 "
                 :class="{ 'active': $page.url.startsWith('/admin/courses') }"
                 >Index</Link
@@ -195,7 +206,8 @@
                   duration-75
                   group
                   hover:bg-[rgba(255,255,255,0.1)]
-                  text-white
+                  text-gray-100
+                  dark:text-gray-300
                 "
                 :class="{ 'active': $page.url.startsWith('/admin/courses/category') }"
                 >Category</Link
@@ -219,18 +231,20 @@
               duration-75
               group
               hover:bg-[rgba(255,255,255,0.1)]
-              text-white
+              text-gray-100
+              dark:text-gray-300
             "
             @click.prevent="activeDropdown('blogs')"
             aria-controls="dropdown-example"
             data-collapse-toggle="dropdown-example"
           >
-            <img src="/assets/img/sidebar/blogs.svg" alt="">
+            <img class="dark:opacity-80" src="/assets/img/sidebar/blogs.svg" alt="">
             <span
-              class="flex-1 ml-3 text-white text-left whitespace-nowrap"
+              class="flex-1 ml-3 text-gray-100
+              dark:text-gray-300 text-left whitespace-nowrap"
               >Blogs</span
             >
-            <img src="/assets/img/sidebar/chevron-down.svg" class="dropdown-icon" :class="{ active: dropdown_blogs }" alt="">
+            <img src="/assets/img/sidebar/caret-down.svg" class="dark:opacity-80 dropdown-icon" :class="{ active: dropdown_blogs || $page.url.startsWith('/admin/blogs') }" alt="">
           </button>
           <ul            
             class="dropdown-sidebar mt-2 hidden opacity-0 ml-[45px] space-y-3"
@@ -253,7 +267,8 @@
                   duration-75
                   group
                   hover:bg-[rgba(255,255,255,0.1)]
-                  text-white
+                  text-gray-100
+                  dark:text-gray-300
                 "
                 :class="{ 'active': $page.url.startsWith('/admin/blogs') }"
                 >Index</Link
@@ -276,7 +291,8 @@
                   duration-75
                   group
                   hover:bg-[rgba(255,255,255,0.1)]
-                  text-white
+                  text-gray-100
+                  dark:text-gray-300
                 "
                 :class="{ 'active': $page.url.startsWith('/admin/blogs/category') }"
                 >Category</Link
@@ -299,7 +315,8 @@
                   duration-75
                   group
                   hover:bg-[rgba(255,255,255,0.1)]
-                  text-white
+                  text-gray-100
+                  dark:text-gray-300
                 "
                 :class="{ 'active': $page.url.startsWith('/admin/blogs/tag') }"
                 >Tags</Link
@@ -318,13 +335,15 @@
               text-base
               font-normal              
               rounded-lg
-              text-white
+              text-gray-100
+              dark:text-gray-300
               hover:bg-[rgba(255,255,255,0.1)]
             "
             :class="{ 'active': $page.url.startsWith('/admin/levels') }"
           >
-            <img src="/assets/img/sidebar/levels.svg" alt="">
-            <span class="flex-1 ml-3 text-white whitespace-nowrap">Level</span>
+            <img class="dark:opacity-80" src="/assets/img/sidebar/levels.svg" alt="">
+            <span class="flex-1 ml-3 text-gray-100
+            dark:text-gray-300 whitespace-nowrap">Level</span>
           </Link>
         </li>
         <li @click="$emit('openSidebar')">
@@ -338,13 +357,15 @@
               text-base
               font-normal              
               rounded-lg
-              text-white
+              text-gray-100
+              dark:text-gray-300
               hover:bg-[rgba(255,255,255,0.1)]
             "
             :class="{ 'active': $page.url.startsWith('/admin/reports') }"
           >
-            <img src="/assets/img/sidebar/reports.svg" alt="">
-            <span class="flex-1 ml-3 text-white whitespace-nowrap">Reports</span>
+            <img class="dark:opacity-80" src="/assets/img/sidebar/reports.svg" alt="">
+            <span class="flex-1 ml-3 text-gray-100
+            dark:text-gray-300 whitespace-nowrap">Reports</span>
           </Link>
         </li>
         <li @click="$emit('openSidebar')">
@@ -358,13 +379,15 @@
               text-base
               font-normal              
               rounded-lg
-              text-white
+              text-gray-100
+              dark:text-gray-300
               hover:bg-[rgba(255,255,255,0.1)]
             "
             :class="{ 'active': $page.url.startsWith('/admin/users') }"
           >
-            <img src="/assets/img/sidebar/users.svg" alt="">
-            <span class="flex-1 ml-3 text-white whitespace-nowrap">Users</span>
+            <img class="dark:opacity-80" src="/assets/img/sidebar/users.svg" alt="">
+            <span class="flex-1 ml-3 text-gray-100
+            dark:text-gray-300 whitespace-nowrap">Users</span>
           </Link>
         </li>
         <li>
@@ -383,18 +406,20 @@
               duration-75
               group
               hover:bg-[rgba(255,255,255,0.1)]
-              text-white
+              text-gray-100
+              dark:text-gray-300
             "
             @click.prevent="activeDropdown('settings')"
             aria-controls="dropdown-example"
             data-collapse-toggle="dropdown-example"
           >
-            <img src="/assets/img/sidebar/settings.svg" alt="">
+            <img class="dark:opacity-80" src="/assets/img/sidebar/settings.svg" alt="">
             <span
-              class="flex-1 ml-3 text-white text-left whitespace-nowrap"
+              class="flex-1 ml-3 text-gray-100
+              dark:text-gray-300 text-left whitespace-nowrap"
               >Settings</span
             >
-            <img src="/assets/img/sidebar/chevron-down.svg" class="dropdown-icon" :class="{ active: dropdown_settings }" alt="">
+            <img src="/assets/img/sidebar/caret-down.svg" class="dark:opacity-80 dropdown-icon" :class="{ active: dropdown_settings || $page.url.startsWith('/admin/settings/application') }" alt="">
           </button>
           <ul            
             class="dropdown-sidebar mt-2 hidden opacity-0 ml-[45px] space-y-3"
@@ -417,7 +442,8 @@
                   duration-75
                   group
                   hover:bg-[rgba(255,255,255,0.1)]
-                  text-white
+                  text-gray-100
+                  dark:text-gray-300
                 "
                 :class="{ 'active': $page.url.startsWith('/admin/settings/application') }"
                 >Application</Link
@@ -442,7 +468,8 @@
                   duration-75
                   group
                   hover:bg-[rgba(255,255,255,0.1)]
-                  text-white
+                  text-gray-100
+                  dark:text-gray-300
                 "
                 >Log out</Link
               >
