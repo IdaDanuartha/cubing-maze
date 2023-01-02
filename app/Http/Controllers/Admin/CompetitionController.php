@@ -16,7 +16,12 @@ class CompetitionController extends Controller
         return inertia('Admin/Competition/Index', compact('page_name', 'competitions'));
     }
 
-    public function show(){}
+    public function show(Competition $id){
+        $page_name = 'Detail Competition';
+        $competition = Competition::find($id);
+
+        return inertia('Admin/Competition/Detail', compact('page_name', 'competition'));
+    }
 
     public function edit(){}
 

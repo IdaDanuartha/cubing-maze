@@ -16,7 +16,10 @@
         <h2 class="font-worksans-medium text-lg dark:text-gray-100">
           Table Competitions
         </h2>
-        <Link href="" class="flex btn btn-create dark:bg-third-color">
+        <Link
+          href=""
+          class="flex btn btn-create dark:bg-third-color"
+        >
           <div>
             <i class="fa-solid fa-plus mr-2 dark:text-gray-100"></i>
           </div>
@@ -35,11 +38,7 @@
           <div class="data-head col-span-1"></div>
         </template>
         <template v-slot:rows>
-          <div
-            class="table-body"
-            v-for="(comp, i) in competitions.data"
-            :key="comp.id"
-          >
+          <div class="table-body" v-for="(item, i) in 5" :key="i">
             <div class="grid grid-cols-12">
               <div
                 class="
@@ -59,7 +58,7 @@
                   dark:text-gray-200 dark:font-light
                 "
               >
-                {{ comp.name }}
+                Cubing Maze Competition I
               </div>
               <div
                 class="
@@ -69,7 +68,7 @@
                   dark:text-gray-200 dark:font-light
                 "
               >
-                {{ comp.competitor_limit }}
+                120
               </div>
               <div
                 class="
@@ -77,11 +76,10 @@
                   col-span-1
                   dark:text-gray-200 dark:font-light
                   hidden
-                  capitalize
                   md:inline-block
                 "
               >
-                {{ comp.type }}
+                Free
               </div>
               <div
                 class="
@@ -92,7 +90,7 @@
                   md:inline-block
                 "
               >
-                {{ competitionDateFormat(comp.date_start, comp.date_end) }}
+                31 March - 2 April 2023
               </div>
               <div
                 class="
@@ -103,7 +101,7 @@
                   md:inline-block
                 "
               >
-                {{ checkCompetitionDate(comp.date_start, comp.date_end) }}
+                Locked
               </div>
               <div
                 class="
@@ -114,18 +112,12 @@
                   md:flex
                 "
               >
-                <Link
-                  :href="'/admin/competitions/' + comp.id"
-                  class="icon detail-icon mr-4"
-                >
+                <div class="icon detail-icon mr-4">
                   <img src="/assets/img/icon/detail.svg" width="20" alt="" />
-                </Link>
-                <Link
-                  :href="'/admin/competitions/' + comp.id + '/edit'"
-                  class="icon edit-icon mr-4"
-                >
+                </div>
+                <div class="icon edit-icon mr-4">
                   <img src="/assets/img/icon/edit.svg" width="20" alt="" />
-                </Link>
+                </div>
                 <div class="icon delete-icon">
                   <img src="/assets/img/icon/delete.svg" width="20" alt="" />
                 </div>
@@ -143,7 +135,6 @@ import LayoutAdmin from "../../../Layouts/Admin.vue";
 import Table from "../../../Components/Admin/TableComponent.vue";
 import SearchGroup from "../../../Components/Admin/SearchGroupComponent.vue";
 import { Head, Link } from "@inertiajs/inertia-vue3";
-import { onMounted } from "@vue/runtime-core";
 
 export default {
   //layout
@@ -159,16 +150,7 @@ export default {
 
   //props
   props: {
-    competitions: Object,
-  },
-
-  setup() {
-    let currentDate = new Date().toJSON().slice(0, 10);
-
-    onMounted(() => {});
-    return {
-      currentDate,
-    };
+    competition: Object,
   },
 };
 </script>
