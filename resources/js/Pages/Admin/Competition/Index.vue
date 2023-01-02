@@ -23,113 +23,135 @@
           <span class="dark:text-gray-100">Add Competition</span></Link
         >
       </div>
-      <SearchGroup />
+      <SearchGroup :searchQuery="search_query" @search-competition="searchCompetition"  />
       <Table>
         <template v-slot:columns>
-          <div class="data-head col-span-1 pl-[1.125rem]">No</div>
-          <div class="data-head col-span-6 md:col-span-3">Name</div>
-          <div class="data-head col-span-4 md:col-span-1">Limit</div>
-          <div class="data-head col-span-1 hidden md:inline-block">Type</div>
-          <div class="data-head col-span-3 hidden md:inline-block">Date</div>
-          <div class="data-head col-span-2 hidden md:inline-block">Status</div>
-          <div class="data-head col-span-1"></div>
+          <div class="data-head col-span-2 md:col-span-1 pl-[1.125rem]">No</div>
+          <div class="data-head col-span-6 md:col-span-4 xl:col-span-3">
+            Name
+          </div>
+          <div
+            class="data-head col-span-4 md:col-span-1 hidden xl:inline-block"
+          >
+            Limit
+          </div>
+          <div
+            class="data-head col-span-4 xl:col-span-3 hidden md:inline-block"
+          >
+            Date
+          </div>
+          <div class="data-head col-span-2 hidden xl:inline-block">Status</div>
+          <div
+            class="data-head col-span-4 md:col-span-3 xl:col-span-2 text-end"
+          ></div>
         </template>
         <template v-slot:rows>
-          <div
-            class="table-body"
-            v-for="(comp, i) in competitions.data"
-            :key="comp.id"
-          >
-            <div class="grid grid-cols-12">
+          <div v-if="competitions.data.length">
+            <TransitionGroup name="competitions">
               <div
-                class="
-                  data-column
-                  col-span-1
-                  pl-[1.125rem]
-                  dark:text-gray-200 dark:font-light
-                "
+                class="table-body"
+                v-for="(comp, i) in competitions.data"
+                :key="comp.id"
               >
-                {{ i + 1 }}
-              </div>
-              <div
-                class="
-                  data-column
-                  col-span-6
-                  md:col-span-3
-                  dark:text-gray-200 dark:font-light
-                "
-              >
-                {{ comp.name }}
-              </div>
-              <div
-                class="
-                  data-column
-                  col-span-4
-                  md:col-span-1
-                  dark:text-gray-200 dark:font-light
-                "
-              >
-                {{ comp.competitor_limit }}
-              </div>
-              <div
-                class="
-                  data-column
-                  col-span-1
-                  dark:text-gray-200 dark:font-light
-                  hidden
-                  capitalize
-                  md:inline-block
-                "
-              >
-                {{ comp.type }}
-              </div>
-              <div
-                class="
-                  data-column
-                  col-span-3
-                  dark:text-gray-200 dark:font-light
-                  hidden
-                  md:inline-block
-                "
-              >
-                {{ competitionDateFormat(comp.date_start, comp.date_end) }}
-              </div>
-              <div
-                class="
-                  data-column
-                  col-span-2
-                  dark:text-gray-200 dark:font-light
-                  hidden
-                  md:inline-block
-                "
-              >
-                {{ checkCompetitionDate(comp.date_start, comp.date_end) }}
-              </div>
-              <div
-                class="
-                  data-column
-                  col-span-1
-                  dark:text-gray-200 dark:font-light
-                  hidden
-                  md:flex
-                "
-              >
-                <Link
-                  :href="'/admin/competitions/' + comp.id"
-                  class="icon detail-icon mr-4"
-                >
-                  <img src="/assets/img/icon/detail.svg" width="20" alt="" />
-                </Link>
-                <Link
-                  :href="'/admin/competitions/' + comp.id + '/edit'"
-                  class="icon edit-icon mr-4"
-                >
-                  <img src="/assets/img/icon/edit.svg" width="20" alt="" />
-                </Link>
-                <div class="icon delete-icon">
-                  <img src="/assets/img/icon/delete.svg" width="20" alt="" />
+                <div class="grid grid-cols-12">
+                  <div
+                    class="
+                      data-column
+                      col-span-2
+                      md:col-span-1
+                      pl-[1.125rem]
+                      dark:text-gray-200 dark:font-light
+                    "
+                  >
+                    {{ i + 1 }}
+                  </div>
+                  <div
+                    class="
+                      data-column
+                      col-span-6
+                      md:col-span-4
+                      xl:col-span-3
+                      dark:text-gray-200 dark:font-light
+                    "
+                  >
+                    {{ comp.name }}
+                  </div>
+                  <div
+                    class="
+                      data-column
+                      col-span-4
+                      md:col-span-1
+                      dark:text-gray-200 dark:font-light
+                      hidden
+                      xl:inline-block
+                    "
+                  >
+                    {{ comp.competitor_limit }}
+                  </div>
+                  <div
+                    class="
+                      data-column
+                      col-span-4
+                      xl:col-span-3
+                      dark:text-gray-200 dark:font-light
+                      hidden
+                      md:inline-block
+                    "
+                  >
+                    {{ competitionDateFormat(comp.date_start, comp.date_end) }}
+                  </div>
+                  <div
+                    class="
+                      data-column
+                      col-span-2
+                      dark:text-gray-200 dark:font-light
+                      hidden
+                      xl:inline-block
+                    "
+                  >
+                    {{ checkCompetitionDate(comp.date_start, comp.date_end) }}
+                  </div>
+                  <div
+                    class="
+                      data-column
+                      col-span-4
+                      md:col-span-3
+                      xl:col-span-2
+                      dark:text-gray-200 dark:font-light
+                      flex
+                      justify-end
+                    "
+                  >
+                    <Link
+                      :href="'/admin/competitions/' + comp.id"
+                      class="icon detail-icon mr-4"
+                    >
+                      <img src="/assets/img/icon/detail.svg" alt="" />
+                    </Link>
+                    <Link
+                      :href="'/admin/competitions/' + comp.id + '/edit'"
+                      class="icon edit-icon mr-4"
+                    >
+                      <img src="/assets/img/icon/edit.svg" alt="" />
+                    </Link>
+                    <div class="icon delete-icon">
+                      <img src="/assets/img/icon/delete.svg" alt="" />
+                    </div>
+                  </div>
                 </div>
               </div>
+            </TransitionGroup>
+          </div>
+          <div class="table-body" v-else>
+            <div
+              class="
+                data-column
+                col-span-12
+                text-center text-gray-600
+                dark:text-gray-400
+              "
+            >
+              Competition data not found
             </div>
           </div>
         </template>
@@ -143,7 +165,8 @@ import LayoutAdmin from "../../../Layouts/Admin.vue";
 import Table from "../../../Components/Admin/TableComponent.vue";
 import SearchGroup from "../../../Components/Admin/SearchGroupComponent.vue";
 import { Head, Link } from "@inertiajs/inertia-vue3";
-import { onMounted } from "@vue/runtime-core";
+import { ref } from "@vue/runtime-core";
+import { Inertia } from "@inertiajs/inertia";
 
 export default {
   //layout
@@ -163,11 +186,14 @@ export default {
   },
 
   setup() {
-    let currentDate = new Date().toJSON().slice(0, 10);
+    let search_query = ref("");
 
-    onMounted(() => {});
+    const searchCompetition = () => {
+      Inertia.get("/admin/competitions?search_query=" + search_query.value);
+    };
+
     return {
-      currentDate,
+      searchCompetition,
     };
   },
 };

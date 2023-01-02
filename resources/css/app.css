@@ -41,7 +41,11 @@
   }
   
   .icon {
-    @apply p-1.5 rounded-full cursor-pointer transition-all duration-200;
+    @apply rounded-full relative w-8 h-8 cursor-pointer transition-all duration-200;
+  }
+
+  .icon img {
+    @apply absolute top-2 left-2 w-4;
   }
   
   .icon.detail-icon {

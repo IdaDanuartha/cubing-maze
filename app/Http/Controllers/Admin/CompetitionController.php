@@ -8,10 +8,10 @@ use Illuminate\Http\Request;
 
 class CompetitionController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $page_name = 'Competitions';
-        $competitions = Competition::latest()->paginate(10);
+        $competitions = Competition::latest()->where('name', 'like', "%$request->search_query%")->paginate(10);
 
         return inertia('Admin/Competition/Index', compact('page_name', 'competitions'));
     }

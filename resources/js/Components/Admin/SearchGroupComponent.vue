@@ -8,6 +8,8 @@
         type="text"
         class="input-search dark:placeholder:text-third-color"
         placeholder="Search competition here..."
+        v-model="searchQuery"
+        @keyup="$emit('searchCompetition')"
       />
     </div>
     <div class="select-option" :class="{ active: active }">
@@ -37,20 +39,24 @@
 import { ref } from 'vue'
 
 export default {
-  setup() {
-    let active = ref(false)
-    let displayText = ref('Sort by')
-    
-    const activeDropdown = (text) => {
-        displayText.value = text
-        active.value = !active.value
-    }
-    return {
-        active,
-        displayText,
-        activeDropdown
-    };
-  },
+    emits: ['searchCompetition'],
+    props: {
+        searchQuery: String
+    },
+    setup() {
+        let active = ref(false)
+        let displayText = ref('Sort by')
+        
+        const activeDropdown = (text) => {
+            displayText.value = text
+            active.value = !active.value
+        }
+        return {
+            active,
+            displayText,
+            activeDropdown
+        };
+    },
 };
 </script>
 
