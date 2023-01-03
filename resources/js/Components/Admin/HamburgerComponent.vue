@@ -4,7 +4,7 @@
       hamburger
       fixed
       inline-block
-      md:hidden
+      lg:hidden
       rounded-full
       cursor-pointer
       bg-[rgba(187,225,250,.5)]

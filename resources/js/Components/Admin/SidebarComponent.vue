@@ -1,11 +1,11 @@
 <template>
-  <aside class="w-64 fixed " :class="active ? 'active' : 'left-[-300px] md:left-0 md:block'" aria-label="Sidebar">
+  <aside class="w-64 fixed " :class="active ? 'active' : 'left-[-300px] lg:left-0 lg:block'" aria-label="Sidebar">
     <div class="overflow-y-auto sidebar h-full py-7 px-5 bg-[#3282B8] dark:bg-[#0F4C75] relative">
-      <!-- <div class="close-icon right-5 absolute block md:hidden top-3 cursor-pointer" @click="$emit('openSidebar')">
+      <!-- <div class="close-icon right-5 absolute block lg:hidden top-3 cursor-pointer" @click="$emit('openSidebar')">
         <i class="fa-solid fa-xmark text-gray-100
         dark:text-gray-300 dark:text-gray-100"></i>
       </div>       -->
-      <Link href="/admin/dashboard" class="flex flex-col items-center pl-2.5 mb-10">
+      <Link href="#" class="flex flex-col items-center pl-2.5 mb-10">
         <img
           src="/assets/img/logo.png"
           class="mb-3 h-12 sm:h-16"
@@ -45,7 +45,7 @@
             dark:text-gray-300">Statistics</span>
           </Link>
         </li>
-        <li>
+        <li v-if="$page.props.auth.user.level_id == 1 || $page.props.auth.user.level_id == 2">
           <button
             type="button"
             class="
@@ -130,7 +130,7 @@
             </li>
           </ul>
         </li>
-        <li>
+        <li v-if="$page.props.auth.user.level_id == 1 || $page.props.auth.user.level_id == 3">
           <button
             type="button"
             class="
@@ -215,7 +215,7 @@
             </li>
           </ul>
         </li>
-        <li>
+        <li v-if="$page.props.auth.user.level_id == 1 || $page.props.auth.user.level_id == 4">
           <button
             type="button"
             class="
@@ -324,7 +324,7 @@
             </li>
           </ul>
         </li>
-        <li @click="$emit('openSidebar')">
+        <li v-if="$page.props.auth.user.level_id == 1" @click="$emit('openSidebar')">
           <Link
             href="/admin/levels"
             class="
@@ -346,7 +346,7 @@
             dark:text-gray-300 whitespace-nowrap">Level</span>
           </Link>
         </li>
-        <li @click="$emit('openSidebar')">
+        <li v-if="$page.props.auth.user.level_id == 1" @click="$emit('openSidebar')">
           <Link
             href="/admin/reports"
             class="
@@ -368,7 +368,7 @@
             dark:text-gray-300 whitespace-nowrap">Reports</span>
           </Link>
         </li>
-        <li @click="$emit('openSidebar')">
+        <li v-if="$page.props.auth.user.level_id == 1" @click="$emit('openSidebar')">
           <Link
             href="/admin/users"
             class="
@@ -425,7 +425,7 @@
             class="dropdown-sidebar mt-2 hidden opacity-0 ml-[45px] space-y-3"
             :class="{ active: dropdown_settings || $page.url.startsWith('/admin/settings/application') }"
           >
-            <li @click="$emit('openSidebar')">
+            <li v-if="$page.props.auth.user.level_id == 1" @click="$emit('openSidebar')">
               <Link
                 href="/admin/settings/application"
                 class="

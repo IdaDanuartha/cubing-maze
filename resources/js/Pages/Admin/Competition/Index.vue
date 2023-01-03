@@ -23,7 +23,10 @@
           <span class="dark:text-gray-100">Add Competition</span></Link
         >
       </div>
-      <SearchGroup :searchQuery="search_query" @search-competition="searchCompetition"  />
+      <SearchGroup
+        v-model:search_query="search_query"
+        @handle-search="handleSearch"
+      />
       <Table>
         <template v-slot:columns>
           <div class="data-head col-span-2 md:col-span-1 pl-[1.125rem]">No</div>
@@ -63,7 +66,7 @@
                       dark:text-gray-200 dark:font-light
                     "
                   >
-                    {{ i + 1 }}
+                    {{ ++i + (competitions.current_page - 1) * competitions.per_page }}
                   </div>
                   <div
                     class="
@@ -156,6 +159,8 @@
           </div>
         </template>
       </Table>
+
+      <Pagination :data="competitions" align="end" />   
     </div>
   </div>
 </template>
@@ -163,6 +168,7 @@
 <script>
 import LayoutAdmin from "../../../Layouts/Admin.vue";
 import Table from "../../../Components/Admin/TableComponent.vue";
+import Pagination from "../../../Components/PaginationComponent.vue";
 import SearchGroup from "../../../Components/Admin/SearchGroupComponent.vue";
 import { Head, Link } from "@inertiajs/inertia-vue3";
 import { ref } from "@vue/runtime-core";
@@ -178,6 +184,7 @@ export default {
     Link,
     Table,
     SearchGroup,
+    Pagination,
   },
 
   //props
@@ -186,14 +193,21 @@ export default {
   },
 
   setup() {
-    let search_query = ref("");
+    const search_query = ref(
+      "" || new URL(document.location).searchParams.get("search_query")
+    );
 
-    const searchCompetition = () => {
-      Inertia.get("/admin/competitions?search_query=" + search_query.value);
+    //define method search
+    const handleSearch = () => {
+      Inertia.get("/admin/competitions", {
+        //send params "q" with value from state "search"
+        search_query: search_query.value,
+      });
     };
 
     return {
-      searchCompetition,
+      search_query,
+      handleSearch,
     };
   },
 };

@@ -17,33 +17,31 @@ export default {
 
 <style>
 .table-head {
-  padding: 1rem 0;
-  font-weight: 550;
-  border-radius: 4px;
+  @apply py-[1rem] px-0 font-worksans-medium rounded;
 }
 
 .table-body {
-  padding: 1rem 0;
+  @apply pt-[1rem] mb-[1rem] px-0;
 }
 
 .table-head {
-  background-color: rgb(187, 225, 250, 0.5);
+  @apply bg-fourth-color/50;
 }
 
 .data-head {
-  color: #0f4c75;
+  @apply text-secondary-color;
 }
 
 .data-head span {
-  color: inherit;
+  @apply text-inherit;
 }
 
-.table-body:nth-child(odd) {
-  background-color: rgba(255, 255, 255, 0.02);
+.table-body:nth-child(even) {
+  background: rgba(255,255,255, .02);
 }
 
 .data-head {
-  font-size: 0.938rem;
+  @apply text-[0.938rem];
 }
 
 .data-column {

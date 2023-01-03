@@ -27,11 +27,12 @@ class DatabaseSeeder extends Seeder
         Level::create([
             'role' => 'Admin',
         ]);
-
         Level::create([
             'role' => 'Comp Maker',
         ]);
-        
+        Level::create([
+            'role' => 'Course Maker',
+        ]);    
         Level::create([
             'role' => 'Blog Maker',
         ]);
@@ -54,6 +55,13 @@ class DatabaseSeeder extends Seeder
             'level_id' => 3,
             'username' => 'admin3',
             'email' => 'admincm3@gmail.com',
+            'password' => bcrypt('admin123'),
+        ]);
+
+        User::create([
+            'level_id' => 4,
+            'username' => 'admin4',
+            'email' => 'admincm4@gmail.com',
             'password' => bcrypt('admin123'),
         ]);
     }

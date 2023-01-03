@@ -1,10 +1,10 @@
 <template>
   <div class="flex">
     <Sidebar :active="active" @open-sidebar="openSidebar"/>
-    <div class="md:ml-[256px] ml-0 md:w-[calc(100vw-256px)] w-full">
+    <div class="lg:ml-[256px] ml-0 lg:w-[calc(100vw-256px)] w-full">
       <Hamburger :active="active" @open-sidebar="openSidebar" />
       <Header />
-      <div class="md:mx-10 mx-5">
+      <div class="lg:mx-10 mx-5">
         <slot />
       </div>
     </div>

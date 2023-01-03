@@ -2,15 +2,18 @@
   <div class="search-group dark:bg-fourth-color/70">
     <div class="flex">
       <div class="mr-3 relative top-1.5">
-        <i class="fa-solid fa-magnifying-glass text-third-color/70 dark:text-third-color"></i>
+        <i class="fa-solid fa-magnifying-glass text-third-color/70 dark:text-secondary-color"></i>
       </div>
-      <input
+      <form class="relative top-1.5" @submit.prevent="$emit('handleSearch')">
+        <input
         type="text"
-        class="input-search dark:placeholder:text-third-color"
-        placeholder="Search competition here..."
-        v-model="searchQuery"
-        @keyup="$emit('searchCompetition')"
+        class="input-search dark:placeholder:text-secondary-color dark:text-secondary-color dark:placeholder:font-worksans-light"
+        placeholder="Search here..."
+        :value="search_query"
+        @input="$emit('update:search_query', $event.target.value)"      
       />
+      <!-- <button type="submit"></button> -->
+      </form>
     </div>
     <div class="select-option" :class="{ active: active }">
       <div class="display-text" @click="activeDropdown(displayText)">
@@ -39,23 +42,28 @@
 import { ref } from 'vue'
 
 export default {
-    emits: ['searchCompetition'],
+    emits: ['handleSearch'],
     props: {
-        searchQuery: String
+        search_query: String
     },
-    setup() {
-        let active = ref(false)
-        let displayText = ref('Sort by')
-        
-        const activeDropdown = (text) => {
-            displayText.value = text
-            active.value = !active.value
-        }
-        return {
-            active,
-            displayText,
-            activeDropdown
-        };
+    setup(props, { emit }) {
+      const handleSearch = () => {
+        emit('handleSearch')
+      }
+
+      let active = ref(false)
+      let displayText = ref('Sort by')
+      
+      const activeDropdown = (text) => {
+          displayText.value = text
+          active.value = !active.value
+      }
+      return {
+          active,
+          displayText,
+          activeDropdown,
+          handleSearch
+      };
     },
 };
 </script>
