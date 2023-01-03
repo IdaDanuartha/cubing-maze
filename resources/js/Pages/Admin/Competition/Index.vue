@@ -10,13 +10,13 @@
       description="competition management page cubingmaze, halaman competition management cubingmaze, competition management administrator"
     />
   </Head>
-  <div class="container-fluid mb-5">
+  <div class="container-fluid mb-16">
     <div class="table-container">
       <div class="flex justify-between">
         <h2 class="font-worksans-medium text-lg dark:text-gray-100">
           Table Competitions
         </h2>
-        <Link href="" class="flex btn btn-create dark:bg-third-color">
+        <Link href="/admin/competitions/create" class="flex btn btn-create">
           <div>
             <i class="fa-solid fa-plus mr-2 dark:text-gray-100"></i>
           </div>

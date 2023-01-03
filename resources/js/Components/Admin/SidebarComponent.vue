@@ -1,5 +1,5 @@
 <template>
-  <aside class="w-64 fixed " :class="active ? 'active' : 'left-[-300px] lg:left-0 lg:block'" aria-label="Sidebar">
+  <aside class="w-64 fixed z-[99]" :class="active ? 'active' : 'left-[-300px] lg:left-0 lg:block'" aria-label="Sidebar">
     <div class="overflow-y-auto sidebar h-full py-7 px-5 bg-[#3282B8] dark:bg-[#0F4C75] relative">
       <!-- <div class="close-icon right-5 absolute block lg:hidden top-3 cursor-pointer" @click="$emit('openSidebar')">
         <i class="fa-solid fa-xmark text-gray-100
@@ -515,7 +515,7 @@ const activeDropdown = (type) => {
 <style>
 aside {
   height: 100vh;
-  transition: all .3s;
+  transition: all .3s;  
 }
 
 aside.active {

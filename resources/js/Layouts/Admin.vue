@@ -23,3 +23,6 @@ const openSidebar = () => {
   active.value = !active.value
 }
 </script>
+
+<style>
+</style>

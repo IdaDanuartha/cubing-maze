@@ -7,7 +7,7 @@
       description="dashboard page cubingmaze, halaman dashboard cubingmaze, dashboard administrator"
     />
   </Head>
-  <div class="container-fluid mb-5">
+  <div class="container-fluid mb-16">
     <div class="grid xl:grid-cols-4 lg:grid-cols-2 grid-cols-1 gap-4">
       <div class="flex px-5 py-4 rounded-lg dashboard-card dark:bg-[#202F37]">
         <img

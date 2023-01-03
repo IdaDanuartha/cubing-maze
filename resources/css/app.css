@@ -97,15 +97,32 @@
     @apply px-4 py-2 border-0 font-worksans-medium rounded transition-all duration-300 hover:opacity-80 focus:outline-4 focus:outline;
   }
 
-  .btn-create {
-    @apply bg-third-color/25;
+  .btn.btn-submit,
+  .btn.btn-create {
+    @apply bg-secondary-color/25 text-secondary-color dark:text-third-color;
+  }
+  
+  .btn.btn-upload {
+    @apply bg-fourth-color/70 ml-5 text-sm text-secondary-color dark:text-secondary-color cursor-pointer;
+  }
+  
+  .btn.btn-back {
+    @apply text-main-color/50 dark:text-gray-200 mr-2;
   }
 
-  .btn-create i, .btn-create span {
+  .btn.btn-back i {
+    @apply text-main-color/50 dark:text-gray-200;
+  }
+
+  .btn.btn-create i, .btn.btn-create span {
     @apply text-secondary-color;
   }
 
-  .btn-create:focus {
+  .btn.btn-create:focus {
+    @apply outline-secondary-color/10;
+  }
+
+  .btn.btn-submit:focus {
     @apply outline-secondary-color/10;
   }
 
@@ -139,5 +156,21 @@
 
   .select-option .option-item p {
     @apply text-white px-3 py-1.5 text-sm mb-1 font-worksans-light cursor-pointer hover:bg-fourth-color/10;
+  }
+
+  .custom-input {
+    @apply block px-4 pb-2.5 pt-4 w-full text-sm bg-transparent rounded-lg border border-main-color/30 appearance-none dark:text-gray-200 dark:border-gray-600 dark:focus:border-secondary-color focus:outline-none focus:ring-0 focus:border-third-color;
+  }
+
+  .custom-label {
+    @apply absolute text-sm text-main-color/40 dark:text-gray-200 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-main-color px-4 peer-focus:px-4 peer-focus:text-third-color peer-focus:dark:text-secondary-color peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1;
+  }
+
+  .helper-input-text {
+    @apply mt-2 text-xs text-gray-400 dark:text-gray-500;
+  }
+
+  .custom-checkbox {
+    @apply w-3.5 h-3.5 text-third-color bg-gray-100 border-gray-200 rounded focus:ring-third-color dark:focus:ring-third-color dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600;
   }
 }

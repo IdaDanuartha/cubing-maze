@@ -1,6 +1,7 @@
 <template>
   <div
     class="
+      z-[99]
       hamburger
       fixed
       inline-block
