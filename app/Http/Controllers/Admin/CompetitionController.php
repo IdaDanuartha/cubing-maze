@@ -13,7 +13,7 @@ class CompetitionController extends Controller
         $page_name = 'Competitions';
         $competitions = Competition::when(request()->search_query, function($competitions) {
             $competitions = $competitions->where('name', 'like', '%' . request()->search_query . '%');
-        })->latest()->paginate(5);
+        })->latest()->paginate(1);
 
         // $competitions->appends(['search_query' => request()->search_query]);
 

@@ -15,7 +15,7 @@
       <!-- <button type="submit"></button> -->
       </form>
     </div>
-    <div class="select-option" :class="{ active: active }">
+    <div class="select-option" v-click-outside="onClickOutside" :class="{ active: active }">
       <div class="display-text" @click="activeDropdown(displayText)">
         <span class="text-white text-sm mt-0.5">{{ displayText }}</span>
         <div class="-mt-0.5">
@@ -40,11 +40,15 @@
 
 <script>
 import { ref } from 'vue'
+import vClickOutside from 'click-outside-vue3'
 
 export default {
     emits: ['handleSearch'],
     props: {
         search_query: String
+    },
+    directives: {
+      clickOutside: vClickOutside.directive
     },
     setup(props, { emit }) {
       const handleSearch = () => {
@@ -58,11 +62,16 @@ export default {
           displayText.value = text
           active.value = !active.value
       }
+
+      const onClickOutside = (event) => {
+        active.value = false
+      }
       return {
           active,
           displayText,
           activeDropdown,
-          handleSearch
+          handleSearch,
+          onClickOutside
       };
     },
 };

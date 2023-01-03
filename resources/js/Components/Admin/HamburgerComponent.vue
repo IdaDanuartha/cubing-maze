@@ -7,10 +7,10 @@
       lg:hidden
       rounded-full
       cursor-pointer
-      bg-[rgba(187,225,250,.5)]
+      bg-[rgba(187,225,250,.7)]
       px-2.5
       py-2.5
-      top-5
+      bottom-5
       right-5
       transition
       duration-200

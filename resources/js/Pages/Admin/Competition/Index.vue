@@ -125,19 +125,41 @@
                       justify-end
                     "
                   >
+                    <TableDropdown>
+                      <template v-slot:dropdown_item>
+                        <Link
+                          :href="'/admin/competitions/' + comp.id"
+                          class="dropdown-item"
+                          >
+                          <i class="fa-solid mr-2 relative top-0.5 fa-eye"></i>
+                          <span>Detail</span>
+                        </Link>
+                        <Link
+                          :href="'/admin/competitions/' + comp.id + '/edit'"
+                          class="dropdown-item"
+                          >
+                          <i class="fa-solid mr-2 relative top-0.5 fa-pencil"></i>
+                          <span>Edit</span>
+                        </Link>
+                        <a href="#" class="dropdown-item" >
+                          <i class="fa-solid mr-2 relative top-0.5 fa-trash"></i>
+                          <span>Remove</span>
+                        </a>
+                      </template>
+                    </TableDropdown>
                     <Link
                       :href="'/admin/competitions/' + comp.id"
-                      class="icon detail-icon mr-4"
+                      class="hidden sm:inline-block icon detail-icon mr-4"
                     >
                       <img src="/assets/img/icon/detail.svg" alt="" />
                     </Link>
                     <Link
                       :href="'/admin/competitions/' + comp.id + '/edit'"
-                      class="icon edit-icon mr-4"
+                      class="hidden sm:inline-block icon edit-icon mr-4"
                     >
                       <img src="/assets/img/icon/edit.svg" alt="" />
                     </Link>
-                    <div class="icon delete-icon">
+                    <div class="hidden sm:inline-block icon delete-icon">
                       <img src="/assets/img/icon/delete.svg" alt="" />
                     </div>
                   </div>
@@ -160,7 +182,7 @@
         </template>
       </Table>
 
-      <Pagination :data="competitions" align="end" />   
+      <Pagination :data="competitions" />   
     </div>
   </div>
 </template>
@@ -170,6 +192,7 @@ import LayoutAdmin from "../../../Layouts/Admin.vue";
 import Table from "../../../Components/Admin/TableComponent.vue";
 import Pagination from "../../../Components/PaginationComponent.vue";
 import SearchGroup from "../../../Components/Admin/SearchGroupComponent.vue";
+import TableDropdown from "../../../Components/Admin/TableDropdownComponent.vue";
 import { Head, Link } from "@inertiajs/inertia-vue3";
 import { ref } from "@vue/runtime-core";
 import { Inertia } from "@inertiajs/inertia";
@@ -185,6 +208,7 @@ export default {
     Table,
     SearchGroup,
     Pagination,
+    TableDropdown,
   },
 
   //props

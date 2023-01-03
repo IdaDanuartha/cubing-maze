@@ -4,23 +4,23 @@
   >
     <div class="flex justify-between items-center h-[50px]">
       <div class="flex pl-3 py-6">
-        <h2 class="font-bold text-2xl text-gray-800 dark:text-gray-100">
+        <h2 class="font-bold text-2xl text-gray-800 dark:text-gray-200">
           {{ $page.props.page_name }}
         </h2>
       </div>
       <div class="flex space-x-3 items-center justify-center">
         <div class="mr-3 cursor-pointer">
-          <i class="fa-regular fa-bell fa-xl dark:text-gray-100"></i>
+          <i class="fa-regular fa-bell fa-xl dark:text-gray-200"></i>
         </div>
         <div class="cursor-pointer" @click="toggleDarkMode">
           <i
-            class="fa-solid fa-xl mr-3 dark:text-gray-100"
+            class="fa-solid fa-xl mr-3 dark:text-gray-200"
             :class="isDarkMode ? 'fa-sun' : 'fa-moon'"
           ></i>
         </div>
-        <div class="flex border-l-2 pl-5">
+        <div class="hidden sm:flex border-l-2 pl-5">
           <div class="mr-3 text-end">
-            <h5 class="text-md font-semibold dark:text-gray-100">
+            <h5 class="text-md font-semibold dark:text-gray-200">
               {{ $page.props.auth.user.username }}
             </h5>
             <h5 class="text-sm text-gray-500 dark:text-gray-400 -mt-1">

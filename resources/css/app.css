@@ -59,9 +59,38 @@
   .icon.delete-icon {
     background: rgba(220, 38, 38, .2);
   }
+
+  .icon.fa-ellipsis-vertical {
+    @apply dark:text-gray-200;
+  }
+
+  .icon.fa-ellipsis-vertical:hover {
+    @apply opacity-80 translate-y-0;
+  }
   
   .icon:hover {
     @apply opacity-80 -translate-y-1;
+  }
+
+  .dropdown-table {
+    @apply z-10 absolute bg-fourth-color/70 px-5 py-2 right-6 rounded transition-all duration-200 -z-10 opacity-0 -translate-y-2;
+  }
+
+  .dropdown-table.active {
+    @apply opacity-100 translate-y-0 z-10;
+  }
+
+  /* .dropdown-table::before {
+    @apply w-2 h-2 bg-fourth-color/70 inline-block absolute right-[1.6px] top-[-4px] rotate-45;
+    content: '';
+  } */
+
+  .dropdown-table .dropdown-item {
+    @apply my-2 flex;
+  }
+
+  .dropdown-table .dropdown-item * {
+    @apply text-secondary-color;
   }
 
   .btn {
@@ -101,11 +130,11 @@
   }
 
   .select-option .option-group {
-    @apply bg-third-color absolute top-10 rounded w-full transition-all duration-300 opacity-0 -translate-y-3;
+    @apply bg-third-color absolute top-10 rounded w-full transition-all duration-300 opacity-0 -z-10 -translate-y-3;
   }
 
   .select-option .option-group.active {
-    @apply inline-block opacity-100 translate-y-0;
+    @apply inline-block opacity-100 translate-y-0 z-10;
   }
 
   .select-option .option-item p {
