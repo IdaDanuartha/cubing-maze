@@ -3,7 +3,7 @@
     <title>Competitions - CubingMaze</title>
     <meta
       name="description"
-      description="Halaman competition management untuk administrator cubingmaze"
+      description="competitions management page for administrator cubingmaze"
     />
     <meta
       name="keywords"
