@@ -37,9 +37,20 @@
             <input type="date" id="date_end" class="custom-input peer" placeholder=" " />
             <label for="date_end" class="custom-label">End Date</label>
         </div>
-        <div class="relative mt-5">
-            <input type="text" id="type" class="custom-input peer" placeholder=" " />
-            <label for="type" class="custom-label">Paid</label>
+        <div class="relative select-group mt-5">
+            <div class="relative" @click.prevent="handleSelectDropdown" v-click-outside="onClickOutside">
+            <input type="text" id="type" class="custom-input cursor-pointer peer" disabled value="Paid" placeholder=" " />
+            <label for="type" class="custom-label">Type</label>
+            <i class="fa-solid fa-chevron-down" :class="{ active: activeSelectInput }"></i>
+            </div>
+            <div class="select-dropdown" :class="{ active: activeSelectInput }">
+                <div class="select-item">
+                <p>Free</p>
+                </div>
+                <div class="select-item">
+                <p>Paid</p>
+                </div>
+            </div>
         </div>
         <div class="relative mt-5">
             <input type="number" id="price" class="custom-input peer" placeholder=" " />
@@ -60,7 +71,7 @@
         </div>
         <div class="relative mt-5">
             <input type="checkbox" id="using_password" class="custom-checkbox" />
-            <label for="using_password" class="text-xs relative -top-0.5 ml-2">Using password?</label>
+            <label for="using_password" class="text-xs relative dark:text-gray-500 -top-0.5 ml-2">Using password?</label>
         </div>
         <div class="relative mt-3">
             <input type="text" id="password" class="custom-input peer" placeholder=" " />
@@ -79,6 +90,7 @@ import LayoutAdmin from "../../../Layouts/Admin.vue";
 import { Head, Link } from "@inertiajs/inertia-vue3";
 import Editor from '@tinymce/tinymce-vue';
 import { ref } from 'vue'
+import vClickOutside from 'click-outside-vue3'
 
 export default {
   //layout
@@ -90,6 +102,9 @@ export default {
     Link,
     Editor
   },
+  directives: {
+      clickOutside: vClickOutside.directive
+    },
   setup() {
     let image_url = ref()
 
@@ -98,9 +113,22 @@ export default {
         image_url.value = URL.createObjectURL(file);
     }
 
+    let activeSelectInput = ref(false)
+
+    const handleSelectDropdown = () => {
+        activeSelectInput.value = !activeSelectInput.value
+    }
+
+    const onClickOutside = () => {
+        activeSelectInput.value = false
+    }
+
     return {
         image_url,
         previewImage,
+        activeSelectInput,
+        handleSelectDropdown,
+        onClickOutside
     }
   }
 };

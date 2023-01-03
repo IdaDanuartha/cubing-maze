@@ -158,6 +158,34 @@
     @apply text-white px-3 py-1.5 text-sm mb-1 font-worksans-light cursor-pointer hover:bg-fourth-color/10;
   }
 
+  .select-dropdown {
+    @apply bg-white dark:bg-main-color dark:border-gray-400 border border-main-color/30 absolute top-16 rounded-lg w-full transition-all duration-300 opacity-0 -z-10 -translate-y-3;
+  }
+
+  .select-dropdown .select-item p {
+    @apply text-secondary-color dark:text-gray-200 text-sm my-2;
+  }
+
+  .select-dropdown .select-item {
+    @apply transition-all duration-300 px-3 py-1 cursor-pointer;
+  }
+
+  .select-dropdown .select-item:hover {
+    @apply bg-fourth-color/20;
+  }
+
+  .select-dropdown.active {
+    @apply inline-block opacity-100 translate-y-0 z-[50];
+  }
+
+  .select-group .fa-chevron-down {
+    @apply absolute right-5 top-4 text-xs text-gray-400 transition-all duration-200;
+  }
+
+  .select-group .fa-chevron-down.active {
+    @apply rotate-180;
+  }
+
   .custom-input {
     @apply block px-4 pb-2.5 pt-4 w-full text-sm bg-transparent rounded-lg border border-main-color/30 appearance-none dark:text-gray-200 dark:border-gray-600 dark:focus:border-secondary-color focus:outline-none focus:ring-0 focus:border-third-color;
   }
