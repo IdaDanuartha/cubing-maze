@@ -10,11 +10,6 @@ use Illuminate\Http\Request;
 
 class CompetitionController extends Controller
 {
-    public function __construct($competition)
-    {
-        $this->competition = $competition;
-    }
-
     public function index()
     {
         $page_name = 'Competitions';
@@ -39,7 +34,29 @@ class CompetitionController extends Controller
     }
 
     public function store(StoreCompetitionRequest $request) {
-        
+
+        $saved = null;
+        $uploadedImage = null;
+        $competition = new Competition($request->validated());
+
+        try {
+            if($request->hasFile('competition_img')) {
+                $uploadedImage = $request->file('competition_img')->store('uploads/competitions');
+                $competition->competition_img = $uploadedImage;
+            }  
+
+            $saved = $competition->save();
+
+        } catch (\Exception $e) {
+            if ($saved) {
+                $saved->delete();
+            }
+            
+            if ($uploadedImage) {
+                Storage::delete($uploadedImage);
+            }
+        }
+              
     }
 
     public function edit(){}
