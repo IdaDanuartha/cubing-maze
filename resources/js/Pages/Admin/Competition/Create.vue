@@ -60,7 +60,7 @@
             <Editor 
                 api-key="no-api-key" 
                 :init="{
-                    height: 300,
+                    height: 350,
                     menubar: false,
                     plugins: 'lists link image emoticons',
                     toolbar: 'undo redo | casechange blocks | bold italic backcolor | \

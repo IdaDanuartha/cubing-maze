@@ -4,10 +4,17 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Competition;
+use App\Http\Requests\Competition\StoreCompetitionRequest;
+use App\Http\Requests\Competition\UpdateCompetitionRequest;
 use Illuminate\Http\Request;
 
 class CompetitionController extends Controller
 {
+    public function __construct($competition)
+    {
+        $this->competition = $competition;
+    }
+
     public function index()
     {
         $page_name = 'Competitions';
@@ -29,6 +36,10 @@ class CompetitionController extends Controller
         $page_name = 'Add Competition';
 
         return inertia('Admin/Competition/Create', compact('page_name'));
+    }
+
+    public function store(StoreCompetitionRequest $request) {
+        
     }
 
     public function edit(){}

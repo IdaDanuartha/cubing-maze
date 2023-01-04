@@ -16,7 +16,7 @@ class CreateCompetitionsTable extends Migration
         Schema::create('competitions', function (Blueprint $table) {
             $table->id();
             $table->string('competition_img', 150);
-            $table->string('name', 100);
+            $table->string('name', 50);
             $table->longText('description');
             $table->integer('competitor_limit');
             $table->enum('type', ['free', 'paid']);
