@@ -25,7 +25,7 @@ class StoreCompetitionRequest extends FormRequest
     {
         return [
             'name' => 'required|max:50|unique:competitions,name',
-            'competition_img' => 'required|file|image|max:3000|mimes:png,jpg,svg,webp,jpeg',
+            'competition_img' => 'required|image|max:2048|mimes:png,jpg,svg,webp,jpeg,gif',
             'description' => 'required|min:10',
             'competitor_limit' => 'required',
             'type' => 'required',

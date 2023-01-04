@@ -194,11 +194,23 @@
     @apply absolute text-sm text-main-color/40 dark:text-gray-200 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-main-color px-4 peer-focus:px-4 peer-focus:text-third-color peer-focus:dark:text-secondary-color peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1;
   }
 
+  .custom-input.error {
+    @apply dark:border-red-400 border-red-600 dark:focus:border-red-400 focus:border-red-600;
+  }
+
+  .custom-label.error {
+    @apply text-red-600 dark:text-red-400 peer-focus:text-red-600 peer-focus:dark:text-red-400;
+  }
+
   .helper-input-text {
     @apply mt-2 text-xs text-gray-400 dark:text-gray-500;
   }
 
   .custom-checkbox {
     @apply w-3.5 h-3.5 text-third-color bg-gray-100 border-gray-200 rounded focus:ring-third-color dark:focus:ring-third-color dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600;
+  }
+
+  .text-error {
+    @apply mt-2 text-xs text-red-600 dark:text-red-400;
   }
 }

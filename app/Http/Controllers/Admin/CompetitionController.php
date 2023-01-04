@@ -41,12 +41,13 @@ class CompetitionController extends Controller
 
         try {
             if($request->hasFile('competition_img')) {
-                $uploadedImage = $request->file('competition_img')->store('uploads/competitions');
+                $uploadedImage = $request->file('competition_img')->store('uploads/competitions', 'public');
                 $competition->competition_img = $uploadedImage;
             }  
 
             $saved = $competition->save();
-
+            
+            return redirect()->route('competitions.index')->with('success', 'Competition created successfully');
         } catch (\Exception $e) {
             if ($saved) {
                 $saved->delete();
