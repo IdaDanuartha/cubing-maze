@@ -45,7 +45,7 @@ class CompetitionController extends Controller
                 $competition->competition_img = $uploadedImage;
             }  
 
-            $saved = $competition->save();
+                $saved = $competition->save();
             
             return redirect()->route('competitions.index')->with('success', 'Competition created successfully');
         } catch (\Exception $e) {
