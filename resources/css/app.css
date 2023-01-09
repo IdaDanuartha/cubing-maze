@@ -16,6 +16,11 @@
   font-family: "worksans-medium";
   src: url("../../public/assets/fonts/work-sans/WorkSans-Medium.ttf") format("truetype");
 }
+
+@font-face {
+  font-family: "worksans-bold";
+  src: url("../../public/assets/fonts/work-sans/WorkSans-Bold.ttf") format("truetype");
+}
   
 
 @layer base {
