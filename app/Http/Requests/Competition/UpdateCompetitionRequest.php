@@ -21,11 +21,11 @@ class UpdateCompetitionRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    public function rules($id)
+    public function rules()
     {
         return [
-            'name' => 'required|max:50|unique:competitions,name,' . $id,
-            'competition_img' => 'nullable|file|image|max:3000|mimes:png,jpg,svg,webp,jpeg',
+            'name' => 'required|max:50',
+            'competition_img' => 'nullable',
             'description' => 'required|min:10',
             'competitor_limit' => 'required',
             'type' => 'required',

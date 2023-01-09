@@ -16,6 +16,8 @@
 
 <body class="dark:bg-[#1B262C]">
     @inertia
+
+    <script src="./node_modules/tw-elements/dist/js/index.min.js"></script>
 </body>
 
 </html>

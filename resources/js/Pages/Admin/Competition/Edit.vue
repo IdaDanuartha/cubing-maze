@@ -1,6 +1,6 @@
 <template>
   <Head>
-    <title>Add Competition - CubingMaze</title>
+    <title>Edit Competition - CubingMaze</title>
     <meta
       name="description"
       description="add competition page for administrator cubingmaze"
@@ -11,14 +11,18 @@
     />
   </Head>
   <div class="container-fluid mb-16 grid grid-cols-3">
-    <form class="sm:col-span-2 col-span-3" @submit.prevent="store">
+    <form class="sm:col-span-2 col-span-3" @submit.prevent="update">
       <div class="form-group">
         <label class="text-third-color dark:text-white font-worksans-medium"
           >Competition Image</label
         >
         <div class="">
           <img
-            :src="image_url ?? '/assets/img/no-preview.png'"
+            :src="
+              payload.competition_img && !image_url
+                ? '/storage/' + payload.competition_img
+                : image_url
+            "
             width="200"
             alt="competition image cover"
             class="inline-block rounded my-2"
@@ -191,6 +195,7 @@
           id="using_password"
           class="custom-checkbox"
           @click="usingPassword"
+          :checked="usePass ? true : false"
         />
         <label
           for="using_password"
@@ -221,8 +226,7 @@
         </p>
       </div>
       <div class="mt-10 flex justify-end">
-        <!-- <Link href="/admin/competitions" class="btn btn-back"><i class="fa-solid fa-arrow-left mr-2"></i>Back</Link> -->
-        <button type="submit" class="btn btn-submit">Add Competition</button>
+        <button type="submit" class="btn btn-submit">Save Changes</button>
       </div>
     </form>
   </div>
@@ -235,6 +239,7 @@ import Editor from "@tinymce/tinymce-vue";
 import { ref, reactive } from "vue";
 import vClickOutside from "click-outside-vue3";
 import { Inertia } from "@inertiajs/inertia";
+import moment from "moment";
 
 export default {
   //layout
@@ -251,26 +256,30 @@ export default {
     clickOutside: vClickOutside.directive,
   },
 
-  props: {    
+  props: {
     errors: Object,
+    competition: Object,
   },
 
-  setup() {
+  setup(props) {
     let image_url = ref();
     let activeSelectInput = ref(false);
-    let currentType = ref("Free");
-    let usePass = ref(false);
+    let currentType = ref(
+      props.competition.type.charAt(0).toUpperCase() +
+        props.competition.type.slice(1)
+    );
+    let usePass = ref(props.competition.password ?? false);
 
     const payload = reactive({
-      name: "",
-      competition_img: "",
-      description: "",
-      competitor_limit: "",
-      type: "free",
-      fee: "",
-      date_start: "",
-      date_end: "",
-      password: "",
+      name: props.competition.name,
+      competition_img: props.competition.competition_img,
+      description: props.competition.description,
+      competitor_limit: props.competition.competitor_limit,
+      type: props.competition.type,
+      fee: props.competition.fee,
+      date_start: moment(props.competition.date_start).format("YYYY-MM-DD"),
+      date_end: moment(props.competition.date_end).format("YYYY-MM-DD"),
+      password: props.competition.password,
     });
 
     const previewImage = (e) => {
@@ -286,8 +295,19 @@ export default {
       activeSelectInput.value = false;
     };
 
-    const store = () => {
-      Inertia.post("/admin/competitions ", payload);
+    const update = () => {
+      Inertia.post(`/admin/competitions/${props.competition.id}`, {
+        _method: 'put',
+        name: payload.name,
+        competition_img: payload.competition_img,
+        description: payload.description,
+        competitor_limit: payload.competitor_limit,
+        type: payload.type,
+        fee: payload.fee,
+        date_start: payload.date_start,
+        date_end: payload.date_end,
+        password: payload.password,
+      });
     };
 
     const selectType = (type) => {
@@ -306,7 +326,7 @@ export default {
       handleSelectDropdown,
       onClickOutside,
       payload,
-      store,
+      update,
       selectType,
       currentType,
       usePass,

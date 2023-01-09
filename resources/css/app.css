@@ -115,7 +115,7 @@
   }
 
   .btn.btn-create i, .btn.btn-create span {
-    @apply text-secondary-color;
+    @apply text-secondary-color dark:text-third-color;
   }
 
   .btn.btn-create:focus {
@@ -171,7 +171,7 @@
   }
 
   .select-dropdown .select-item:hover {
-    @apply bg-fourth-color/20;
+    @apply bg-fourth-color/30;
   }
 
   .select-dropdown.active {
@@ -212,5 +212,13 @@
 
   .text-error {
     @apply mt-2 text-xs text-red-600 dark:text-red-400;
+  }
+
+  .alert-success {
+    @apply flex p-4 mb-4 bg-green-100 rounded-lg dark:bg-[#202F37] ;
+  }
+
+  .alert-label-success {
+    @apply ml-3 text-sm font-medium text-green-700 dark:text-green-400;
   }
 }

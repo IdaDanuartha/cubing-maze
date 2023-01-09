@@ -11,6 +11,9 @@
     />
   </Head>
   <div class="container-fluid mb-16">
+    <div class="alert-success" v-if="session.success">
+      <p class="alert-label-success">{{ session.success }}</p>
+    </div>
     <div class="table-container">
       <div class="flex justify-between">
         <h2 class="font-worksans-medium text-lg dark:text-gray-100">
@@ -18,9 +21,9 @@
         </h2>
         <Link href="/admin/competitions/create" class="flex btn btn-create">
           <div>
-            <i class="fa-solid fa-plus mr-2 dark:text-gray-100"></i>
+            <i class="fa-solid fa-plus mr-2"></i>
           </div>
-          <span class="dark:text-gray-100">Add Competition</span></Link
+          <span>Add Competition</span></Link
         >
       </div>
       <SearchGroup
@@ -66,7 +69,10 @@
                       dark:text-gray-200 dark:font-light
                     "
                   >
-                    {{ ++i + (competitions.current_page - 1) * competitions.per_page }}
+                    {{
+                      ++i +
+                      (competitions.current_page - 1) * competitions.per_page
+                    }}
                   </div>
                   <div
                     class="
@@ -130,19 +136,23 @@
                         <Link
                           :href="'/admin/competitions/' + comp.id"
                           class="dropdown-item"
-                          >
+                        >
                           <i class="fa-solid mr-2 relative top-0.5 fa-eye"></i>
                           <span>Detail</span>
                         </Link>
                         <Link
                           :href="'/admin/competitions/' + comp.id + '/edit'"
                           class="dropdown-item"
-                          >
-                          <i class="fa-solid mr-2 relative top-0.5 fa-pencil"></i>
+                        >
+                          <i
+                            class="fa-solid mr-2 relative top-0.5 fa-pencil"
+                          ></i>
                           <span>Edit</span>
                         </Link>
-                        <a href="#" class="dropdown-item" >
-                          <i class="fa-solid mr-2 relative top-0.5 fa-trash"></i>
+                        <a href="#" class="dropdown-item">
+                          <i
+                            class="fa-solid mr-2 relative top-0.5 fa-trash"
+                          ></i>
                           <span>Remove</span>
                         </a>
                       </template>
@@ -159,7 +169,7 @@
                     >
                       <img src="/assets/img/icon/edit.svg" alt="" />
                     </Link>
-                    <div class="hidden sm:inline-block icon delete-icon">
+                    <div class="hidden sm:inline-block icon delete-icon" data-bs-toggle="modal" data-bs-target="#deleteCompetitionModal">
                       <img src="/assets/img/icon/delete.svg" alt="" />
                     </div>
                   </div>
@@ -182,9 +192,10 @@
         </template>
       </Table>
 
-      <Pagination :data="competitions" />   
+      <Pagination :data="competitions" />
     </div>
   </div>
+
 </template>
 
 <script>
@@ -213,6 +224,7 @@ export default {
 
   //props
   props: {
+    session: Object,
     competitions: Object,
   },
 

@@ -7,6 +7,7 @@ use App\Models\Competition;
 use App\Http\Requests\Competition\StoreCompetitionRequest;
 use App\Http\Requests\Competition\UpdateCompetitionRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class CompetitionController extends Controller
 {
@@ -20,23 +21,23 @@ class CompetitionController extends Controller
         return inertia('Admin/Competition/Index', compact('page_name', 'competitions'));
     }
 
-    public function show(Competition $id){
+    public function show($id)
+    {
         $page_name = 'Detail Competition';
         $competition = Competition::findOrFail($id);
 
         return inertia('Admin/Competition/Detail', compact('page_name', 'competition'));
     }
 
-    public function create(Competition $id){
+    public function create()
+    {
         $page_name = 'Add Competition';
 
         return inertia('Admin/Competition/Create', compact('page_name'));
     }
 
-    public function store(StoreCompetitionRequest $request) {
-
-        $saved = null;
-        $uploadedImage = null;
+    public function store(StoreCompetitionRequest $request) 
+    {
         $competition = new Competition($request->validated());
 
         try {
@@ -45,24 +46,53 @@ class CompetitionController extends Controller
                 $competition->competition_img = $uploadedImage;
             }  
 
-                $saved = $competition->save();
+            $competition->save();
             
-            return redirect()->route('competitions.index')->with('success', 'Competition created successfully');
+            session()->flash('success', 'Competition created successfully');
+            return redirect()->route('competitions.index');
         } catch (\Exception $e) {
-            if ($saved) {
-                $saved->delete();
-            }
-            
-            if ($uploadedImage) {
-                Storage::delete($uploadedImage);
-            }
+            return back()->with('error', 'Competition created failed');
         }
               
     }
 
-    public function edit(){}
+    public function edit($id)
+    {
+        $page_name = 'Edit Competition';
+        $competition = Competition::findOrFail($id);
 
-    public function update(){}
+        return inertia('Admin/Competition/Edit', compact('page_name', 'competition'));
+    }
+
+    public function update(UpdateCompetitionRequest $request, $id){
+        $competition = Competition::findOrFail($id);
+
+        try {
+            $fileName = $competition->competition_img;
+            if($request->hasFile('competition_img')) {
+                if(File::exists('/storage' . $fileName)) {
+                    File::delete('/storage' . $fileName);
+                }
+                $fileName = $request->file('competition_img')->store('uploads/competitions', 'public');
+            }  
+
+            $competition->name = $request->name;
+            $competition->competition_img = $fileName;
+            $competition->description = $request->description;
+            $competition->competitor_limit = $request->competitor_limit;
+            $competition->type = $request->type;
+            $competition->fee = $request->fee;
+            $competition->date_start = $request->date_start;
+            $competition->date_end = $request->date_end;
+            $competition->password = $request->password;
+
+            $competition->update();
+            
+            return redirect()->route('competitions.index')->with('success', 'Competition updated successfully');
+        } catch (\Exception $e) {
+            return back()->with('error', 'Competition created failed');
+        }
+    }
 
     public function destroy(){}
 }
