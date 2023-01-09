@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\CompetitionController;
+use App\Http\Controllers\Admin\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,9 +21,10 @@ Route::get('/', function () {
 
 Route::prefix('admin')->group(function() {
     Route::group(['middleware' => ['auth']], function () {
-        Route::get('/dashboard', App\Http\Controllers\Admin\DashboardController::class)->name('admin.dashboard');
+        Route::get('/dashboard', DashboardController::class);
         
         // Competitions
-        Route::resource('/competitions', App\Http\Controllers\Admin\CompetitionController::class);
+        Route::resource('/competitions', CompetitionController::class);
+        Route::get('/competitions/{id}/detail', [CompetitionController::class, 'detail']);
     });
 });

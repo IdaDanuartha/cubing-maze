@@ -53,7 +53,7 @@
         </template>
         <template v-slot:rows>
           <div v-if="competitions.data.length">
-            <TransitionGroup name="competitions">
+            <TransitionGroup name="table">
               <div
                 class="table-body"
                 v-for="(comp, i) in competitions.data"
@@ -149,7 +149,7 @@
                           ></i>
                           <span>Edit</span>
                         </Link>
-                        <a href="#" class="dropdown-item">
+                        <a href="#" @click="detail(comp.id)" class="dropdown-item">
                           <i
                             class="fa-solid mr-2 relative top-0.5 fa-trash"
                           ></i>
@@ -169,7 +169,12 @@
                     >
                       <img src="/assets/img/icon/edit.svg" alt="" />
                     </Link>
-                    <div class="hidden sm:inline-block icon delete-icon" data-bs-toggle="modal" data-bs-target="#deleteCompetitionModal">
+                    <div
+                      class="hidden sm:inline-block icon delete-icon"
+                      data-bs-toggle="modal"
+                      data-bs-target="#deleteCompetitionModal"
+                      @click="detail(comp.id)"
+                    >
                       <img src="/assets/img/icon/delete.svg" alt="" />
                     </div>
                   </div>
@@ -196,6 +201,12 @@
     </div>
   </div>
 
+  <ModalDelete
+    modalId="deleteCompetition"
+    modalTitle="Competition"
+    :modalData="payload.name"
+    @destroy="destroy"
+  />
 </template>
 
 <script>
@@ -204,8 +215,9 @@ import Table from "../../../Components/Admin/TableComponent.vue";
 import Pagination from "../../../Components/PaginationComponent.vue";
 import SearchGroup from "../../../Components/Admin/SearchGroupComponent.vue";
 import TableDropdown from "../../../Components/Admin/TableDropdownComponent.vue";
+import ModalDelete from "../../../Components/Admin/ModalDeleteComponent.vue";
 import { Head, Link } from "@inertiajs/inertia-vue3";
-import { ref } from "@vue/runtime-core";
+import { ref, reactive } from "@vue/runtime-core";
 import { Inertia } from "@inertiajs/inertia";
 
 export default {
@@ -220,6 +232,7 @@ export default {
     SearchGroup,
     Pagination,
     TableDropdown,
+    ModalDelete,
   },
 
   //props
@@ -233,6 +246,11 @@ export default {
       "" || new URL(document.location).searchParams.get("search_query")
     );
 
+    let payload = reactive({
+      competition_id: "",
+      name: "",
+    });
+
     //define method search
     const handleSearch = () => {
       Inertia.get("/admin/competitions", {
@@ -241,9 +259,31 @@ export default {
       });
     };
 
+    const detail = (id) => {
+      $.ajax({
+        method: "GET",
+        url: `/admin/competitions/${id}/detail`,
+        success: (response) => {
+          payload.competition_id = response.id;
+          payload.name = response.name;
+        },
+      });
+    };
+
+    const destroy = () => {
+      Inertia.delete(`/admin/competitions/${payload.competition_id}`, {
+        onSuccess: () => {
+          $("#deleteCompetitionModal").modal("hide");
+        },
+      });
+    };
+
     return {
       search_query,
       handleSearch,
+      payload,
+      detail,
+      destroy,
     };
   },
 };

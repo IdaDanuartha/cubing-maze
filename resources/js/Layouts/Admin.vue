@@ -25,4 +25,13 @@ const openSidebar = () => {
 </script>
 
 <style>
+.table-enter-active,
+.table-leave-active {
+  transition: all 0.3s ease;
+}
+.table-enter-from,
+.table-leave-to {
+  opacity: 0;
+  transform: translateX(20px);
+}
 </style>

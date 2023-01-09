@@ -48,8 +48,7 @@ class CompetitionController extends Controller
 
             $competition->save();
             
-            session()->flash('success', 'Competition created successfully');
-            return redirect()->route('competitions.index');
+            return redirect()->route('competitions.index')->with('success', 'Competition created successfully');;
         } catch (\Exception $e) {
             return back()->with('error', 'Competition created failed');
         }
@@ -70,8 +69,8 @@ class CompetitionController extends Controller
         try {
             $fileName = $competition->competition_img;
             if($request->hasFile('competition_img')) {
-                if(File::exists('/storage' . $fileName)) {
-                    File::delete('/storage' . $fileName);
+                if(File::exists('storage/' . $fileName)) {
+                    File::delete('storage/' . $fileName);
                 }
                 $fileName = $request->file('competition_img')->store('uploads/competitions', 'public');
             }  
@@ -90,9 +89,31 @@ class CompetitionController extends Controller
             
             return redirect()->route('competitions.index')->with('success', 'Competition updated successfully');
         } catch (\Exception $e) {
-            return back()->with('error', 'Competition created failed');
+            return back()->with('error', 'Competition updated failed');
         }
     }
 
-    public function destroy(){}
+    public function detail($id)
+    {
+        $competition = Competition::findOrFail($id);
+        return response()->json($competition);
+    }
+
+    public function destroy($id)
+    {
+        $competition = Competition::findOrFail($id);
+
+        try {    
+            $path = $competition->competition_img;        
+            if(File::exists('storage/' . $path)) {
+                File::delete('storage/' . $path);
+            }
+
+            $competition->delete();
+            
+            session()->flash('success', 'Competition deleted successfully');
+        } catch (\Exception $e) {
+            return back()->with('error', 'Competition deleted failed');
+        }
+    }
 }
