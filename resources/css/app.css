@@ -231,4 +231,157 @@
   .alert-label-success {
     @apply ml-3 text-sm font-medium text-green-700 dark:text-green-400;
   }
+
+  .alert-label-error {
+    @apply flex p-4 mb-4 bg-red-100 rounded-lg dark:bg-[#202F37] ;
+  }
+
+  .alert-label-error.alert-label-error {
+    @apply ml-3 text-sm font-medium text-red-700 dark:text-red-400;
+  }
+
+  .cube-decoration1 {
+    animation: 50s ease-in 2s infinite moveCube1;
+  }
+  .cube-decoration2 {
+      animation: 50s ease-in 5s infinite moveCube2;
+  }
+  .cube-decoration3 {
+      animation: 50s ease-in 8s infinite moveCube3;
+  }
+  .cube-decoration4 {
+      animation: 50s ease-in 11s infinite moveCube4;
+  }
+
+  @keyframes moveCube1 {
+    0% {
+      top: -60px;
+      left: -60px;
+      transform: rotate(0);
+    }
+    20% {
+      top: 40%;
+      left: 85%;
+      transform: rotate(360deg);
+    }
+    40% {
+      top: 60%;
+      left: 0;
+      transform: rotate(0);
+    }
+    60% {
+      top: 90%;
+      left: 50%;
+      transform: rotate(360deg);
+    }
+    80% {
+      top: 40%;
+      left: 85%;
+      transform: rotate(0);
+    }
+    100% {
+      top: -60px;
+      left: -60px;
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes moveCube2{
+    0% {
+      top: -60px;
+      right: -60px;
+      transform: rotate(0);
+    }
+    20% {
+      top: 40%;
+      right: 90%;
+      transform: rotate(360deg);
+    }
+    40% {
+      top: 60%;
+      right: 0;
+      transform: rotate(0);
+    }
+    60% {
+      top: 95%;
+      right: 50%;
+      transform: rotate(360deg);
+    }
+    80% {
+      top: 40%;
+      right: 90%;
+      transform: rotate(0);
+    }
+    100% {
+      top: -60px;
+      right: -60px;
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes moveCube3{
+    0% {
+      bottom: -60px;
+      left: -60px;
+      transform: rotate(0);
+    }
+    20% {
+      bottom: 40%;
+      left: 90%;
+      transform: rotate(360deg);
+    }
+    40% {
+      bottom: 60%;
+      left: 0;
+      transform: rotate(0);
+    }
+    60% {
+      bottom: 95%;
+      left: 50%;
+      transform: rotate(360deg);
+    }
+    80% {
+      bottom: 40%;
+      left: 90%;
+      transform: rotate(0);
+    }
+    100% {
+      bottom: -60px;
+      left: -60px;
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes moveCube4{
+    0% {
+      bottom: -60px;
+      right: -60px;
+      transform: rotate(0);
+    }
+    20% {
+      bottom: 40%;
+      right: 85%;
+      transform: rotate(360deg);
+    }
+    40% {
+      bottom: 60%;
+      right: 0;
+      transform: rotate(0);
+    }
+    60% {
+      bottom: 90%;
+      right: 50%;
+      transform: rotate(360deg);
+    }
+    80% {
+      bottom: 40%;
+      right: 85%;
+      transform: rotate(0);
+    }
+    100% {
+      bottom: -60px;
+      right: -60px;
+      transform: rotate(360deg);
+    }
+  }
 }

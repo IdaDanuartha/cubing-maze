@@ -26,7 +26,6 @@ class CreateCubersTable extends Migration
             $table->string('city', 30)->nullable();
             $table->enum('sex', ['male', 'female', 'anonymous'])->default('anonymous');
             $table->text('about_me')->nullable();
-            $table->rememberToken();
             $table->timestamps();
         });
     }

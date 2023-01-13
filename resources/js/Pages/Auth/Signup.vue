@@ -3,11 +3,11 @@
     <title>Login Administrator - Cubing Maze</title>
     <meta
       name="description"
-      description="Halaman untuk login cubingmaze"
+      description="Halaman untuk membuat akun baru cubingmaze"
     />
     <meta
       name="keywords"
-      description="login page cubingmaze, halaman login cubingmaze, login administrator"
+      description="signup page cubingmaze, halaman signup cubingmaze, signup administrator"
     />
   </Head>
   <div class="flex justify-center items-center w-full h-full">
@@ -24,6 +24,66 @@
         rounded-xl
       "
     >
+      <div
+        class="
+          xl:col-span-3
+          lg:col-span-4
+          w-full
+          h-full
+          bg-third-color
+          rounded-tl-xl rounded-bl-xl
+          lg:flex
+          hidden
+          justify-center
+          items-center
+          relative
+          px-[72px]
+        "
+      >
+        <img
+          src="/assets/img/login/cube.svg"
+          class="cube-decoration1 absolute -top-20"
+          alt="Decoration login page"
+        />
+        <img
+          src="/assets/img/login/cube.svg"
+          class="cube-decoration2 absolute -top-20 w-10"
+          alt="Decoration login page"
+        />
+        <img
+          src="/assets/img/login/cube.svg"
+          class="cube-decoration3 absolute -bottom-20 w-10"
+          alt="Decoration login page"
+        />
+        <img
+          src="/assets/img/login/cube.svg"
+          class="cube-decoration4 absolute -bottom-20"
+          alt="Decoration login page"
+        />
+        <div class="text-center">
+          <h1 class="text-welcome font-worksans-semibold text-white text-3xl">
+            Hello Cuber!
+          </h1>
+          <h5 class="text-white mt-7 mb-11">
+            Fill up personal information and stary journey with us.
+          </h5>
+          <Link
+            href="/auth/login"
+            class="
+              btn
+              py-2.5
+              px-8
+              outline outline-1
+              text-sm
+              focus:outline-white/40
+              outline-white
+              rounded-full
+              text-white
+            "
+            >Sign Up</Link
+          >
+        </div>
+      </div>
       <div class="xl:col-span-9 lg:col-span-8 col-span-12 lg:m-0 mx-20 mt-5">
         <div class="flex items-center ml-5 mt-5">
           <img src="/assets/img/logo.png" alt="Logo cubing maze" width="40" />
@@ -33,26 +93,55 @@
         </div>
         <div class="w-full h-auto mt-10 mb-16 flex justify-center items-center">
           <div>
-            <h1
-              class="
-                font-worksans-semibold
-                text-center
-                mb-7
-                text-third-color text-3xl
-              "
-            >
-              Sign In To Account
+            <h1 class="font-worksans-semibold mb-7 text-center text-third-color text-3xl">
+              Create Account
             </h1>
-            <div class="alert-success mt-4 -ml-3" v-if="session.success">
-              <p class="alert-label-success">{{ session.success }}</p>
-            </div>
             <div class="alert-error mt-4 -ml-3" v-if="session.error">
               <p class="alert-label-error">{{ session.error }}</p>
             </div>
-            <form
-              @submit.prevent="submit"
-              class="xl:w-[25vw] lg:w-[40vw] w-[70vw]"
-            >
+            <form @submit.prevent="submit" class="xl:w-[30vw] lg:w-[40vw] w-[70vw]">
+              <div class="relative mt-5">
+                <input
+                  type="text"
+                  id="name"
+                  v-model="payload.name"
+                  class="custom-input peer"
+                  :class="{ error: errors.name }"
+                  placeholder=" "
+                />
+                <label
+                  for="name"
+                  class="custom-label"
+                  :class="{ error: errors.name }"
+                  >Full name</label
+                >
+              </div>
+              <div v-if="errors.name">
+                <p class="text-error">
+                  {{ errors.name }}
+                </p>
+              </div>
+              <div class="relative mt-5">
+                <input
+                  type="text"
+                  id="username"
+                  v-model="payload.username"
+                  class="custom-input peer"
+                  :class="{ error: errors.username }"
+                  placeholder=" "
+                />
+                <label
+                  for="username"
+                  class="custom-label"
+                  :class="{ error: errors.username }"
+                  >Username</label
+                >
+              </div>
+              <div v-if="errors.username">
+                <p class="text-error">
+                  {{ errors.username }}
+                </p>
+              </div>
               <div class="relative mt-5">
                 <input
                   type="text"
@@ -95,23 +184,8 @@
                   {{ errors.password }}
                 </p>
               </div>
-              <div class="flex mt-4 justify-between">
-                <div>
-                  <input
-                    type="checkbox"
-                    id="remember_me"
-                    class="w-3 h-3 relative top-[1px]"
-                  />
-                  <label for="remember_me" class="ml-2 text-xs"
-                    >Remember me</label
-                  >
-                </div>
-                <a href="#" class="text-third-color text-xs"
-                  >Forgot Password?</a
-                >
-              </div>
 
-              <div class="block text-center mt-9">
+              <div class="block text-center mt-5">
                 <button
                   type="submit"
                   class="
@@ -124,7 +198,7 @@
                     py-2.5
                   "
                 >
-                  Sign In
+                  Sign Up
                 </button>
               </div>
             </form>
@@ -151,66 +225,6 @@
               </button>
             </div>
           </div>
-        </div>
-      </div>
-      <div
-        class="
-          xl:col-span-3
-          lg:col-span-4
-          w-full
-          h-full
-          bg-third-color
-          rounded-tr-xl rounded-br-xl
-          lg:flex
-          hidden
-          justify-center
-          items-center
-          relative
-          px-[72px]
-        "
-      >
-        <img
-          src="/assets/img/login/cube.svg"
-          class="cube-decoration1 absolute -top-20"
-          alt="Decoration login page"
-        />
-        <img
-          src="/assets/img/login/cube.svg"
-          class="cube-decoration2 absolute -top-20 w-10"
-          alt="Decoration login page"
-        />
-        <img
-          src="/assets/img/login/cube.svg"
-          class="cube-decoration3 absolute -bottom-20 w-10"
-          alt="Decoration login page"
-        />
-        <img
-          src="/assets/img/login/cube.svg"
-          class="cube-decoration4 absolute -bottom-20"
-          alt="Decoration login page"
-        />
-        <div class="text-center">
-          <h1 class="text-welcome font-worksans-semibold text-white text-3xl">
-            Hello Cuber!
-          </h1>
-          <h5 class="text-white mt-7 mb-11">
-            Fill up personal information and stary journey with us.
-          </h5>
-          <Link
-            href="/auth/signup"
-            class="
-              btn
-              py-2.5
-              px-8
-              outline outline-1
-              text-sm
-              focus:outline-white/40
-              outline-white
-              rounded-full
-              text-white
-            "
-            >Sign Up</Link
-          >
         </div>
       </div>
     </div>
@@ -250,12 +264,14 @@ export default {
   //define composition API
   setup() {
     const payload = reactive({
+      name: "",
+      username: "",
       email: "",
       password: "",
     });
 
     const submit = () => {
-      Inertia.post("/auth/login", payload);
+      Inertia.post("/auth/signup", payload);
     };
 
     return {

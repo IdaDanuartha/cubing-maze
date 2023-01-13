@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\LoginRequest;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
@@ -14,23 +14,17 @@ class LoginController extends Controller
         return inertia('Auth/Login');
     }
 
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
-        //validate the form data
-        $credentials = $request->validate([
-            'email'      => 'required',
-            'password'  => 'required',
-        ]);
-
-        $user = User::where('email', $credentials['email'])->with('level')->first();
-        if(Auth::attempt($credentials)) {
+        $user = User::where('email', $request->email)->with('level')->first();
+        if(Auth::attempt($request->validated())) {
             if($user->level->role === 'Admin') {
                 return redirect()->route('admin.dashboard');
             } else {
                 return redirect()->route('home');
             }
         } else {
-            return redirect()->back()->with('error', 'Email atau Password salah');
+            return redirect()->back()->with('error', 'Ouchh!! Your email or password is wrong');
         }
     }
 }

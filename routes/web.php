@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\CompetitionController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Controllers\Auth\SignupController;
 use App\Http\Controllers\Home\HomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -21,6 +22,9 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('guest')->group(function() {
     Route::get('/auth/login', [LoginController::class, 'index'])->name('login');
     Route::post('/auth/login', [LoginController::class, 'login']);
+
+    Route::get('/auth/signup', [SignupController::class, 'index'])->name('signup');
+    Route::post('/auth/signup', [SignupController::class, 'register']);
 });
 Route::post('/logout', LogoutController::class);
 

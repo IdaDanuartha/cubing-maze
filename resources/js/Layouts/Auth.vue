@@ -1,5 +1,5 @@
 <template>
-  <section class="w-full h-[100vh] bg-[#eee]">
+  <section class="w-full h-[100vh] bg-[#eee] dark:bg-[#1B262C]">
       <slot />
   </section>
 </template>
