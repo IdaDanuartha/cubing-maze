@@ -13,6 +13,7 @@ module.exports = {
         "worksans-light": ['worksans-light', 'sans-serif'],
         "worksans-regular": ['worksans-regular', 'sans-serif'],
         "worksans-medium": ['worksans-medium', 'sans-serif'],
+        "worksans-semibold": ['worksans-semibold', 'sans-serif'],
         "worksans-bold": ['worksans-bold', 'sans-serif'],
       },
       colors: {

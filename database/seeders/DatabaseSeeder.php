@@ -36,6 +36,9 @@ class DatabaseSeeder extends Seeder
         Level::create([
             'role' => 'Blog Maker',
         ]);
+        Level::create([
+            'role' => 'Cuber',
+        ]);
 
         User::create([
             'level_id' => 1,

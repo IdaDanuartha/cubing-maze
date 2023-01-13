@@ -2,6 +2,9 @@
 
 use App\Http\Controllers\Admin\CompetitionController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Controllers\Home\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,16 +18,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::middleware('guest')->group(function() {
+    Route::get('/auth/login', [LoginController::class, 'index'])->name('login');
+    Route::post('/auth/login', [LoginController::class, 'login']);
+});
+Route::post('/logout', LogoutController::class);
+
+Route::prefix('admin')->middleware('auth')->group(function() {
+    Route::get('/dashboard', DashboardController::class)->name('admin.dashboard');
+    
+    // Competitions
+    Route::resource('/competitions', CompetitionController::class);
+    Route::get('/competitions/{id}/detail', [CompetitionController::class, 'detail']);
+
 });
 
-Route::prefix('admin')->group(function() {
-    Route::group(['middleware' => ['auth']], function () {
-        Route::get('/dashboard', DashboardController::class);
-        
-        // Competitions
-        Route::resource('/competitions', CompetitionController::class);
-        Route::get('/competitions/{id}/detail', [CompetitionController::class, 'detail']);
-    });
-});
+
+// Route homepage
+Route::get('/home', HomeController::class)->name('home');

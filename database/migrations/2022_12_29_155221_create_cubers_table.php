@@ -14,12 +14,10 @@ class CreateCubersTable extends Migration
     public function up()
     {
         Schema::create('cubers', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->string('name', 100);
-            $table->string('username', 30)->unique();
-            $table->string('email', 30)->unique();
+            $table->id();
+            $table->string('user_id');
+            $table->string('name', 100);            
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('profile_img', 150)->nullable();
             $table->string('wca_id', 10)->nullable();
             $table->string('youtube_id', 50)->nullable();
             $table->string('instagram_id', 50)->nullable();
@@ -28,7 +26,6 @@ class CreateCubersTable extends Migration
             $table->string('city', 30)->nullable();
             $table->enum('sex', ['male', 'female', 'anonymous'])->default('anonymous');
             $table->text('about_me')->nullable();
-            $table->string('password', 200);
             $table->rememberToken();
             $table->timestamps();
         });

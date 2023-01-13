@@ -39,7 +39,7 @@
           >
         </div>
         <div v-if="errors.competition_img">
-          <p id="outlined_error_help" class="text-error">
+          <p class="text-error">
             {{ errors.competition_img }}
           </p>
         </div>
@@ -58,7 +58,7 @@
         >
       </div>
       <div v-if="errors.name">
-        <p id="outlined_error_help" class="text-error">{{ errors.name }}</p>
+        <p class="text-error">{{ errors.name }}</p>
       </div>
       <!-- <p class="helper-input-text">Remember, contributions to this topic should follow our</p> -->
       <div class="relative mt-5">
@@ -78,7 +78,7 @@
         >
       </div>
       <div v-if="errors.competitor_limit">
-        <p id="outlined_error_help" class="text-error">
+        <p class="text-error">
           {{ errors.competitor_limit }}
         </p>
       </div>
@@ -99,7 +99,7 @@
         >
       </div>
       <div v-if="errors.date_start">
-        <p id="outlined_error_help" class="text-error">
+        <p class="text-error">
           {{ errors.date_start }}
         </p>
       </div>
@@ -120,7 +120,7 @@
         >
       </div>
       <div v-if="errors.date_end">
-        <p id="outlined_error_help" class="text-error">{{ errors.date_end }}</p>
+        <p class="text-error">{{ errors.date_end }}</p>
       </div>
       <div class="relative select-group mt-5">
         <div
@@ -167,7 +167,7 @@
         </div>
       </Transition>
       <div v-if="errors.fee">
-        <p id="outlined_error_help" class="text-error">{{ errors.fee }}</p>
+        <p class="text-error">{{ errors.fee }}</p>
       </div>
       <div class="relative mt-5">
         <Editor
@@ -185,7 +185,7 @@
         />
       </div>
       <div v-if="errors.description">
-        <p id="outlined_error_help" class="text-error">
+        <p class="text-error">
           {{ errors.description }}
         </p>
       </div>
@@ -218,7 +218,7 @@
       </Transition>
       <div v-if="errors.password">
         <p
-          id="outlined_error_help"
+        
           class="text-error"
           :class="{ error: errors.password }"
         >

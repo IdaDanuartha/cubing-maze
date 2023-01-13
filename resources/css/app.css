@@ -18,6 +18,11 @@
 }
 
 @font-face {
+  font-family: "worksans-semibold";
+  src: url("../../public/assets/fonts/work-sans/WorkSans-SemiBold.ttf") format("truetype");
+}
+
+@font-face {
   font-family: "worksans-bold";
   src: url("../../public/assets/fonts/work-sans/WorkSans-Bold.ttf") format("truetype");
 }

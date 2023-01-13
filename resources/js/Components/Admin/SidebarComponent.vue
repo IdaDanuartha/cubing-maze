@@ -449,10 +449,10 @@
                 >Application</Link
               >
             </li>
-            <li @click="$emit('openSidebar')">
+            <li>
               <Link
                 href="/logout"
-                method="POST" 
+                method="post"
                 as="button"
                 class="
                   flex
