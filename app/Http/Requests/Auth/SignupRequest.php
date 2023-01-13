@@ -25,9 +25,9 @@ class SignupRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|unique:cubers,name',
-            'username' => 'required|alpha_dash|unique:users,username',
-            'email' => 'required|email:rfc,dns|unique:users,email',
+            'name' => 'required|unique:cubers,name|max:100',
+            'username' => 'required|alpha_dash|unique:users,username|max:30',
+            'email' => 'required|email:rfc,dns|unique:users,email|max:30',
             'password' => ['required', Password::min(8)
                     ->letters()
                     ->mixedCase()

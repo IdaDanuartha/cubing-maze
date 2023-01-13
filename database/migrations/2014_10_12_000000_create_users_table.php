@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->tinyInteger('level_id')->default(5);
-            $table->string('username', 50)->unique();
-            $table->string('email', 100)->unique();
+            $table->string('username', 30)->unique();
+            $table->string('email', 30)->unique();
             $table->string('profile_img', 150)->nullable();
             $table->string('password', 200);
             $table->rememberToken();

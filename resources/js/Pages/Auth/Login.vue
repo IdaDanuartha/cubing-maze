@@ -138,10 +138,10 @@
               </p>
             </div>
             <div class="block">
-              <button class="btn-other-signin btn flex">
+              <Link href="/auth/google" class="btn-other-signin btn flex">
                 <img src="/assets/img/icon/google.svg" alt="Google icon" />
                 <span class="ml-2.5">Sign in with Google</span>
-              </button>
+              </Link>
               <button class="btn-other-signin btn mt-2.5 flex">
                 <img
                   src="/assets/img/icon/wca.svg"
