@@ -99,5 +99,60 @@ class DatabaseSeeder extends Seeder
             'name' => '7x7x7 Cube',
             'short_name' => '7x7'
         ]);
+        CubeCategory::create([
+            'icon_img' => '-',
+            'name' => '3x3x3 Blindfolded',
+            'short_name' => '3x3 Bld'
+        ]);
+        CubeCategory::create([
+            'icon_img' => '-',
+            'name' => '3x3x3 Fewest Moves',
+            'short_name' => '3x3 FMC'
+        ]);
+        CubeCategory::create([
+            'icon_img' => '-',
+            'name' => 'Clock',
+            'short_name' => 'Clock'
+        ]);
+        CubeCategory::create([
+            'icon_img' => '-',
+            'name' => 'Megaminx',
+            'short_name' => 'Megaminx'
+        ]);
+        CubeCategory::create([
+            'icon_img' => '-',
+            'name' => 'Pyraminx',
+            'short_name' => 'Pyraminx'
+        ]);
+        CubeCategory::create([
+            'icon_img' => '-',
+            'name' => 'Skewb',
+            'short_name' => 'Skewb'
+        ]);
+        CubeCategory::create([
+            'icon_img' => '-',
+            'name' => 'Square-1',
+            'short_name' => 'Squan'
+        ]);
+        CubeCategory::create([
+            'icon_img' => '-',
+            'name' => '4x4x4 Blindfolded',
+            'short_name' => '4x4 Bld'
+        ]);
+        CubeCategory::create([
+            'icon_img' => '-',
+            'name' => '5x5x5 Blindfolded',
+            'short_name' => '5x5 Bld'
+        ]);
+        CubeCategory::create([
+            'icon_img' => '-',
+            'name' => '3x3 Multi-Blind',
+            'short_name' => '3x3 MBld'
+        ]);
+        CubeCategory::create([
+            'icon_img' => '-',
+            'name' => 'Mystery Event',
+            'short_name' => 'Mystery'
+        ]);
     }
 }

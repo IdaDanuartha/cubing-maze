@@ -16,8 +16,8 @@ class CreateCubeCategoriesTable extends Migration
         Schema::create('cube_categories', function (Blueprint $table) {
             $table->id();
             $table->string('icon_img', 150);
-            $table->string('name', 15);
-            $table->string('short_name', 10);
+            $table->string('name', 30);
+            $table->string('short_name', 15);
             $table->timestamps();
             $table->softDeletes();
         });

@@ -18,15 +18,28 @@
     <!-- Table Competition Rounds -->
     <div class="table-container">
       <div class="flex justify-between items-center">
-        <h2 class="font-worksans-medium md:text-lg hidden xs:inline-block text-md dark:text-gray-100">
+        <h2
+          class="
+            font-worksans-medium
+            md:text-lg
+            hidden
+            xs:inline-block
+            text-md
+            dark:text-gray-100
+          "
+        >
           Table Competition Rounds
         </h2>
-        <Link href="/admin/competitions/create" class="flex btn btn-create">
+        <button
+          data-bs-toggle="modal"
+          data-bs-target="#createCompRoundModal"
+          class="flex btn btn-create"
+        >
           <div>
             <i class="fa-solid fa-plus mr-2 md:text-lg text-sm"></i>
           </div>
-          <span class="md:text-lg text-sm">Add Round</span></Link
-        >
+          <span class="md:text-lg text-sm">Add Round</span>
+        </button>
       </div>
       <SearchGroup
         v-model:search_query="search_query"
@@ -165,8 +178,17 @@
 
     <!-- Table Competition Items -->
     <div class="table-container my-10">
-            <div class="flex justify-between items-center">
-        <h2 class="font-worksans-medium md:text-lg text-md hidden xs:inline-block dark:text-gray-100">
+      <div class="flex justify-between items-center">
+        <h2
+          class="
+            font-worksans-medium
+            md:text-lg
+            text-md
+            hidden
+            xs:inline-block
+            dark:text-gray-100
+          "
+        >
           Table Competition Scrambles
         </h2>
         <Link href="/admin/competitions/create" class="flex btn btn-create">
@@ -337,10 +359,35 @@
       />
       <Table>
         <template v-slot:columns>
-          <div class="data-head col-span-2 md:col-span-1 pl-[1.125rem]">No</div>
-          <div class="data-head col-span-6 md:col-span-3">Competitor name</div>
-          <div class="data-head col-span-5 hidden md:inline-block">Event</div>
-          <div class="data-head col-span-4 md:col-span-3 text-end"></div>
+          <div
+            class="
+              data-head
+              col-span-2
+              md:col-span-1
+              pl-[1.125rem]
+              2xs:col-span-2
+              xs:text-lg
+              text-xs
+            "
+          >
+            No
+          </div>
+          <div
+            class="
+              data-head
+              col-span-6
+              md:col-span-4
+              2xs:col-span-8
+              xs:text-lg
+              text-xs
+            "
+          >
+            Competitor name
+          </div>
+          <div class="data-head col-span-4 hidden md:inline-block">Event</div>
+          <div
+            class="data-head col-span-4 md:col-span-3 2xs:col-span-2 text-end"
+          ></div>
         </template>
         <template v-slot:rows>
           <div v-if="cuber_competitions.data.length">
@@ -354,6 +401,9 @@
                   <div
                     class="
                       data-column
+                      2xs:col-span-2
+                      xs:text-lg
+                      text-xs
                       col-span-2
                       md:col-span-1
                       pl-[1.125rem]
@@ -368,9 +418,12 @@
                   </div>
                   <div
                     class="
+                      2xs:col-span-8
+                      xs:text-lg
+                      text-xs
                       data-column
                       col-span-6
-                      md:col-span-3
+                      md:col-span-4
                       dark:text-gray-200 dark:font-light
                     "
                   >
@@ -379,13 +432,14 @@
                   <div
                     class="
                       data-column
-                      col-span-5
+                      col-span-4
                       dark:text-gray-200 dark:font-light
                       hidden
                       md:inline-block
                     "
                   >
                     <span
+                      class="text-white"
                       v-for="(
                         category, index
                       ) in comp.cuber_competition_categories"
@@ -402,6 +456,7 @@
                     class="
                       data-column
                       col-span-4
+                      2xs:col-span-2
                       md:col-span-3
                       dark:text-gray-200 dark:font-light
                       flex
@@ -467,6 +522,37 @@
 
       <Pagination :data="competition_rounds" />
     </div>
+
+    <ModalBase modalId="createCompRound" modalTitle="Add New Round" btnName="Add Round" @submit="storeRound">
+      <template v-slot:body>
+        <div class="relative">
+          <input
+            type="text"
+            v-model="payloadCompRound.name"
+            id="name"
+            :class="{ error: errors.name }"
+            class="custom-input peer"
+            placeholder=" "
+          />
+          <label for="name" class="custom-label" :class="{ error: errors.name }"
+            >Round Name</label
+          >
+        </div>
+        <div v-if="errors.name">
+          <p class="text-error">{{ errors.name }}</p>
+        </div>
+        <div class="flex justify-between mt-6 mb-3">
+          <p>Select the event :</p>
+          <a href="#" class="font-worksans-medium underline text-secondary-color">Select all</a>
+        </div>
+        <div class="flex flex-wrap">
+          <button type="button" class="px-3 py-1 flex hover:opacity-80 hover:bg-main-color/5 transition-all duration-300 justify-between mr-2.5 mb-2.5 outline outline-1 outline-main-color/60 rounded-full" v-for="(cube, index) in cube_categories" :key="index" @click="addCubeCategory(cube.id)">
+            <span class="mr-3 text-main-color/80 text-sm relative top-0.5">{{ cube.short_name }}</span>
+            <div><i class="fa-solid fa-plus text-[8px] bg-main-color/80 text-white rounded-full p-0.5 relative -top-0.5"></i></div>
+          </button>
+        </div>
+      </template>
+    </ModalBase>
   </div>
 </template>
 
@@ -476,6 +562,7 @@ import Table from "../../../Components/Admin/TableComponent.vue";
 import Pagination from "../../../Components/PaginationComponent.vue";
 import SearchGroup from "../../../Components/Admin/SearchGroupComponent.vue";
 import TableDropdown from "../../../Components/Admin/TableDropdownComponent.vue";
+import ModalBase from "../../../Components/Admin/ModalBaseComponent.vue";
 import ModalDelete from "../../../Components/Admin/ModalDeleteComponent.vue";
 import { Head, Link } from "@inertiajs/inertia-vue3";
 import { ref, reactive } from "@vue/runtime-core";
@@ -498,12 +585,15 @@ export default {
     SearchGroup,
     Pagination,
     TableDropdown,
+    ModalBase,
     ModalDelete,
   },
 
   //props
   props: {
     session: Object,
+    errors: Object,
+    cube_categories: Object,
     competition_rounds: Object,
     competition_items: Object,
     cuber_competitions: Object,
@@ -514,44 +604,36 @@ export default {
       "" || new URL(document.location).searchParams.get("search_query")
     );
 
-    let payload = reactive({
-      competition_id: "",
+    let cube_categories_arr = ref([])
+
+    let payloadCompRound = reactive({
+      competition_round_id: "",
       name: "",
+      cube_categories: cube_categories_arr,
     });
+
+    const addCubeCategory = (cube_id) => {
+      cube_categories_arr.value.push(cube_id)
+    }
 
     //define method search
     const handleSearch = () => {
       Inertia.get("/admin/competitions", {
-        //send params "q" with value from state "search"
         search_query: search_query.value,
       });
     };
 
-    const detail = (id) => {
-      $.ajax({
-        method: "GET",
-        url: `/admin/competitions/${id}/detail`,
-        success: (response) => {
-          payload.competition_id = response.id;
-          payload.name = response.name;
-        },
-      });
-    };
-
-    const destroy = () => {
-      Inertia.delete(`/admin/competitions/${payload.competition_id}`, {
-        onSuccess: () => {
-          $("#deleteCompetitionModal").modal("hide");
-        },
-      });
+    const storeRound = () => {
+      Inertia.post("/admin/competitions ", payloadCompRound);
     };
 
     return {
       search_query,
       handleSearch,
-      payload,
-      detail,
-      destroy,
+      payloadCompRound,
+      addCubeCategory,
+      storeRound,
+      cube_categories_arr
     };
   },
 };

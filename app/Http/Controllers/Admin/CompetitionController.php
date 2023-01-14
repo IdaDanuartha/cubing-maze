@@ -8,6 +8,7 @@ use App\Http\Requests\Competition\StoreCompetitionRequest;
 use App\Http\Requests\Competition\UpdateCompetitionRequest;
 use App\Models\CompetitionItem;
 use App\Models\CompetitionRound;
+use App\Models\CubeCategory;
 use App\Models\CuberCompetition;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -40,7 +41,9 @@ class CompetitionController extends Controller
             $cuber_competitions = $cuber_competitions->where('competition_id', 'like', '%' . request()->query_cuber_comp . '%');
         })->latest()->where('competition_id', $id)->with(['cuber', 'cuber_competition_categories.cube_category'])->paginate(3);
 
-        return inertia('Admin/Competition/Detail', compact('page_name', 'competition_rounds', 'competition_items', 'cuber_competitions'));
+        $cube_categories = CubeCategory::latest()->get();
+
+        return inertia('Admin/Competition/Detail', compact('page_name', 'competition_rounds', 'competition_items', 'cuber_competitions', 'cube_categories'));
     }
 
     public function create()

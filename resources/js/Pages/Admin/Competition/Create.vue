@@ -212,11 +212,7 @@
         </div>
       </Transition>
       <div v-if="errors.password">
-        <p
-        
-          class="text-error"
-          :class="{ error: errors.password }"
-        >
+        <p class="text-error" :class="{ error: errors.password }">
           {{ errors.password }}
         </p>
       </div>
@@ -251,7 +247,7 @@ export default {
     clickOutside: vClickOutside.directive,
   },
 
-  props: {    
+  props: {
     errors: Object,
   },
 
@@ -317,5 +313,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>
