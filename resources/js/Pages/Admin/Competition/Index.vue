@@ -149,7 +149,13 @@
                           ></i>
                           <span>Edit</span>
                         </Link>
-                        <a href="#" @click="detail(comp.id)" class="dropdown-item">
+                        <a
+                          href="#"
+                          data-bs-toggle="modal"
+                          data-bs-target="#deleteCompetitionModal"
+                          @click="detail(comp.id)"
+                          class="dropdown-item"
+                        >
                           <i
                             class="fa-solid mr-2 relative top-0.5 fa-trash"
                           ></i>
@@ -219,6 +225,7 @@ import ModalDelete from "../../../Components/Admin/ModalDeleteComponent.vue";
 import { Head, Link } from "@inertiajs/inertia-vue3";
 import { ref, reactive } from "@vue/runtime-core";
 import { Inertia } from "@inertiajs/inertia";
+import vClickOutside from "click-outside-vue3";
 
 export default {
   //layout
@@ -233,6 +240,10 @@ export default {
     Pagination,
     TableDropdown,
     ModalDelete,
+  },
+
+  directives: {
+    clickOutside: vClickOutside.directive,
   },
 
   //props

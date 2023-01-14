@@ -11,4 +11,9 @@ class CompetitionEventRound extends Model
 
     protected $table = 'competition_event_rounds';
     protected $guarded = [];
+
+    public function cube_category()
+    {
+        return $this->belongsTo(CubeCategory::class);
+    }
 }

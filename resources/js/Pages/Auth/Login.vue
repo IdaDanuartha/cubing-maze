@@ -1,10 +1,7 @@
 <template>
   <Head>
     <title>Login Administrator - Cubing Maze</title>
-    <meta
-      name="description"
-      description="Halaman untuk login cubingmaze"
-    />
+    <meta name="description" description="Halaman untuk login cubingmaze" />
     <meta
       name="keywords"
       description="login page cubingmaze, halaman login cubingmaze, login administrator"
@@ -100,6 +97,7 @@
                   <input
                     type="checkbox"
                     id="remember_me"
+                    v-model="payload.remember_me"
                     class="w-3 h-3 relative top-[1px]"
                   />
                   <label for="remember_me" class="ml-2 text-xs"
@@ -225,7 +223,7 @@ import LayoutAuth from "../../Layouts/Auth.vue";
 import { Head, Link } from "@inertiajs/inertia-vue3";
 
 //import reactive
-import { reactive } from "vue";
+import { onMounted, reactive } from "vue";
 
 //import inertia adapter
 import { Inertia } from "@inertiajs/inertia";
@@ -249,9 +247,21 @@ export default {
 
   //define composition API
   setup() {
+    
     const payload = reactive({
+      remember_me: "",
       email: "",
       password: "",
+    });
+
+    function getCookie(name) {
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length === 2) return parts.pop().split(";").shift();
+    }
+
+    onMounted(() => {
+      payload.email = getCookie(email);
     });
 
     const submit = () => {

@@ -16,8 +16,16 @@ class LoginController extends Controller
 
     public function login(LoginRequest $request)
     {
-        $user = User::where('email', $request->email)->with('level')->first();
-        if(Auth::attempt($request->validated())) {
+        $user = User::where('email', $request->email)->with('level')->first();        
+        $remember = $request->has('remember_me');        
+
+        if(Auth::attempt($request->validated(), $remember)) {
+            if($remember) {
+                cookie('email', $request->email, 1440);
+            } else {
+                cookie()->forget('email');
+            }
+            
             if($user->level->role === 'Admin') {
                 return redirect()->route('admin.dashboard');
             } else {

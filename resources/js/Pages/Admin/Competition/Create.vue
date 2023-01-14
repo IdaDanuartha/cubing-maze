@@ -317,15 +317,5 @@ export default {
 </script>
 
 <style scoped>
-.v-enter-active,
-.v-leave-active {
-  transform: translateY(0);
-  transition: all 0.3s ease;
-}
 
-.v-enter-from,
-.v-leave-to {
-  opacity: 0;
-  transform: translateY(-20px);
-}
 </style>

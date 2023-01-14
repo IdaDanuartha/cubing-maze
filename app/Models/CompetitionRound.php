@@ -11,4 +11,9 @@ class CompetitionRound extends Model
 
     protected $table = 'competition_rounds';
     protected $guarded = [];
+
+    public function competition_event_rounds()
+    {
+        return $this->hasMany(CompetitionEventRound::class);
+    }
 }
