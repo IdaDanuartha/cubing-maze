@@ -30,15 +30,15 @@ class CompetitionController extends Controller
 
         $competition_rounds = CompetitionRound::when(request()->query_comp_round, function($competition_rounds) {
             $competition_rounds = $competition_rounds->where('round_name', 'like', '%' . request()->query_comp_round . '%');
-        })->latest()->where('competition_id', $id)->with('competition_event_rounds.cube_category')->paginate(5);
+        })->latest()->where('competition_id', $id)->with('competition_event_rounds.cube_category')->paginate(3);
         
         $competition_items = CompetitionItem::when(request()->query_comp_item, function($competition_items) {
             $competition_items = $competition_items->where('competition_id', 'like', '%' . request()->query_comp_item . '%');
-        })->latest()->where('competition_id', $id)->paginate(5);
+        })->latest()->where('competition_id', $id)->with(['competition_round', 'cube_category'])->paginate(3);
 
         $cuber_competitions = CuberCompetition::when(request()->query_cuber_comp, function($cuber_competitions) {
             $cuber_competitions = $cuber_competitions->where('competition_id', 'like', '%' . request()->query_cuber_comp . '%');
-        })->latest()->where('competition_id', $id)->paginate(5);
+        })->latest()->where('competition_id', $id)->with(['cuber', 'cuber_competition_categories.cube_category'])->paginate(3);
 
         return inertia('Admin/Competition/Detail', compact('page_name', 'competition_rounds', 'competition_items', 'cuber_competitions'));
     }

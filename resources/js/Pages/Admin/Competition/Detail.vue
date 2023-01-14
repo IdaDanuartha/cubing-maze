@@ -14,6 +14,8 @@
     <div class="alert-success" v-if="session.success">
       <p class="alert-label-success">{{ session.success }}</p>
     </div>
+
+    <!-- Table Competition Rounds -->
     <div class="table-container">
       <div class="flex justify-between">
         <h2 class="font-worksans-medium text-lg dark:text-gray-100">
@@ -153,6 +155,303 @@
               "
             >
               Competition round data not found
+            </div>
+          </div>
+        </template>
+      </Table>
+
+      <Pagination :data="competition_rounds" />
+    </div>
+
+    <!-- Table Competition Items -->
+    <div class="table-container my-10">
+      <div class="flex justify-between">
+        <h2 class="font-worksans-medium text-lg dark:text-gray-100">
+          Table Competition Scrambles
+        </h2>
+        <Link href="/admin/competitions/create" class="flex btn btn-create">
+          <div>
+            <i class="fa-solid fa-plus mr-2"></i>
+          </div>
+          <span>Add Item</span></Link
+        >
+      </div>
+      <SearchGroup
+        v-model:search_query="search_query"
+        @handle-search="handleSearch"
+      />
+      <Table>
+        <template v-slot:columns>
+          <div class="data-head col-span-2 md:col-span-1 pl-[1.125rem]">No</div>
+          <div class="data-head col-span-6 md:col-span-3">Scramble Image</div>
+          <div class="data-head col-span-5 hidden md:inline-block">Round</div>
+          <div class="data-head col-span-5 hidden md:inline-block">Event</div>
+          <div class="data-head col-span-4 md:col-span-3 text-end"></div>
+        </template>
+        <template v-slot:rows>
+          <div v-if="competition_items.data.length">
+            <TransitionGroup name="table">
+              <div
+                class="table-body"
+                v-for="(comp, i) in competition_items.data"
+                :key="comp.id"
+              >
+                <div class="grid grid-cols-12">
+                  <div
+                    class="
+                      data-column
+                      col-span-2
+                      md:col-span-1
+                      pl-[1.125rem]
+                      dark:text-gray-200 dark:font-light
+                    "
+                  >
+                    {{
+                      ++i +
+                      (competition_items.current_page - 1) *
+                        competition_items.per_page
+                    }}
+                  </div>
+                  <div
+                    class="
+                      data-column
+                      col-span-6
+                      md:col-span-3
+                      dark:text-gray-200 dark:font-light
+                    "
+                  >
+                    <img :src="`/storage/${comp.scramble_img}`" width="40" alt="">
+                  </div>
+                  <div
+                    class="
+                      data-column
+                      col-span-6
+                      md:col-span-3
+                      dark:text-gray-200 dark:font-light
+                    "
+                  >
+                    {{ comp.competition_round.round_name }}
+                  </div>
+                  <div
+                    class="
+                      data-column
+                      col-span-6
+                      md:col-span-3
+                      dark:text-gray-200 dark:font-light
+                    "
+                  >
+                    {{ comp.cube_category.name }}
+                  </div>
+                  <div
+                    class="
+                      data-column
+                      col-span-4
+                      md:col-span-3
+                      dark:text-gray-200 dark:font-light
+                      flex
+                      justify-end
+                    "
+                  >
+                    <TableDropdown>
+                      <template v-slot:dropdown_item>
+                        <Link
+                          :href="'/admin/competitions/' + comp.id + '/edit'"
+                          class="dropdown-item"
+                        >
+                          <i
+                            class="fa-solid mr-2 relative top-0.5 fa-pencil"
+                          ></i>
+                          <span>Edit</span>
+                        </Link>
+                        <a
+                          href="#"
+                          @click="detail(comp.id)"
+                          class="dropdown-item"
+                        >
+                          <i
+                            class="fa-solid mr-2 relative top-0.5 fa-trash"
+                          ></i>
+                          <span>Remove</span>
+                        </a>
+                      </template>
+                    </TableDropdown>
+                    <Link
+                      :href="'/admin/competitions/' + comp.id + '/edit'"
+                      class="hidden sm:inline-block icon edit-icon mr-4"
+                    >
+                      <img src="/assets/img/icon/edit.svg" alt="" />
+                    </Link>
+                    <div
+                      class="hidden sm:inline-block icon delete-icon"
+                      data-bs-toggle="modal"
+                      data-bs-target="#deleteCompetitionModal"
+                      @click="detail(comp.id)"
+                    >
+                      <img src="/assets/img/icon/delete.svg" alt="" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </TransitionGroup>
+          </div>
+          <div class="table-body" v-else>
+            <div
+              class="
+                data-column
+                col-span-12
+                text-center text-gray-600
+                dark:text-gray-400
+              "
+            >
+              Competition scramble data not found
+            </div>
+          </div>
+        </template>
+      </Table>
+
+      <Pagination :data="competition_rounds" />
+    </div>
+
+    <!-- Table Cuber Competitions -->
+    <div class="table-container my-10">
+      <div class="flex justify-between">
+        <h2 class="font-worksans-medium text-lg dark:text-gray-100">
+          Table Competitors
+        </h2>
+        <Link href="/admin/competitions/create" class="flex btn btn-create">
+          <div>
+            <i class="fa-solid fa-plus mr-2"></i>
+          </div>
+          <span>Add Round</span></Link
+        >
+      </div>
+      <SearchGroup
+        v-model:search_query="search_query"
+        @handle-search="handleSearch"
+      />
+      <Table>
+        <template v-slot:columns>
+          <div class="data-head col-span-2 md:col-span-1 pl-[1.125rem]">No</div>
+          <div class="data-head col-span-6 md:col-span-3">Competitor name</div>
+          <div class="data-head col-span-5 hidden md:inline-block">Event</div>
+          <div class="data-head col-span-4 md:col-span-3 text-end"></div>
+        </template>
+        <template v-slot:rows>
+          <div v-if="cuber_competitions.data.length">
+            <TransitionGroup name="table">
+              <div
+                class="table-body"
+                v-for="(comp, i) in cuber_competitions.data"
+                :key="comp.id"
+              >
+                <div class="grid grid-cols-12">
+                  <div
+                    class="
+                      data-column
+                      col-span-2
+                      md:col-span-1
+                      pl-[1.125rem]
+                      dark:text-gray-200 dark:font-light
+                    "
+                  >
+                    {{
+                      ++i +
+                      (cuber_competitions.current_page - 1) *
+                        cuber_competitions.per_page
+                    }}
+                  </div>
+                  <div
+                    class="
+                      data-column
+                      col-span-6
+                      md:col-span-3
+                      dark:text-gray-200 dark:font-light
+                    "
+                  >
+                    {{ comp.cuber.name }}
+                  </div>
+                  <div
+                    class="
+                      data-column
+                      col-span-5
+                      dark:text-gray-200 dark:font-light
+                      hidden
+                      md:inline-block
+                    "
+                  >
+                    <span
+                      v-for="(category, index) in comp.cuber_competition_categories"
+                      :key="index"
+                    >
+                      {{
+                        index == comp.cuber_competition_categories.length - 1
+                          ? category.cube_category.short_name
+                          : category.cube_category.short_name + ", "
+                      }}
+                    </span>
+                  </div>
+                  <div
+                    class="
+                      data-column
+                      col-span-4
+                      md:col-span-3
+                      dark:text-gray-200 dark:font-light
+                      flex
+                      justify-end
+                    "
+                  >
+                    <TableDropdown>
+                      <template v-slot:dropdown_item>
+                        <Link
+                          :href="'/admin/competitions/' + comp.id + '/edit'"
+                          class="dropdown-item"
+                        >
+                          <i
+                            class="fa-solid mr-2 relative top-0.5 fa-pencil"
+                          ></i>
+                          <span>Edit</span>
+                        </Link>
+                        <a
+                          href="#"
+                          @click="detail(comp.id)"
+                          class="dropdown-item"
+                        >
+                          <i
+                            class="fa-solid mr-2 relative top-0.5 fa-trash"
+                          ></i>
+                          <span>Remove</span>
+                        </a>
+                      </template>
+                    </TableDropdown>
+                    <Link
+                      :href="'/admin/competitions/' + comp.id + '/edit'"
+                      class="hidden sm:inline-block icon edit-icon mr-4"
+                    >
+                      <img src="/assets/img/icon/edit.svg" alt="" />
+                    </Link>
+                    <div
+                      class="hidden sm:inline-block icon delete-icon"
+                      data-bs-toggle="modal"
+                      data-bs-target="#deleteCompetitionModal"
+                      @click="detail(comp.id)"
+                    >
+                      <img src="/assets/img/icon/delete.svg" alt="" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </TransitionGroup>
+          </div>
+          <div class="table-body" v-else>
+            <div
+              class="
+                data-column
+                col-span-12
+                text-center text-gray-600
+                dark:text-gray-400
+              "
+            >
+              Competitor data not found
             </div>
           </div>
         </template>

@@ -11,4 +11,9 @@ class CuberCompetitionCategory extends Model
 
     protected $table = 'cuber_competition_categories';
     protected $guarded = [];
+
+    public function cube_category()
+    {
+        return $this->belongsTo(CubeCategory::class);
+    }
 }

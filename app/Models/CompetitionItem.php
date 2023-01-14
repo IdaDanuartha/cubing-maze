@@ -11,4 +11,14 @@ class CompetitionItem extends Model
 
     protected $table = 'competition_items';
     protected $guarded = [];
+
+    public function competition_round()
+    {
+        return $this->belongsTo(CompetitionRound::class);
+    }
+
+    public function cube_category()
+    {
+        return $this->belongsTo(CubeCategory::class);
+    }
 }

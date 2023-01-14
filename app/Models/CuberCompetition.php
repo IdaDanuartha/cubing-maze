@@ -11,4 +11,14 @@ class CuberCompetition extends Model
 
     protected $table = 'cuber_competitions';
     protected $guarded = [];
+
+    public function cuber()
+    {
+        return $this->belongsTo(Cuber::class);
+    }
+
+    public function cuber_competition_categories()
+    {
+        return $this->hasMany(CuberCompetitionCategory::class);
+    }
 }
