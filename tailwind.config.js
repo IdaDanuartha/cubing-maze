@@ -22,7 +22,11 @@ module.exports = {
         'third-color': '#3282B8',
         'fourth-color': '#BBE1FA',
       },
-    }
+      screens: {
+        'xs': '475px',
+        '2xs': '320px',
+      }
+    },
   },
   plugins: [
     require('tw-elements/dist/plugin')

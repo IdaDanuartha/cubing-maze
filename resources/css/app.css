@@ -141,11 +141,11 @@
   }
 
   .input-search {
-    @apply outline-none bg-transparent font-normal min-w-full placeholder:text-third-color/70 text-third-color/70;
+    @apply outline-none bg-transparent font-normal sm:mb-0 mb-2 min-w-full placeholder:text-third-color/70 text-third-color/70;
   }
 
   .select-option {
-    @apply relative;
+    @apply relative hidden sm:inline-block;
   }
 
   .display-text {

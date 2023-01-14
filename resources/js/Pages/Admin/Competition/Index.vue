@@ -15,15 +15,15 @@
       <p class="alert-label-success">{{ session.success }}</p>
     </div>
     <div class="table-container">
-      <div class="flex justify-between">
-        <h2 class="font-worksans-medium text-lg dark:text-gray-100">
+      <div class="flex justify-between items-center">
+        <h2 class="font-worksans-medium md:text-lg hidden xs:inline-block text-md dark:text-gray-100">
           Table Competitions
         </h2>
         <Link href="/admin/competitions/create" class="flex btn btn-create">
           <div>
-            <i class="fa-solid fa-plus mr-2"></i>
+            <i class="fa-solid fa-plus mr-2 md:text-lg text-sm"></i>
           </div>
-          <span>Add Competition</span></Link
+          <span class="md:text-lg text-sm">Add Competition</span></Link
         >
       </div>
       <SearchGroup

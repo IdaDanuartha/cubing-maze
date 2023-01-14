@@ -17,15 +17,15 @@
 
     <!-- Table Competition Rounds -->
     <div class="table-container">
-      <div class="flex justify-between">
-        <h2 class="font-worksans-medium text-lg dark:text-gray-100">
+      <div class="flex justify-between items-center">
+        <h2 class="font-worksans-medium md:text-lg hidden xs:inline-block text-md dark:text-gray-100">
           Table Competition Rounds
         </h2>
         <Link href="/admin/competitions/create" class="flex btn btn-create">
           <div>
-            <i class="fa-solid fa-plus mr-2"></i>
+            <i class="fa-solid fa-plus mr-2 md:text-lg text-sm"></i>
           </div>
-          <span>Add Round</span></Link
+          <span class="md:text-lg text-sm">Add Round</span></Link
         >
       </div>
       <SearchGroup
@@ -165,15 +165,15 @@
 
     <!-- Table Competition Items -->
     <div class="table-container my-10">
-      <div class="flex justify-between">
-        <h2 class="font-worksans-medium text-lg dark:text-gray-100">
+            <div class="flex justify-between items-center">
+        <h2 class="font-worksans-medium md:text-lg text-md hidden xs:inline-block dark:text-gray-100">
           Table Competition Scrambles
         </h2>
         <Link href="/admin/competitions/create" class="flex btn btn-create">
           <div>
-            <i class="fa-solid fa-plus mr-2"></i>
+            <i class="fa-solid fa-plus mr-2 md:text-lg text-sm"></i>
           </div>
-          <span>Add Item</span></Link
+          <span class="md:text-lg text-sm">Add Scramble</span></Link
         >
       </div>
       <SearchGroup
@@ -183,10 +183,16 @@
       <Table>
         <template v-slot:columns>
           <div class="data-head col-span-2 md:col-span-1 pl-[1.125rem]">No</div>
-          <div class="data-head col-span-6 md:col-span-3">Scramble Image</div>
-          <div class="data-head col-span-5 hidden md:inline-block">Round</div>
-          <div class="data-head col-span-5 hidden md:inline-block">Event</div>
-          <div class="data-head col-span-4 md:col-span-3 text-end"></div>
+          <div class="data-head col-span-8 sm:col-span-4 md:col-span-3">
+            Scramble Image
+          </div>
+          <div
+            class="data-head md:col-span-3 col-span-4 hidden sm:inline-block"
+          >
+            Round
+          </div>
+          <div class="data-head col-span-3 hidden md:inline-block">Event</div>
+          <div class="data-head col-span-2 text-end"></div>
         </template>
         <template v-slot:rows>
           <div v-if="competition_items.data.length">
@@ -215,18 +221,25 @@
                   <div
                     class="
                       data-column
-                      col-span-6
+                      col-span-8
+                      sm:col-span-4
                       md:col-span-3
                       dark:text-gray-200 dark:font-light
                     "
                   >
-                    <img :src="`/storage/${comp.scramble_img}`" width="40" alt="">
+                    <img
+                      :src="`/storage/${comp.scramble_img}`"
+                      width="40"
+                      alt=""
+                    />
                   </div>
                   <div
                     class="
                       data-column
-                      col-span-6
+                      col-span-4
                       md:col-span-3
+                      hidden
+                      sm:inline-block
                       dark:text-gray-200 dark:font-light
                     "
                   >
@@ -237,6 +250,8 @@
                       data-column
                       col-span-6
                       md:col-span-3
+                      hidden
+                      md:inline-block
                       dark:text-gray-200 dark:font-light
                     "
                   >
@@ -245,8 +260,7 @@
                   <div
                     class="
                       data-column
-                      col-span-4
-                      md:col-span-3
+                      col-span-2
                       dark:text-gray-200 dark:font-light
                       flex
                       justify-end
@@ -314,17 +328,9 @@
 
     <!-- Table Cuber Competitions -->
     <div class="table-container my-10">
-      <div class="flex justify-between">
-        <h2 class="font-worksans-medium text-lg dark:text-gray-100">
-          Table Competitors
-        </h2>
-        <Link href="/admin/competitions/create" class="flex btn btn-create">
-          <div>
-            <i class="fa-solid fa-plus mr-2"></i>
-          </div>
-          <span>Add Round</span></Link
-        >
-      </div>
+      <h2 class="font-worksans-medium md:text-lg text-md dark:text-gray-100">
+        Table Competitors
+      </h2>
       <SearchGroup
         v-model:search_query="search_query"
         @handle-search="handleSearch"
@@ -380,7 +386,9 @@
                     "
                   >
                     <span
-                      v-for="(category, index) in comp.cuber_competition_categories"
+                      v-for="(
+                        category, index
+                      ) in comp.cuber_competition_categories"
                       :key="index"
                     >
                       {{
