@@ -523,7 +523,12 @@
       <Pagination :data="competition_rounds" />
     </div>
 
-    <ModalBase modalId="createCompRound" modalTitle="Add New Round" btnName="Add Round" @submit="storeRound">
+    <ModalBase
+      modalId="createCompRound"
+      modalTitle="Add New Round"
+      btnName="Add Round"
+      @submit="storeRound"
+    >
       <template v-slot:body>
         <div class="relative">
           <input
@@ -543,12 +548,54 @@
         </div>
         <div class="flex justify-between mt-6 mb-3">
           <p>Select the event :</p>
-          <a href="#" class="font-worksans-medium underline text-secondary-color">Select all</a>
+          <a
+            href="#"
+            @click.prevent="selectAllEvent"
+            class="font-worksans-medium underline text-secondary-color"
+            >Select all</a
+          >
         </div>
         <div class="flex flex-wrap">
-          <button type="button" class="px-3 py-1 flex hover:opacity-80 hover:bg-main-color/5 transition-all duration-300 justify-between mr-2.5 mb-2.5 outline outline-1 outline-main-color/60 rounded-full" v-for="(cube, index) in cube_categories" :key="index" @click="addCubeCategory(cube.id)">
-            <span class="mr-3 text-main-color/80 text-sm relative top-0.5">{{ cube.short_name }}</span>
-            <div><i class="fa-solid fa-plus text-[8px] bg-main-color/80 text-white rounded-full p-0.5 relative -top-0.5"></i></div>
+          <button
+            type="button"
+            class="select-event-btn"
+            :class="selectAll ? 'active':'' || eventSelected.filter(ev => ev.id == cube.id)"
+            v-for="(cube, index) in cube_categories"
+            :key="index"
+            @click="addEvent(cube.id)"
+          >
+            <span class="mr-3 text-main-color/80 text-sm relative top-0.5">{{
+              cube.short_name
+            }}</span>
+            <div>
+              <i
+                class="
+                  fa-solid fa-plus
+                  text-[8px]
+                  bg-main-color/80
+                  text-white
+                  rounded-full
+                  p-0.5
+                  relative
+                  -top-0.5
+                "
+                :class="selectAll ? 'hidden' : 'inline-block'"
+              ></i>
+              <i
+                class="
+                  fa-solid fa-xmark
+                  text-[8px]
+                  bg-main-color/80
+                  text-white
+                  rounded-full
+                  py-0.5
+                  px-1
+                  relative
+                  -top-0.5
+                "
+                :class="selectAll ? 'inline-block' : 'hidden'"
+              ></i>
+            </div>
           </button>
         </div>
       </template>
@@ -604,17 +651,23 @@ export default {
       "" || new URL(document.location).searchParams.get("search_query")
     );
 
-    let cube_categories_arr = ref([])
+    let selectAll = ref(false);
+    let eventSelected = reactive([])
 
     let payloadCompRound = reactive({
       competition_round_id: "",
       name: "",
-      cube_categories: cube_categories_arr,
+      cube_categories: eventSelected,
     });
 
-    const addCubeCategory = (cube_id) => {
-      cube_categories_arr.value.push(cube_id)
-    }
+    const addEvent = (cube_id) => {
+      eventSelected.push({'id': cube_id, 'active': true});
+    };
+
+    const selectAllEvent = () => {
+      // eventSelected = []
+      selectAll.value = !selectAll.value;
+    };
 
     //define method search
     const handleSearch = () => {
@@ -631,13 +684,30 @@ export default {
       search_query,
       handleSearch,
       payloadCompRound,
-      addCubeCategory,
+      addEvent,
       storeRound,
-      cube_categories_arr
+      eventSelected,
+      selectAll,
+      selectAllEvent,
     };
   },
 };
 </script>
 
 <style scoped>
+.select-event-btn {
+  @apply px-3 py-1 flex hover:opacity-80 hover:bg-main-color/5 transition-all duration-300 justify-between mr-2.5 mb-2.5 border border-main-color/60 rounded-full;
+}
+
+.select-event-btn.active {
+  @apply bg-third-color border-third-color;
+}
+
+.select-event-btn.active span {
+  @apply text-white;
+}
+
+.select-event-btn.active i {
+  @apply bg-white text-third-color;
+}
 </style>
