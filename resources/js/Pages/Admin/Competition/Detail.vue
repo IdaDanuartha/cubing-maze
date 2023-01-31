@@ -562,7 +562,7 @@
             :class="selectAll ? 'active':'' || eventSelected.filter(ev => ev.id == cube.id)"
             v-for="(cube, index) in cube_categories"
             :key="index"
-            @click="addEvent(cube.id)"
+            @click="toggleEvent(cube.id)"
           >
             <span class="mr-3 text-main-color/80 text-sm relative top-0.5">{{
               cube.short_name
@@ -578,10 +578,9 @@
                   p-0.5
                   relative
                   -top-0.5
-                "
-                :class="selectAll ? 'hidden' : 'inline-block'"
+                "                
               ></i>
-              <i
+              <!-- <i
                 class="
                   fa-solid fa-xmark
                   text-[8px]
@@ -592,9 +591,8 @@
                   px-1
                   relative
                   -top-0.5
-                "
-                :class="selectAll ? 'inline-block' : 'hidden'"
-              ></i>
+                "                
+              ></i> -->
             </div>
           </button>
         </div>
@@ -660,8 +658,9 @@ export default {
       cube_categories: eventSelected,
     });
 
-    const addEvent = (cube_id) => {
+    const toggleEvent = (index, cube_id) => {     
       eventSelected.push({'id': cube_id, 'active': true});
+      // console.log(eventSelected)
     };
 
     const selectAllEvent = () => {
@@ -684,7 +683,7 @@ export default {
       search_query,
       handleSearch,
       payloadCompRound,
-      addEvent,
+      toggleEvent,
       storeRound,
       eventSelected,
       selectAll,
