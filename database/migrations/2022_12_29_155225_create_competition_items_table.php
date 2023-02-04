@@ -19,6 +19,7 @@ class CreateCompetitionItemsTable extends Migration
             $table->bigInteger('competition_round_id');
             $table->bigInteger('cube_category_id');
             $table->string('scramble_img', 150);
+            $table->date('date');
             $table->timestamps();
             $table->softDeletes();
         });

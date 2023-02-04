@@ -196,12 +196,16 @@
         >
           Table Competition Scrambles
         </h2>
-        <Link href="/admin/competitions/create" class="flex btn btn-create">
+        <button
+          data-bs-toggle="modal"
+          data-bs-target="#createCompItemModal"
+          class="flex btn btn-create"
+        >
           <div>
             <i class="fa-solid fa-plus mr-2 md:text-lg text-sm"></i>
           </div>
-          <span class="md:text-lg text-sm">Add Scramble</span></Link
-        >
+          <span class="md:text-lg text-sm">Add Scramble</span>
+        </button>
       </div>
       <SearchGroup
         v-model:search_query="search_query"
@@ -679,7 +683,6 @@
         </div>
       </template>
     </ModalBase>
-
     <!-- Delete Competition Round -->
     <ModalDelete
       modalId="deleteCompRound"
@@ -687,6 +690,101 @@
       :modalData="payloadCompRound.round_name"
       @destroy="destroyRound"
     />
+
+    <!-- Create competition scramble -->
+    <ModalBase
+      modalId="createCompItem"
+      modalTitle="Add New Item"
+      btnName="Add Item"
+      @submit="storeItem"
+    >
+      <template v-slot:body>
+        <div class="relative select-group mb-5">
+          <div
+            class="relative"
+            @click.prevent="handleSelectDropdown('round')"
+            v-click-outside="onClickOutside"
+          >
+            <input
+              type="text"
+              id="type"
+              class="custom-input cursor-pointer peer"
+              disabled
+              :value="currentRound"
+              placeholder=" "
+            />
+            <label for="type" class="custom-label">Round</label>
+            <i
+              class="fa-solid fa-chevron-down"
+              :class="{ active: activeSelectRound }"
+            ></i>
+          </div>
+          <div class="select-dropdown" :class="{ active: activeSelectRound }">
+            <div
+              v-for="round in competition_rounds.data"
+              :key="round.id"
+              class="select-item"
+              @click="selectRound(round.id, round.round_name)"
+            >
+              <p>{{ round.round_name }}</p>
+            </div>
+          </div>
+        </div>
+        <div v-if="errors.competition_round_id">
+          <p class="text-error">{{ errors.competition_round_id }}</p>
+        </div>
+        <div class="relative select-group mb-5">
+          <div
+            class="relative"
+            @click.prevent="handleSelectDropdown('event')"
+            v-click-outside="onClickOutside"
+          >
+            <input
+              type="text"
+              id="type"
+              class="custom-input cursor-pointer peer"
+              disabled
+              :value="currentEvent"
+              placeholder=" "
+            />
+            <label for="type" class="custom-label">Event</label>
+            <i
+              class="fa-solid fa-chevron-down"
+              :class="{ active: activeSelectEvent }"
+            ></i>
+          </div>
+          <div class="select-dropdown" :class="{ active: activeSelectEvent }">
+            <div
+              v-for="cube in cube_categories"
+              :key="cube.id"
+              class="select-item"
+              @click="selectEvent(cube.id, cube.name)"
+            >
+              <p>{{ cube.short_name }}</p>
+            </div>
+          </div>
+        </div>
+        <div v-if="errors.cube_category_id">
+          <p class="text-error">{{ errors.cube_category_id }}</p>
+        </div>
+        <div class="relative mb-5">
+          <input
+            type="text"
+            v-model="payloadCompItem.date"
+            id="name"
+            :class="{ error: errors.date }"
+            class="custom-input peer"
+            placeholder=" "
+          />
+          <label for="name" class="custom-label" :class="{ error: errors.date }"
+            >Date</label
+          >
+        </div>
+        <div v-if="errors.date">
+          <p class="text-error">{{ errors.date }}</p>
+        </div>
+      </template>
+    </ModalBase>
   </div>
 </template>
 
@@ -739,14 +837,28 @@ export default {
       "" || new URL(document.location).searchParams.get("search_query")
     );
 
+    let scramble_img_url = ref();
     let selectAll = ref(false);
     let eventSelected = reactive([]);
+    let activeSelectRound = ref(false);
+    let activeSelectEvent = ref(false);
+    let currentRound = ref("Select round");
+    let currentEvent = ref("Select event");
 
     let payloadCompRound = reactive({
       competition_round_id: "",
       competition_id: props.competition_id,
       round_name: "",
       cube_categories: eventSelected,
+    });
+
+    let payloadCompItem = reactive({
+      competition_id: props.competition_id,
+      competition_item_id: "",
+      competition_round_id: "",
+      cube_category_id: "",
+      scramble_img: "",
+      date: "",
     });
 
     const toggleEvent = (cube_id) => {
@@ -832,10 +944,36 @@ export default {
       );
     };
 
+    const handleSelectDropdown = (type) => {
+      if (type === "round") {
+        activeSelectRound.value = !activeSelectRound.value;
+      } else if (type === "event") {
+        activeSelectEvent.value = !activeSelectEvent.value;
+      }
+    };
+
+    const onClickOutside = () => {
+        // activeSelectRound.value = false;
+        // activeSelectEvent.value = false;
+    };
+
+    const selectRound = (id, name) => {
+      currentRound.value = name;
+      payloadCompItem.competition_round_id = id;
+      activeSelectRound.value = false
+    };
+
+    const selectEvent = (id, name) => {
+      currentEvent.value = name;
+      payloadCompItem.cube_category_id = id;
+      activeSelectEvent.value = false
+    };
+
     return {
       search_query,
       handleSearch,
       payloadCompRound,
+      payloadCompItem,
       toggleEvent,
       eventSelected,
       selectAllEvent,
@@ -843,6 +981,14 @@ export default {
       editRound,
       updateRound,
       destroyRound,
+      activeSelectRound,
+      activeSelectEvent,
+      handleSelectDropdown,
+      selectRound,
+      selectEvent,
+      currentRound,
+      currentEvent,
+      onClickOutside,
     };
   },
 };

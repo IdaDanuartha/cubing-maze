@@ -161,7 +161,7 @@
   }
 
   .select-option .option-group.active {
-    @apply inline-block opacity-100 translate-y-0 z-10;
+    @apply inline-block opacity-100 -translate-y-0 z-10;
   }
 
   .select-option .option-item p {
@@ -169,7 +169,7 @@
   }
 
   .select-dropdown {
-    @apply bg-white dark:bg-main-color dark:border-gray-400 border border-main-color/30 absolute top-16 rounded-lg w-full transition-all duration-300 opacity-0 -z-10 -translate-y-3;
+    @apply bg-white dark:bg-main-color dark:border-gray-400 border border-main-color/30 absolute top-14 rounded-lg w-full transition-all duration-300 opacity-0 -z-10 -translate-y-3;
   }
 
   .select-dropdown .select-item p {
