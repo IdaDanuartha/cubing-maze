@@ -334,8 +334,8 @@
                     <button
                       class="hidden sm:inline-block icon delete-icon"
                       data-bs-toggle="modal"
-                          data-bs-target="#deleteCompItemModal"                          
-                          @click="editItem(comp.id)"
+                      data-bs-target="#deleteCompItemModal"
+                      @click="editItem(comp.id)"
                     >
                       <img src="/assets/img/icon/delete.svg" alt="" />
                     </button>
@@ -359,7 +359,7 @@
         </template>
       </Table>
 
-      <Pagination :data="competition_rounds" />
+      <Pagination :data="competition_items" />
     </div>
 
     <!-- Table Cuber Competitions -->
@@ -534,7 +534,7 @@
         </template>
       </Table>
 
-      <Pagination :data="competition_rounds" />
+      <Pagination :data="cuber_competitions" />
     </div>
 
     <!-- Create competition round -->
@@ -545,6 +545,9 @@
       @submit="storeRound"
     >
       <template v-slot:body>
+        <div class="alert-error -ml-2" v-if="session.error">
+          <p class="alert-label-error">{{ session.error }}</p>
+        </div>
         <div class="relative">
           <input
             type="text"
@@ -569,7 +572,12 @@
           <a
             href="#"
             @click.prevent="selectAllEvent(cube_categories)"
-            class="font-worksans-medium underline text-secondary-color dark:text-third-color"
+            class="
+              font-worksans-medium
+              underline
+              text-secondary-color
+              dark:text-third-color
+            "
             >Select all</a
           >
         </div>
@@ -582,7 +590,16 @@
             :key="index"
             @click="toggleEvent(cube.id)"
           >
-            <span class="mr-3 text-main-color/80 dark:text-gray-200 text-sm relative top-0.5">
+            <span
+              class="
+                mr-3
+                text-main-color/80
+                dark:text-gray-200
+                text-sm
+                relative
+                top-0.5
+              "
+            >
               {{ cube.short_name }}</span
             >
             <div>
@@ -590,7 +607,7 @@
                 class="
                   fa-solid fa-plus
                   text-[8px]
-                  bg-main-color/80                  
+                  bg-main-color/80
                   text-white
                   rounded-full
                   p-0.5
@@ -627,6 +644,9 @@
       @submit="updateRound"
     >
       <template v-slot:body>
+        <div class="alert-error -ml-2" v-if="session.error">
+          <p class="alert-label-error">{{ session.error }}</p>
+        </div>
         <div class="relative">
           <input
             type="text"
@@ -651,7 +671,12 @@
           <a
             href="#"
             @click.prevent="selectAllEvent(cube_categories)"
-            class="font-worksans-medium underline text-secondary-color dark:text-third-color"
+            class="
+              font-worksans-medium
+              underline
+              text-secondary-color
+              dark:text-third-color
+            "
             >Select all</a
           >
         </div>
@@ -664,7 +689,16 @@
             :key="index"
             @click="toggleEvent(cube.id)"
           >
-            <span class="mr-3 text-main-color/80 dark:text-gray-200 text-sm relative top-0.5">
+            <span
+              class="
+                mr-3
+                text-main-color/80
+                dark:text-gray-200
+                text-sm
+                relative
+                top-0.5
+              "
+            >
               {{ cube.short_name }}</span
             >
             <div>
@@ -691,7 +725,7 @@
     <!-- Delete Competition Round -->
     <ModalDelete
       modalId="deleteCompRound"
-      modalTitle="Competition"
+      modalTitle="Competition Round"
       :modalData="payloadCompRound.round_name"
       @destroy="destroyRound"
     />
@@ -704,8 +738,8 @@
       @submit="storeItem"
     >
       <template v-slot:body>
-        <div class="alert-danger" v-if="session.error">
-          <p class="alert-label-danger">{{ session.error }}</p>
+        <div class="alert-error -ml-2" v-if="session.error">
+          <p class="alert-label-error">{{ session.error }}</p>
         </div>
         <div class="relative select-group mb-5">
           <div
@@ -841,8 +875,8 @@
       @submit="updateItem"
     >
       <template v-slot:body>
-        <div class="alert-danger" v-if="session.error">
-          <p class="alert-label-danger">{{ session.error }}</p>
+        <div class="alert-error -ml-2" v-if="session.error">
+          <p class="alert-label-error">{{ session.error }}</p>
         </div>
         <div class="relative select-group mb-5">
           <div
@@ -974,6 +1008,13 @@
         </div>
       </template>
     </ModalBase>
+    <!-- Delete competition scramble -->
+    <ModalDelete
+      modalId="deleteCompItem"
+      modalTitle="Competition Scramble"
+      :modalData="'this scramble'"
+      @destroy="destroyItem"
+    />
   </div>
 </template>
 
@@ -1189,14 +1230,15 @@ export default {
         method: "GET",
         url: `/admin/competitions/items/${id}/edit`,
         success: (response) => {
-          payloadCompItem.competition_item_id = response[0].competition_item_id;
-          payloadCompItem.competition_round_id = response[0].competition_round_id;
+          payloadCompItem.competition_item_id = response[0].id;
+          payloadCompItem.competition_round_id =
+            response[0].competition_round_id;
           payloadCompItem.cube_category_id = response[0].cube_category_id;
           payloadCompItem.scramble_img = response[0].scramble_img;
           payloadCompItem.date = response[0].date;
 
-          currentRound.value = response[1].round_name
-          currentEvent.value = response[2].name
+          currentRound.value = response[1].round_name;
+          currentEvent.value = response[2].name;
         },
       });
     };
@@ -1207,7 +1249,6 @@ export default {
         {
           _method: "put",
           competition_id: payloadCompItem.competition_id,
-          competition_item_id: payloadCompItem.competition_item_id,
           competition_round_id: payloadCompItem.competition_round_id,
           cube_category_id: payloadCompItem.cube_category_id,
           date: payloadCompItem.date,
@@ -1216,8 +1257,21 @@ export default {
         {
           onSuccess: () => {
             if (props.session.success) {
-              $("#updateCompItemModal").modal("hide");
+              $("#editCompItemModal").modal("hide");
               resetItem();
+            }
+          },
+        }
+      );
+    };
+
+    const destroyItem = () => {
+      Inertia.delete(
+        `/admin/competitions/items/${payloadCompItem.competition_item_id}`,
+        {
+          onSuccess: () => {
+            if (props.session.success) {
+              $("#deleteCompItemModal").modal("hide");
             }
           },
         }
@@ -1249,6 +1303,7 @@ export default {
       storeItem,
       editItem,
       updateItem,
+      destroyItem,
     };
   },
 };
