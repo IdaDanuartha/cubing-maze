@@ -299,41 +299,46 @@
                   >
                     <TableDropdown>
                       <template v-slot:dropdown_item>
-                        <Link
-                          :href="'/admin/competitions/' + comp.id + '/edit'"
+                        <button
+                          data-bs-toggle="modal"
+                          data-bs-target="#editCompItemModal"
                           class="dropdown-item"
+                          @click="editItem(comp.id)"
                         >
                           <i
                             class="fa-solid mr-2 relative top-0.5 fa-pencil"
                           ></i>
                           <span>Edit</span>
-                        </Link>
-                        <a
-                          href="#"
-                          @click="detail(comp.id)"
+                        </button>
+                        <button
+                          data-bs-toggle="modal"
+                          data-bs-target="#deleteCompItemModal"
                           class="dropdown-item"
+                          @click="editItem(comp.id)"
                         >
                           <i
                             class="fa-solid mr-2 relative top-0.5 fa-trash"
                           ></i>
                           <span>Remove</span>
-                        </a>
+                        </button>
                       </template>
                     </TableDropdown>
-                    <Link
-                      :href="'/admin/competitions/' + comp.id + '/edit'"
+                    <button
+                      data-bs-toggle="modal"
+                      data-bs-target="#editCompItemModal"
+                      @click="editItem(comp.id)"
                       class="hidden sm:inline-block icon edit-icon mr-4"
                     >
                       <img src="/assets/img/icon/edit.svg" alt="" />
-                    </Link>
-                    <div
+                    </button>
+                    <button
                       class="hidden sm:inline-block icon delete-icon"
                       data-bs-toggle="modal"
-                      data-bs-target="#deleteCompetitionModal"
-                      @click="detail(comp.id)"
+                          data-bs-target="#deleteCompItemModal"                          
+                          @click="editItem(comp.id)"
                     >
                       <img src="/assets/img/icon/delete.svg" alt="" />
-                    </div>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -560,11 +565,11 @@
           <p class="text-error">{{ errors.round_name }}</p>
         </div>
         <div class="flex justify-between mt-6 mb-3">
-          <p>Select the event :</p>
+          <p class="dark:text-gray-200 text-main-color">Select the event :</p>
           <a
             href="#"
             @click.prevent="selectAllEvent(cube_categories)"
-            class="font-worksans-medium underline text-secondary-color"
+            class="font-worksans-medium underline text-secondary-color dark:text-third-color"
             >Select all</a
           >
         </div>
@@ -577,7 +582,7 @@
             :key="index"
             @click="toggleEvent(cube.id)"
           >
-            <span class="mr-3 text-main-color/80 text-sm relative top-0.5">
+            <span class="mr-3 text-main-color/80 dark:text-gray-200 text-sm relative top-0.5">
               {{ cube.short_name }}</span
             >
             <div>
@@ -585,7 +590,7 @@
                 class="
                   fa-solid fa-plus
                   text-[8px]
-                  bg-main-color/80
+                  bg-main-color/80                  
                   text-white
                   rounded-full
                   p-0.5
@@ -642,11 +647,11 @@
           <p class="text-error">{{ errors.round_name }}</p>
         </div>
         <div class="flex justify-between mt-6 mb-3">
-          <p>Select the event :</p>
+          <p class="dark:text-gray-200 text-main-color">Select the event :</p>
           <a
             href="#"
             @click.prevent="selectAllEvent(cube_categories)"
-            class="font-worksans-medium underline text-secondary-color"
+            class="font-worksans-medium underline text-secondary-color dark:text-third-color"
             >Select all</a
           >
         </div>
@@ -659,7 +664,7 @@
             :key="index"
             @click="toggleEvent(cube.id)"
           >
-            <span class="mr-3 text-main-color/80 text-sm relative top-0.5">
+            <span class="mr-3 text-main-color/80 dark:text-gray-200 text-sm relative top-0.5">
               {{ cube.short_name }}</span
             >
             <div>
@@ -694,11 +699,14 @@
     <!-- Create competition scramble -->
     <ModalBase
       modalId="createCompItem"
-      modalTitle="Add New Item"
-      btnName="Add Item"
+      modalTitle="Add New Scramble"
+      btnName="Add Scramble"
       @submit="storeItem"
     >
       <template v-slot:body>
+        <div class="alert-danger" v-if="session.error">
+          <p class="alert-label-danger">{{ session.error }}</p>
+        </div>
         <div class="relative select-group mb-5">
           <div
             class="relative"
@@ -709,11 +717,17 @@
               type="text"
               id="type"
               class="custom-input cursor-pointer peer"
+              :class="{ error: errors.competition_round_id }"
               disabled
               :value="currentRound"
               placeholder=" "
             />
-            <label for="type" class="custom-label">Round</label>
+            <label
+              for="type"
+              class="custom-label"
+              :class="{ error: errors.competition_round_id }"
+              >Round</label
+            >
             <i
               class="fa-solid fa-chevron-down"
               :class="{ active: activeSelectRound }"
@@ -729,9 +743,9 @@
               <p>{{ round.round_name }}</p>
             </div>
           </div>
-        </div>
-        <div v-if="errors.competition_round_id">
-          <p class="text-error">{{ errors.competition_round_id }}</p>
+          <div v-if="errors.competition_round_id">
+            <p class="text-error">{{ errors.competition_round_id }}</p>
+          </div>
         </div>
         <div class="relative select-group mb-5">
           <div
@@ -743,11 +757,17 @@
               type="text"
               id="type"
               class="custom-input cursor-pointer peer"
+              :class="{ error: errors.cube_category_id }"
               disabled
               :value="currentEvent"
               placeholder=" "
             />
-            <label for="type" class="custom-label">Event</label>
+            <label
+              for="type"
+              class="custom-label"
+              :class="{ error: errors.cube_category_id }"
+              >Event</label
+            >
             <i
               class="fa-solid fa-chevron-down"
               :class="{ active: activeSelectEvent }"
@@ -760,16 +780,16 @@
               class="select-item"
               @click="selectEvent(cube.id, cube.name)"
             >
-              <p>{{ cube.short_name }}</p>
+              <p>{{ cube.name }}</p>
             </div>
           </div>
-        </div>
-        <div v-if="errors.cube_category_id">
-          <p class="text-error">{{ errors.cube_category_id }}</p>
+          <div v-if="errors.cube_category_id">
+            <p class="text-error">{{ errors.cube_category_id }}</p>
+          </div>
         </div>
         <div class="relative mb-5">
           <input
-            type="text"
+            type="date"
             v-model="payloadCompItem.date"
             id="name"
             :class="{ error: errors.date }"
@@ -779,9 +799,178 @@
           <label for="name" class="custom-label" :class="{ error: errors.date }"
             >Date</label
           >
+          <div v-if="errors.date">
+            <p class="text-error">{{ errors.date }}</p>
+          </div>
         </div>
-        <div v-if="errors.date">
-          <p class="text-error">{{ errors.date }}</p>
+        <div class="form-group">
+          <label class="text-third-color dark:text-white font-worksans-medium"
+            >Scramble Image</label
+          >
+          <div class="">
+            <img
+              :src="scramble_img_url ?? '/assets/img/no-preview.png'"
+              width="150"
+              alt="competition image cover"
+              class="inline-block rounded my-2"
+            />
+            <input
+              type="file"
+              @input="payloadCompItem.scramble_img = $event.target.files[0]"
+              @change="previewImage"
+              id="scramble_img"
+              class="hidden"
+            />
+            <label for="scramble_img" class="btn btn-upload"
+              >Upload Image</label
+            >
+          </div>
+          <div v-if="errors.scramble_img">
+            <p class="text-error">
+              {{ errors.scramble_img }}
+            </p>
+          </div>
+        </div>
+      </template>
+    </ModalBase>
+    <!-- Edit competition scramble -->
+    <ModalBase
+      modalId="editCompItem"
+      modalTitle="Edit Scramble"
+      btnName="Save Changes"
+      @submit="updateItem"
+    >
+      <template v-slot:body>
+        <div class="alert-danger" v-if="session.error">
+          <p class="alert-label-danger">{{ session.error }}</p>
+        </div>
+        <div class="relative select-group mb-5">
+          <div
+            class="relative"
+            @click.prevent="handleSelectDropdown('round')"
+            v-click-outside="onClickOutside"
+          >
+            <input
+              type="text"
+              id="type"
+              class="custom-input cursor-pointer peer"
+              :class="{ error: errors.competition_round_id }"
+              disabled
+              :value="currentRound"
+              placeholder=" "
+            />
+            <label
+              for="type"
+              class="custom-label"
+              :class="{ error: errors.competition_round_id }"
+              >Round</label
+            >
+            <i
+              class="fa-solid fa-chevron-down"
+              :class="{ active: activeSelectRound }"
+            ></i>
+          </div>
+          <div class="select-dropdown" :class="{ active: activeSelectRound }">
+            <div
+              v-for="round in competition_rounds.data"
+              :key="round.id"
+              class="select-item"
+              @click="selectRound(round.id, round.round_name)"
+            >
+              <p>{{ round.round_name }}</p>
+            </div>
+          </div>
+          <div v-if="errors.competition_round_id">
+            <p class="text-error">{{ errors.competition_round_id }}</p>
+          </div>
+        </div>
+        <div class="relative select-group mb-5">
+          <div
+            class="relative"
+            @click.prevent="handleSelectDropdown('event')"
+            v-click-outside="onClickOutside"
+          >
+            <input
+              type="text"
+              id="type"
+              class="custom-input cursor-pointer peer"
+              :class="{ error: errors.cube_category_id }"
+              disabled
+              :value="currentEvent"
+              placeholder=" "
+            />
+            <label
+              for="type"
+              class="custom-label"
+              :class="{ error: errors.cube_category_id }"
+              >Event</label
+            >
+            <i
+              class="fa-solid fa-chevron-down"
+              :class="{ active: activeSelectEvent }"
+            ></i>
+          </div>
+          <div class="select-dropdown" :class="{ active: activeSelectEvent }">
+            <div
+              v-for="cube in cube_categories"
+              :key="cube.id"
+              class="select-item"
+              @click="selectEvent(cube.id, cube.name)"
+            >
+              <p>{{ cube.name }}</p>
+            </div>
+          </div>
+          <div v-if="errors.cube_category_id">
+            <p class="text-error">{{ errors.cube_category_id }}</p>
+          </div>
+        </div>
+        <div class="relative mb-5">
+          <input
+            type="date"
+            v-model="payloadCompItem.date"
+            id="name"
+            :class="{ error: errors.date }"
+            class="custom-input peer"
+            placeholder=" "
+          />
+          <label for="name" class="custom-label" :class="{ error: errors.date }"
+            >Date</label
+          >
+          <div v-if="errors.date">
+            <p class="text-error">{{ errors.date }}</p>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="text-third-color dark:text-white font-worksans-medium"
+            >Scramble Image</label
+          >
+          <div class="">
+            <img
+              :src="
+                payloadCompItem.scramble_img && !scramble_img_url
+                  ? '/storage/' + payloadCompItem.scramble_img
+                  : scramble_img_url
+              "
+              width="150"
+              alt="competition image cover"
+              class="inline-block rounded my-2"
+            />
+            <input
+              type="file"
+              @input="payloadCompItem.scramble_img = $event.target.files[0]"
+              @change="previewImage"
+              id="scramble_img"
+              class="hidden"
+            />
+            <label for="scramble_img" class="btn btn-upload"
+              >Upload Image</label
+            >
+          </div>
+          <div v-if="errors.scramble_img">
+            <p class="text-error">
+              {{ errors.scramble_img }}
+            </p>
+          </div>
         </div>
       </template>
     </ModalBase>
@@ -953,20 +1142,86 @@ export default {
     };
 
     const onClickOutside = () => {
-        // activeSelectRound.value = false;
-        // activeSelectEvent.value = false;
+      // activeSelectRound.value = false;
+      // activeSelectEvent.value = false;
     };
 
     const selectRound = (id, name) => {
       currentRound.value = name;
       payloadCompItem.competition_round_id = id;
-      activeSelectRound.value = false
+      activeSelectRound.value = false;
     };
 
     const selectEvent = (id, name) => {
       currentEvent.value = name;
       payloadCompItem.cube_category_id = id;
-      activeSelectEvent.value = false
+      activeSelectEvent.value = false;
+    };
+
+    const previewImage = (e) => {
+      const file = e.target.files[0];
+      scramble_img_url.value = URL.createObjectURL(file);
+    };
+
+    const resetItem = () => {
+      payloadCompItem.competition_item_id = "";
+      payloadCompItem.competition_round_id = "";
+      payloadCompItem.cube_category_id = "";
+      payloadCompItem.scramble_img = "";
+      payloadCompItem.date = "";
+
+      scramble_img_url.value = null;
+    };
+
+    const storeItem = () => {
+      Inertia.post("/admin/competitions/items", payloadCompItem, {
+        onSuccess: () => {
+          if (props.session.success) {
+            $("#createCompItemModal").modal("hide");
+            resetItem();
+          }
+        },
+      });
+    };
+
+    const editItem = (id) => {
+      $.ajax({
+        method: "GET",
+        url: `/admin/competitions/items/${id}/edit`,
+        success: (response) => {
+          payloadCompItem.competition_item_id = response[0].competition_item_id;
+          payloadCompItem.competition_round_id = response[0].competition_round_id;
+          payloadCompItem.cube_category_id = response[0].cube_category_id;
+          payloadCompItem.scramble_img = response[0].scramble_img;
+          payloadCompItem.date = response[0].date;
+
+          currentRound.value = response[1].round_name
+          currentEvent.value = response[2].name
+        },
+      });
+    };
+
+    const updateItem = () => {
+      Inertia.post(
+        `/admin/competitions/items/${payloadCompItem.competition_item_id}`,
+        {
+          _method: "put",
+          competition_id: payloadCompItem.competition_id,
+          competition_item_id: payloadCompItem.competition_item_id,
+          competition_round_id: payloadCompItem.competition_round_id,
+          cube_category_id: payloadCompItem.cube_category_id,
+          date: payloadCompItem.date,
+          scramble_img: payloadCompItem.scramble_img,
+        },
+        {
+          onSuccess: () => {
+            if (props.session.success) {
+              $("#updateCompItemModal").modal("hide");
+              resetItem();
+            }
+          },
+        }
+      );
     };
 
     return {
@@ -989,6 +1244,11 @@ export default {
       currentRound,
       currentEvent,
       onClickOutside,
+      scramble_img_url,
+      previewImage,
+      storeItem,
+      editItem,
+      updateItem,
     };
   },
 };
@@ -996,7 +1256,7 @@ export default {
 
 <style scoped>
 .select-event-btn {
-  @apply px-3 py-1 flex hover:opacity-80 hover:bg-main-color/5 transition-all duration-300 justify-between mr-2.5 mb-2.5 border border-main-color/60 rounded-full;
+  @apply px-3 py-1 flex hover:opacity-80 hover:bg-main-color/5 transition-all duration-300 justify-between mr-2.5 mb-2.5 border border-main-color/60 dark:border-gray-400 rounded-full;
 }
 
 .select-event-btn.active {

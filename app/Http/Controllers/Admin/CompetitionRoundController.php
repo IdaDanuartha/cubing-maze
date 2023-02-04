@@ -28,7 +28,7 @@ class CompetitionRoundController extends Controller
             
             session()->flash('success', 'Competition round created successfully');
         } catch (\Exception $e) {
-            return back()->with('error', 'Competition round created failed');
+            session()->flash('error', 'Competition round created failed');
         }
     }
 
@@ -64,7 +64,7 @@ class CompetitionRoundController extends Controller
             
             session()->flash('success', 'Competition round updated successfully');
         } catch (\Exception $e) {
-            return back()->with('error', 'Competition round updated failed');
+            session()->flash('error', 'Competition round updated failed');
         }
     }
 
@@ -81,7 +81,7 @@ class CompetitionRoundController extends Controller
             
             session()->flash('success', 'Competition round deleted successfully');
         } catch (\Exception $e) {
-            return back()->with('error', 'Competition round deleted failed');
+            session()->flash('error', 'Competition round deleted failed');
         }
     }
 }

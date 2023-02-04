@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\CompetitionController;
+use App\Http\Controllers\Admin\CompetitionItemController;
 use App\Http\Controllers\Admin\CompetitionRoundController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Auth\LoginController;
@@ -39,6 +40,9 @@ Route::prefix('admin')->middleware('auth')->group(function() {
 
     // Competition Round
     Route::resource('/competitions/rounds', CompetitionRoundController::class);
+
+    // Competition Item
+    Route::resource('/competitions/items', CompetitionItemController::class);
 
 });
 

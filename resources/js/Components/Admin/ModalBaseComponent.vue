@@ -29,13 +29,14 @@
           w-full
           pointer-events-auto
           bg-white bg-clip-padding
+          dark:bg-main-color
           rounded-md
           outline-none
           text-current
         "
       >
         <div class="modal-body relative p-6">
-            <h2 class="mb-5 font-worksans-bold text-xl">{{ modalTitle }}</h2>
+            <h2 class="mb-5 font-worksans-bold text-xl dark:text-gray-200 text-main-color">{{ modalTitle }}</h2>
             <form action="" @submit.prevent="$emit('submit')">
                 <slot name="body"></slot>
                 <div class="flex justify-end mt-6">
