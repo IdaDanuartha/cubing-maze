@@ -42,8 +42,9 @@ class CompetitionController extends Controller
         })->latest()->where('competition_id', $id)->with(['cuber', 'cuber_competition_categories.cube_category'])->paginate(3);
 
         $cube_categories = CubeCategory::latest()->get();
+        $competition_id = $id;
 
-        return inertia('Admin/Competition/Detail', compact('page_name', 'competition_rounds', 'competition_items', 'cuber_competitions', 'cube_categories'));
+        return inertia('Admin/Competition/Detail', compact('page_name', 'competition_rounds', 'competition_items', 'cuber_competitions', 'cube_categories', 'competition_id'));
     }
 
     public function create()

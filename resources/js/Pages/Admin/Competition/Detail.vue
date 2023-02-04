@@ -118,38 +118,43 @@
                   >
                     <TableDropdown>
                       <template v-slot:dropdown_item>
-                        <Link
-                          :href="'/admin/competitions/' + comp.id + '/edit'"
+                        <button
+                          data-bs-toggle="modal"
+                          data-bs-target="#editCompRoundModal"
                           class="dropdown-item"
+                          @click="editRound(comp.id)"
                         >
                           <i
                             class="fa-solid mr-2 relative top-0.5 fa-pencil"
                           ></i>
                           <span>Edit</span>
-                        </Link>
-                        <a
-                          href="#"
-                          @click="detail(comp.id)"
+                        </button>
+                        <button
+                          data-bs-toggle="modal"
+                          data-bs-target="#deleteCompRoundModal"
+                          @click="editRound(comp.id)"
                           class="dropdown-item"
                         >
                           <i
                             class="fa-solid mr-2 relative top-0.5 fa-trash"
                           ></i>
                           <span>Remove</span>
-                        </a>
+                        </button>
                       </template>
                     </TableDropdown>
-                    <Link
-                      :href="'/admin/competitions/' + comp.id + '/edit'"
+                    <button
+                      data-bs-toggle="modal"
+                      data-bs-target="#editCompRoundModal"
                       class="hidden sm:inline-block icon edit-icon mr-4"
+                      @click="editRound(comp.id)"
                     >
                       <img src="/assets/img/icon/edit.svg" alt="" />
-                    </Link>
+                    </button>
                     <div
                       class="hidden sm:inline-block icon delete-icon"
                       data-bs-toggle="modal"
-                      data-bs-target="#deleteCompetitionModal"
-                      @click="detail(comp.id)"
+                      data-bs-target="#deleteCompRoundModal"
+                      @click="editRound(comp.id)"
                     >
                       <img src="/assets/img/icon/delete.svg" alt="" />
                     </div>
@@ -523,6 +528,7 @@
       <Pagination :data="competition_rounds" />
     </div>
 
+    <!-- Create competition round -->
     <ModalBase
       modalId="createCompRound"
       modalTitle="Add New Round"
@@ -533,24 +539,27 @@
         <div class="relative">
           <input
             type="text"
-            v-model="payloadCompRound.name"
+            v-model="payloadCompRound.round_name"
             id="name"
-            :class="{ error: errors.name }"
+            :class="{ error: errors.round_name }"
             class="custom-input peer"
             placeholder=" "
           />
-          <label for="name" class="custom-label" :class="{ error: errors.name }"
+          <label
+            for="name"
+            class="custom-label"
+            :class="{ error: errors.round_name }"
             >Round Name</label
           >
         </div>
-        <div v-if="errors.name">
-          <p class="text-error">{{ errors.name }}</p>
+        <div v-if="errors.round_name">
+          <p class="text-error">{{ errors.round_name }}</p>
         </div>
         <div class="flex justify-between mt-6 mb-3">
           <p>Select the event :</p>
           <a
             href="#"
-            @click.prevent="selectAllEvent"
+            @click.prevent="selectAllEvent(cube_categories)"
             class="font-worksans-medium underline text-secondary-color"
             >Select all</a
           >
@@ -559,14 +568,14 @@
           <button
             type="button"
             class="select-event-btn"
-            :class="selectAll ? 'active':'' || eventSelected.filter(ev => ev.id == cube.id)"
+            :class="eventSelected.map((id) => (id == cube.id ? 'active' : ''))"
             v-for="(cube, index) in cube_categories"
             :key="index"
             @click="toggleEvent(cube.id)"
           >
-            <span class="mr-3 text-main-color/80 text-sm relative top-0.5">{{
-              cube.short_name
-            }}</span>
+            <span class="mr-3 text-main-color/80 text-sm relative top-0.5">
+              {{ cube.short_name }}</span
+            >
             <div>
               <i
                 class="
@@ -578,7 +587,7 @@
                   p-0.5
                   relative
                   -top-0.5
-                "                
+                "
               ></i>
               <!-- <i
                 class="
@@ -596,8 +605,88 @@
             </div>
           </button>
         </div>
+        <div v-if="errors.cube_categories">
+          <p class="text-error">{{ errors.cube_categories }}</p>
+        </div>
       </template>
     </ModalBase>
+    <!-- Edit competition round -->
+    <ModalBase
+      modalId="editCompRound"
+      modalTitle="Edit Round"
+      btnName="Save Changes"
+      @submit="updateRound"
+    >
+      <template v-slot:body>
+        <div class="relative">
+          <input
+            type="text"
+            v-model="payloadCompRound.round_name"
+            id="name"
+            :class="{ error: errors.round_name }"
+            class="custom-input peer"
+            placeholder=" "
+          />
+          <label
+            for="name"
+            class="custom-label"
+            :class="{ error: errors.round_name }"
+            >Round Name</label
+          >
+        </div>
+        <div v-if="errors.round_name">
+          <p class="text-error">{{ errors.round_name }}</p>
+        </div>
+        <div class="flex justify-between mt-6 mb-3">
+          <p>Select the event :</p>
+          <a
+            href="#"
+            @click.prevent="selectAllEvent(cube_categories)"
+            class="font-worksans-medium underline text-secondary-color"
+            >Select all</a
+          >
+        </div>
+        <div class="flex flex-wrap">
+          <button
+            type="button"
+            class="select-event-btn"
+            :class="eventSelected.map((id) => (id == cube.id ? 'active' : ''))"
+            v-for="(cube, index) in cube_categories"
+            :key="index"
+            @click="toggleEvent(cube.id)"
+          >
+            <span class="mr-3 text-main-color/80 text-sm relative top-0.5">
+              {{ cube.short_name }}</span
+            >
+            <div>
+              <i
+                class="
+                  fa-solid fa-plus
+                  text-[8px]
+                  bg-main-color/80
+                  text-white
+                  rounded-full
+                  p-0.5
+                  relative
+                  -top-0.5
+                "
+              ></i>
+            </div>
+          </button>
+        </div>
+        <div v-if="errors.cube_categories">
+          <p class="text-error">{{ errors.cube_categories }}</p>
+        </div>
+      </template>
+    </ModalBase>
+
+    <!-- Delete Competition Round -->
+    <ModalDelete
+      modalId="deleteCompRound"
+      modalTitle="Competition"
+      :modalData="payloadCompRound.round_name"
+      @destroy="destroyRound"
+    />
   </div>
 </template>
 
@@ -642,33 +731,50 @@ export default {
     competition_rounds: Object,
     competition_items: Object,
     cuber_competitions: Object,
+    competition_id: Number,
   },
 
-  setup() {
+  setup(props) {
     const search_query = ref(
       "" || new URL(document.location).searchParams.get("search_query")
     );
 
     let selectAll = ref(false);
-    let eventSelected = reactive([])
+    let eventSelected = reactive([]);
 
     let payloadCompRound = reactive({
       competition_round_id: "",
-      name: "",
+      competition_id: props.competition_id,
+      round_name: "",
       cube_categories: eventSelected,
     });
 
-    const toggleEvent = (index, cube_id) => {     
-      eventSelected.push({'id': cube_id, 'active': true});
-      // console.log(eventSelected)
+    const toggleEvent = (cube_id) => {
+      if (eventSelected.length) {
+        eventSelected.forEach((id) => {
+          if (id === cube_id) {
+            eventSelected.splice(eventSelected.indexOf(id), 1);
+          }
+        });
+      }
+      eventSelected.push(cube_id);
     };
 
-    const selectAllEvent = () => {
-      // eventSelected = []
+    const selectAllEvent = (cube_ids) => {
+      cube_ids.forEach((event) => {
+        eventSelected.pop();
+      });
+
+      cube_ids.forEach((cube) => {
+        if (!selectAll.value) {
+          eventSelected.push(cube.id);
+        } else {
+          eventSelected.pop();
+        }
+      });
       selectAll.value = !selectAll.value;
     };
 
-    //define method search
     const handleSearch = () => {
       Inertia.get("/admin/competitions", {
         search_query: search_query.value,
@@ -676,7 +782,54 @@ export default {
     };
 
     const storeRound = () => {
-      Inertia.post("/admin/competitions ", payloadCompRound);
+      Inertia.post("/admin/competitions/rounds", payloadCompRound, {
+        onSuccess: () => {
+          if (props.session.success) {
+            $("#createCompRoundModal").modal("hide");
+          }
+        },
+      });
+    };
+
+    const editRound = (id) => {
+      $.ajax({
+        method: "GET",
+        url: `/admin/competitions/rounds/${id}/edit`,
+        success: (response) => {
+          payloadCompRound.competition_round_id = response[0].id;
+          payloadCompRound.round_name = response[0].round_name;
+          response[1].forEach((event) => {
+            eventSelected.push(event.cube_category_id);
+          });
+        },
+      });
+    };
+
+    const updateRound = () => {
+      Inertia.put(
+        `/admin/competitions/rounds/${payloadCompRound.competition_round_id}`,
+        payloadCompRound,
+        {
+          onSuccess: () => {
+            if (props.session.success) {
+              $("#editCompRoundModal").modal("hide");
+            }
+          },
+        }
+      );
+    };
+
+    const destroyRound = () => {
+      Inertia.delete(
+        `/admin/competitions/rounds/${payloadCompRound.competition_round_id}`,
+        {
+          onSuccess: () => {
+            if (props.session.success) {
+              $("#deleteCompRoundModal").modal("hide");
+            }
+          },
+        }
+      );
     };
 
     return {
@@ -684,10 +837,12 @@ export default {
       handleSearch,
       payloadCompRound,
       toggleEvent,
-      storeRound,
       eventSelected,
-      selectAll,
       selectAllEvent,
+      storeRound,
+      editRound,
+      updateRound,
+      destroyRound,
     };
   },
 };

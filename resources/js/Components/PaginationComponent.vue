@@ -1,7 +1,7 @@
 <template>
     <nav>
         <ul class="flex md:flex-row flex-col md:justify-between items-center mb-0 mt-4">
-        <p class="text-gray-500 dark:text-gray-400 text-sm md:mb-0 mb-3">Showing <span class="font-worksans-medium dark:text-gray-200">{{ data.from }}</span> to <span class="font-worksans-medium dark:text-gray-200">{{ data.to }}</span> of <span class="font-worksans-medium dark:text-gray-200">{{ data.total }}</span> Entries</p>
+        <p class="text-gray-500 dark:text-gray-400 text-sm md:mb-0 mb-3">Showing <span class="font-worksans-medium dark:text-gray-200">{{ data.from ?? 0 }}</span> to <span class="font-worksans-medium dark:text-gray-200">{{ data.to ?? 0 }}</span> of <span class="font-worksans-medium dark:text-gray-200">{{ data.total }}</span> Entries</p>
         <div class="flex">
             <li class="nav-item"
                 v-for="(link, index) in data.links" :key="index">
