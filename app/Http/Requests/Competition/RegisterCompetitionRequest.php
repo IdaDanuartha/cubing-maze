@@ -24,8 +24,8 @@ class RegisterCompetitionRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
-            'wca_id' => 'required',
+            'cuber_id' => 'required',
+            'competition_id' => 'required',
             'cube_categories' => 'required',
         ];
     }

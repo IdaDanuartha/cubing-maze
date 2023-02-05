@@ -10,6 +10,9 @@
       description="detail competition cubingmaze, halaman detail kompetisi cubingmaze, cubing, competitions, courses, blogs"
     />
   </Head>
+  <div class="alert-success" v-if="session.success">
+    <p class="alert-label-success">{{ session.success }}</p>
+  </div>
   <div class="grid grid-cols-12 gap-10">
     <div class="xl:col-span-8 lg:col-span-7 col-span-12 lg:order-1 order-2">
       <div class="bg-white shadow-lg p-[30px] rounded">
@@ -85,15 +88,19 @@
             class="
               w-full
               btn
-              bg-secondary-color
               text-white
               px-6
               py-2.5
               font-worksans-regular
               text-sm
             "
+            :class="
+              cuber_competition
+                ? 'bg-gray-500 pointer-events-none'
+                : 'bg-secondary-color'
+            "
           >
-            Register
+            {{ cuber_competition ? "Already Registered" : "Register" }}
           </button>
         </div>
       </div>
@@ -114,7 +121,7 @@
       <div class="relative mt-5">
         <input
           type="text"
-          v-model="payload.name"
+          :value="cuber.name"
           id="name"
           class="custom-input peer"
           disabled
@@ -125,7 +132,7 @@
       <div class="relative mt-5">
         <input
           type="text"
-          v-model="payload.wca_id"
+          :value="cuber.wca_id"
           id="wca_id"
           class="custom-input peer"
           disabled
@@ -215,6 +222,7 @@ export default {
     cuber: Object,
     competition: Object,
     cube_categories: Object,
+    cuber_competition: Object,
   },
 
   setup(props) {
@@ -222,10 +230,9 @@ export default {
     let eventSelected = reactive([]);
 
     let payload = reactive({
+      competition_id: props.competition.id,
       cuber_id: props.cuber.id,
-      name: props.cuber.name,
-      wca_id: props.cuber.wca_id,
-      cube_categories: [],
+      cube_categories: eventSelected,
     });
 
     const toggleEvent = (cube_id) => {
@@ -255,14 +262,18 @@ export default {
     };
 
     const register = () => {
-      Inertia.post(`/competitions/${props.competition.slug}/register`, payload, {
-        onSuccess: () => {
-          if (props.session.success) {
-            $("#registerCompetitionModal").modal("hide");
-            payload.cube_categories = []
-          }
-        },
-      });
+      Inertia.post(
+        `/competitions/${props.competition.slug}/register`,
+        payload,
+        {
+          onSuccess: () => {
+            if (props.session.success) {
+              $("#registerCompetitionModal").modal("hide");
+              payload.cube_categories = [];
+            }
+          },
+        }
+      );
     };
 
     return {
@@ -271,7 +282,7 @@ export default {
       eventSelected,
       toggleEvent,
       selectAllEvent,
-      register
+      register,
     };
   },
 };

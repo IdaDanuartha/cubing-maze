@@ -18,28 +18,34 @@ class CompetitionController extends Controller
         $cuber = Cuber::where('user_id', auth()->id())->first();
         $competition = Competition::where('slug', $slug)->with(['cuber_competitions', 'rounds.competition_event_rounds.cube_category'])->first();
         $cube_categories = CubeCategory::all();
+        $cuber_competition = CuberCompetition::where('competition_id', $competition->id)->where('cuber_id', $cuber->id)->count();
 
-        return inertia('Home/DetailCompetition', compact('cuber', 'competition', 'cube_categories'));
+        return inertia('Home/DetailCompetition', compact('cuber', 'competition', 'cube_categories', 'cuber_competition'));
     }
 
     public function registerComp(RegisterCompetitionRequest $request)
     {
-        dd($request->all());
-        $round = new CuberCompetition($request->except(['competition_round_id', 'cube_categories']));
+        $cuber_competition = new CuberCompetition($request->except(['cube_categories']));
+        $get_cuber_competition = CuberCompetition::where('cuber_id', $request->cuber_id)->first();
         
         try {
-            $round->save();
+            if($get_cuber_competition) {
+                session()->flash('error', 'You already have register for this competition');
+            } else {
+                $cuber_competition->save();
 
-            foreach($request->cube_categories as $category_id) {
-                CuberCompetitionCategory::create([
-                    'competition_round_id' => $round->id,
-                    'cube_category_id' => $category_id
-                ]);
-            }
+                foreach($request->cube_categories as $category_id) {
+                    CuberCompetitionCategory::create([
+                        'cuber_competition_id' => $cuber_competition->id,
+                        'cube_category_id' => $category_id
+                    ]);
+                }
             
-            session()->flash('success', 'Competition round created successfully');
+                session()->flash('success', 'Registered successfully');
+            }
+
         } catch (\Exception $e) {
-            session()->flash('error', 'Competition round created failed');
+            session()->flash('error', 'Registered failed');
         }
     }
 }

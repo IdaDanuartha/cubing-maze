@@ -167,7 +167,7 @@
       </div>
       <div class="relative mt-5">
         <Editor
-          api-key="no-api-key"
+          api-key="kku3kygnx4i89tm3idkx8c2qoj28beppy2iepxdxqssl3gln"
           v-model="payload.description"
           :init="{
             height: 350,
