@@ -13,9 +13,9 @@ createInertiaApp({
       methods: {
         checkCompetitionDate: function (start_date, end_date) {
           if(new Date() < new Date(start_date)) {
-            return 'Locked'
+            return 'Closed'
           } else if(new Date() >= new Date(start_date) && new Date() <= new Date(end_date)) {
-            return 'Unlocked'
+            return 'Opened'
           } else if(new Date() > new Date(end_date)) {
             return 'Completed'
           }

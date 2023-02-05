@@ -12,6 +12,7 @@ class HomeController extends Controller
     public function __invoke()
     {
         $upcoming_competitions = Competition::whereDate('date_end', '>', Carbon::now()->format('Y-m-d H:i:s'))->with('cuber_competitions')->get();
+
         return inertia('Home/Index', compact('upcoming_competitions'));
     }
 }

@@ -27,6 +27,7 @@
         "swiper": "^9.0.2",
         "tw-elements": "^1.0.0-alpha13",
         "vue": "^3.2.29",
-        "vue-chartjs": "^4.1.2"
+        "vue-chartjs": "^4.1.2",
+        "vue3-select2-component": "^0.1.7"
     }
 }

@@ -1,7 +1,7 @@
 <template>
   <nav
     class="
-      fixed
+      relative
       w-full
       flex flex-wrap
       items-center

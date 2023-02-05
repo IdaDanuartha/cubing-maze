@@ -1310,19 +1310,4 @@ export default {
 </script>
 
 <style scoped>
-.select-event-btn {
-  @apply px-3 py-1 flex hover:opacity-80 hover:bg-main-color/5 transition-all duration-300 justify-between mr-2.5 mb-2.5 border border-main-color/60 dark:border-gray-400 rounded-full;
-}
-
-.select-event-btn.active {
-  @apply bg-third-color border-third-color;
-}
-
-.select-event-btn.active span {
-  @apply text-white;
-}
-
-.select-event-btn.active i {
-  @apply bg-white text-third-color;
-}
 </style>
