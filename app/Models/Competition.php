@@ -16,4 +16,9 @@ class Competition extends Model
     {
         return $this->hasMany(CuberCompetition::class);
     }
+
+    public function rounds()
+    {
+        return $this->hasMany(CompetitionRound::class);
+    }
 }

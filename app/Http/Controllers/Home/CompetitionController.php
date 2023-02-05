@@ -10,7 +10,7 @@ class CompetitionController extends Controller
 {
     public function detail($slug)
     {
-        $competition = Competition::where('slug', $slug)->with('cuber_competitions')->first();
+        $competition = Competition::where('slug', $slug)->with(['cuber_competitions', 'rounds.competition_event_rounds.cube_category'])->first();
         return inertia('Home/DetailCompetition', compact('competition'));
     }
 }

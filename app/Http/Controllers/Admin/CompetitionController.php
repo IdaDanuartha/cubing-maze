@@ -68,7 +68,7 @@ class CompetitionController extends Controller
             $competition->slug = Str::slug($request->name);
             $competition->save();
             
-            return redirect()->route('competitions.index')->with('success', 'Competition created successfully');;
+            return redirect('admin/competitions')->with('success', 'Competition created successfully');;
         } catch (\Exception $e) {
             return back()->with('error', 'Competition created failed');
         }
@@ -108,7 +108,7 @@ class CompetitionController extends Controller
 
             $competition->update();
             
-            return redirect()->route('competitions.index')->with('success', 'Competition updated successfully');
+            return redirect('admin/competitions')->with('success', 'Competition updated successfully');
         } catch (\Exception $e) {
             return back()->with('error', 'Competition updated failed');
         }

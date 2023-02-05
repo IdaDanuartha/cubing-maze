@@ -43,7 +43,7 @@
         class="collapse navbar-collapse flex-grow items-center"
         id="navbarSupportedContent"
       >
-        <a
+        <Link
           class="
             flex
             items-center
@@ -54,7 +54,7 @@
             lg:mt-0
             mr-1
           "
-          href="#"
+          href="/"
         >
           <img
             src="/assets/img/logo.png"
@@ -65,13 +65,13 @@
           <p class="font-worksans-semibold text-xl ml-2">
             Cubing<span class="font-worksans-bold text-third-color">Maze</span>
           </p>
-        </a>
+        </Link>
         <!-- Left links -->
         <ul
           class="navbar-nav ml-auto flex flex-col pl-0 list-style-none mr-auto"
         >
           <li class="nav-item p-2">
-            <a
+            <Link
               class="
                 nav-link
                 text-main-color
@@ -82,8 +82,8 @@
                 focus:text-gray-700
                 p-0
               "
-              href="#"
-              >Home</a
+              href="/"
+              >Home</Link
             >
           </li>
           <li class="nav-item p-2">
@@ -397,7 +397,11 @@
             :class="isDarkMode ? 'fa-sun' : 'fa-moon'"
           ></i>
         </a>
-        <Link href="/auth/login" class="btn btn-submit ml-5" v-if="!$page.props.auth.user">
+        <Link
+          href="/auth/login"
+          class="btn btn-submit ml-5"
+          v-if="!$page.props.auth.user"
+        >
           Login / Register
         </Link>
       </div>
@@ -408,7 +412,7 @@
 
 <script>
 import { Link } from "@inertiajs/inertia-vue3";
-import { ref } from 'vue'
+import { ref } from "vue";
 export default {
   components: {
     Link,
