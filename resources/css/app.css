@@ -172,6 +172,10 @@
     @apply bg-white dark:bg-main-color max-h-44 overflow-y-scroll dark:border-gray-400 border border-main-color/30 absolute top-14 rounded-lg w-full transition-all duration-300 opacity-0 -z-10 -translate-y-3;
   }
 
+  .select-dropdown.select-home {
+    @apply overflow-y-auto;
+  }
+
   .select-dropdown .select-item p {
     @apply text-secondary-color dark:text-gray-200 text-sm my-2;
   }

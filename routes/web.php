@@ -50,7 +50,7 @@ Route::prefix('admin')->middleware('auth')->group(function() {
 
 
 // Route homepage
-Route::get('/home', HomeController::class)->name('home');
+Route::get('/', HomeController::class)->name('home');
 
 
 

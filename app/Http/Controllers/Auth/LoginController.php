@@ -26,7 +26,7 @@ class LoginController extends Controller
                 cookie()->forget('email');
             }
             
-            if($user->level->role === 'Admin') {
+            if($user->level->role !== 'Cuber') {
                 return redirect()->route('admin.dashboard');
             } else {
                 return redirect()->route('home');
