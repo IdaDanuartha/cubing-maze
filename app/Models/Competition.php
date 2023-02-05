@@ -11,4 +11,9 @@ class Competition extends Model
 
     protected $table = 'competitions';
     protected $guarded = [];
+
+    public function cuber_competitions()
+    {
+        return $this->hasMany(CuberCompetition::class);
+    }
 }

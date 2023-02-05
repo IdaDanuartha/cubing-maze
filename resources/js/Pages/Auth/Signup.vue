@@ -44,28 +44,32 @@
           src="/assets/img/login/cube.svg"
           class="cube-decoration1 absolute -top-20"
           alt="Decoration login page"
+          draggable="false"
         />
         <img
           src="/assets/img/login/cube.svg"
           class="cube-decoration2 absolute -top-20 w-10"
           alt="Decoration login page"
+          draggable="false"
         />
         <img
           src="/assets/img/login/cube.svg"
           class="cube-decoration3 absolute -bottom-20 w-10"
           alt="Decoration login page"
+          draggable="false"
         />
         <img
           src="/assets/img/login/cube.svg"
           class="cube-decoration4 absolute -bottom-20"
           alt="Decoration login page"
+          draggable="false"
         />
         <div class="text-center">
           <h1 class="text-welcome font-worksans-semibold text-white text-3xl">
-            Hello Cuber!
+            Welcome Back!
           </h1>
           <h5 class="text-white mt-7 mb-11">
-            Fill up personal information and stary journey with us.
+            If you already have an account sign in. We've missed you!
           </h5>
           <Link
             href="/auth/login"

@@ -42,6 +42,10 @@
     * {
       @apply text-main-color font-worksans-regular;
     }
+
+    section {
+      @apply mt-[100px];
+    }
 }
 
 @layer components {
@@ -399,5 +403,22 @@
   .v-leave-to {
     opacity: 0;
     transform: translateY(-20px);
+  }
+
+  .title-section {
+    @apply text-center;
+  }
+
+  .title-section .small-text {
+    @apply text-third-color;
+  }
+
+  .title-section .big-text {
+    @apply text-main-color text-[40px] font-worksans-semibold;
+  }
+
+  .custom-card {
+    box-shadow: 0 10px 10px rgba(0,0,0,.08);
+    @apply p-5;
   }
 }
