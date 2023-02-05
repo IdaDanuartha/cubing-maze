@@ -17,6 +17,7 @@ class CreateCompetitionsTable extends Migration
             $table->id();
             $table->string('competition_img', 150);
             $table->string('name', 50);
+            $table->string('slug', 50);
             $table->longText('description');
             $table->integer('competitor_limit');
             $table->enum('type', ['free', 'paid']);

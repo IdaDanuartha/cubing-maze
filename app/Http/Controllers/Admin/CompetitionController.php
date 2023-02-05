@@ -12,6 +12,7 @@ use App\Models\CubeCategory;
 use App\Models\CuberCompetition;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 
 class CompetitionController extends Controller
 {
@@ -64,6 +65,7 @@ class CompetitionController extends Controller
                 $competition->competition_img = $uploadedImage;
             }  
 
+            $competition->slug = Str::slug($request->name);
             $competition->save();
             
             return redirect()->route('competitions.index')->with('success', 'Competition created successfully');;
@@ -94,6 +96,7 @@ class CompetitionController extends Controller
             }  
 
             $competition->name = $request->name;
+            $competition->slug = Str::slug($request->name);
             $competition->competition_img = $fileName;
             $competition->description = $request->description;
             $competition->competitor_limit = $request->competitor_limit;

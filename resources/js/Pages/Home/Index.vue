@@ -145,7 +145,7 @@
                   <span class="text-red-500">{{ comp.competitor_limit - comp.cuber_competitions.length }} left</span>
                 </h6>
                 <div class="mt-6 flex">
-                  <Link href="" class="btn btn-submit text-center py-3 w-full"
+                  <Link :href="`/competitions/${comp.slug}`" class="btn btn-submit text-center py-3 w-full"
                     >See Details</Link
                   >
                 </div>

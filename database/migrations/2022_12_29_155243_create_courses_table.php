@@ -17,6 +17,7 @@ class CreateCoursesTable extends Migration
             $table->id();
             $table->bigInteger('course_category_id');
             $table->string('name', 50);
+            $table->string('slug', 50);
             $table->string('course_img', 150);
             $table->enum('level', ['Beginner', 'Intermediate', 'Advanced', 'Expert']);
             $table->longText('description');
