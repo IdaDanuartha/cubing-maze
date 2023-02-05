@@ -28,7 +28,11 @@
         >
           Table Competition Categories
         </h2>
-        <button class="flex btn btn-create">
+        <button
+          class="flex btn btn-create"
+          data-bs-toggle="modal"
+          data-bs-target="#createCategoryModal"
+        >
           <div>
             <i class="fa-solid fa-plus mr-2 md:text-lg text-sm"></i>
           </div>
@@ -42,18 +46,23 @@
       <Table>
         <template v-slot:columns>
           <div class="data-head col-span-2 md:col-span-1 pl-[1.125rem]">No</div>
-          <div class="data-head col-span-6 md:col-span-4 xl:col-span-3">
+          <div
+            class="
+              data-head
+              col-span-4
+              md:col-span-2
+              xl:col-span-1
+              hidden
+              xl:inline-block
+            "
+          >
             Icon
           </div>
+          <div class="data-head col-span-5 md:col-span-3">Category name</div>
           <div
-            class="data-head col-span-4 md:col-span-1 hidden xl:inline-block"
+            class="data-head col-span-5 xl:col-span-3 hidden md:inline-block"
           >
-            Category name
-          </div>
-          <div
-            class="data-head col-span-4 xl:col-span-3 hidden md:inline-block"
-          >
-            Alternative
+            Short Name
           </div>
           <div class="data-head col-span-2 hidden xl:inline-block">
             Total Competitions
@@ -67,8 +76,8 @@
             <TransitionGroup name="table">
               <div
                 class="table-body"
-                v-for="(comp, i) in categories.data"
-                :key="comp.id"
+                v-for="(category, i) in categories.data"
+                :key="category.id"
               >
                 <div class="grid grid-cols-12">
                   <div
@@ -81,44 +90,43 @@
                     "
                   >
                     {{
-                      ++i +
-                      (competitions.current_page - 1) * competitions.per_page
+                      ++i + (categories.current_page - 1) * categories.per_page
                     }}
                   </div>
                   <div
                     class="
                       data-column
-                      col-span-6
-                      md:col-span-4
-                      xl:col-span-3
-                      dark:text-gray-200 dark:font-light
-                    "
-                  >
-                    {{ comp.name }}
-                  </div>
-                  <div
-                    class="
-                      data-column
                       col-span-4
-                      md:col-span-1
-                      dark:text-gray-200 dark:font-light
+                      md:col-span-2
+                      xl:col-span-1
                       hidden
                       xl:inline-block
+                      dark:text-gray-200 dark:font-light
                     "
                   >
-                    {{ comp.competitor_limit }}
+                    <img :src="`/storage/${category.icon_img}`" alt="" />
                   </div>
                   <div
                     class="
                       data-column
-                      col-span-4
+                      col-span-5
+                      md:col-span-3
+                      dark:text-gray-200 dark:font-light
+                    "
+                  >
+                    {{ category.name }}
+                  </div>
+                  <div
+                    class="
+                      data-column
+                      col-span-5
                       xl:col-span-3
                       dark:text-gray-200 dark:font-light
                       hidden
                       md:inline-block
                     "
                   >
-                    {{ competitionDateFormat(comp.date_start, comp.date_end) }}
+                    {{ category.short_name }}
                   </div>
                   <div
                     class="
@@ -129,7 +137,7 @@
                       xl:inline-block
                     "
                   >
-                    {{ checkCompetitionDate(comp.date_start, comp.date_end) }}
+                    {{ category.competitions.length }}
                   </div>
                   <div
                     class="
@@ -144,56 +152,46 @@
                   >
                     <TableDropdown>
                       <template v-slot:dropdown_item>
-                        <Link
-                          :href="'/admin/competitions/' + comp.id"
-                          class="dropdown-item"
-                        >
-                          <i class="fa-solid mr-2 relative top-0.5 fa-eye"></i>
-                          <span>Detail</span>
-                        </Link>
-                        <Link
-                          :href="'/admin/competitions/' + comp.id + '/edit'"
+                        <button
+                          data-bs-toggle="modal"
+                          data-bs-target="#editCategoryModal"
+                          @click="edit(category.id)"
                           class="dropdown-item"
                         >
                           <i
                             class="fa-solid mr-2 relative top-0.5 fa-pencil"
                           ></i>
                           <span>Edit</span>
-                        </Link>
-                        <a
-                          href="#"
+                        </button>
+                        <button
                           data-bs-toggle="modal"
-                          data-bs-target="#deleteCompetitionModal"
-                          @click="detail(comp.id)"
+                          data-bs-target="#deleteCategoryModal"
+                          @click="edit(category.id)"
                           class="dropdown-item"
                         >
                           <i
                             class="fa-solid mr-2 relative top-0.5 fa-trash"
                           ></i>
                           <span>Remove</span>
-                        </a>
+                        </button>
                       </template>
                     </TableDropdown>
-                    <Link
-                      :href="'/admin/competitions/' + comp.id"
-                      class="hidden sm:inline-block icon detail-icon mr-4"
-                    >
-                      <img src="/assets/img/icon/detail.svg" alt="" />
-                    </Link>
-                    <Link
-                      :href="'/admin/competitions/' + comp.id + '/edit'"
+                    <button
+                      data-bs-toggle="modal"
+                      data-bs-target="#editCategoryModal"
+                      @click="edit(category.id)"
                       class="hidden sm:inline-block icon edit-icon mr-4"
                     >
                       <img src="/assets/img/icon/edit.svg" alt="" />
-                    </Link>
-                    <div
-                      class="hidden sm:inline-block icon delete-icon"
+                    </button>
+                    <button
                       data-bs-toggle="modal"
-                      data-bs-target="#deleteCompetitionModal"
-                      @click="detail(comp.id)"
+                      data-bs-target="#deleteCategoryModal"
+                      @click="edit(category.id)"
+                      class="hidden sm:inline-block icon delete-icon"
                     >
                       <img src="/assets/img/icon/delete.svg" alt="" />
-                    </div>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -218,21 +216,184 @@
     </div>
   </div>
 
+  <!-- Create competition category -->
+  <ModalBase
+    modalId="createCategory"
+    modalTitle="Add New Category"
+    btnName="Add Category"
+    @submit="store"
+  >
+    <template v-slot:body>
+      <div class="alert-error -ml-2" v-if="session.error">
+        <p class="alert-label-error">{{ session.error }}</p>
+      </div>
+      <div class="form-group mb-5">
+        <label class="text-third-color dark:text-white font-worksans-medium"
+          >Category Icon</label
+        >
+        <div class="">
+          <img
+            :src="icon_img_url ?? '/assets/img/no-preview.png'"
+            width="150"
+            alt="category icon"
+            class="inline-block rounded my-2"
+          />
+          <input
+            type="file"
+            @input="payload.icon_img = $event.target.files[0]"
+            @change="previewImage"
+            id="icon_img"
+            class="hidden"
+          />
+          <label for="icon_img" class="btn btn-upload">Upload Image</label>
+        </div>
+        <div v-if="errors.icon_img">
+          <p class="text-error">
+            {{ errors.icon_img }}
+          </p>
+        </div>
+      </div>
+      <div class="relative mt-5">
+        <input
+          type="text"
+          v-model="payload.name"
+          id="name"
+          :class="{ error: errors.name }"
+          class="custom-input peer"
+          placeholder=" "
+        />
+        <label for="name" class="custom-label" :class="{ error: errors.name }"
+          >Category Name</label
+        >
+      </div>
+      <div v-if="errors.name">
+        <p class="text-error">
+          {{ errors.name }}
+        </p>
+      </div>
+      <div class="relative mt-5">
+        <input
+          type="text"
+          v-model="payload.short_name"
+          id="short_name"
+          :class="{ error: errors.short_name }"
+          class="custom-input peer"
+          placeholder=" "
+        />
+        <label
+          for="short_name"
+          class="custom-label"
+          :class="{ error: errors.short_name }"
+          >Short Name</label
+        >
+      </div>
+      <div v-if="errors.short_name">
+        <p class="text-error">
+          {{ errors.short_name }}
+        </p>
+      </div>
+    </template>
+  </ModalBase>
+
+  <!-- Edit competition category -->
+  <ModalBase
+    modalId="editCategory"
+    modalTitle="Edit Category"
+    btnName="Save Changes"
+    @submit="update"
+  >
+    <template v-slot:body>
+      <div class="alert-error -ml-2" v-if="session.error">
+        <p class="alert-label-error">{{ session.error }}</p>
+      </div>
+      <div class="form-group mb-5">
+        <label class="text-third-color dark:text-white font-worksans-medium"
+          >Category Icon</label
+        >
+        <div class="">
+          <img
+            :src="
+              payload.icon_img && !icon_img_url
+                ? '/storage/' + payload.icon_img
+                : icon_img_url
+            "
+            width="150"
+            alt="category icon"
+            class="inline-block rounded my-2"
+          />
+          <input
+            type="file"
+            @input="payload.icon_img = $event.target.files[0]"
+            @change="previewImage"
+            id="icon_img"
+            class="hidden"
+          />
+          <label for="icon_img" class="btn btn-upload">Upload Image</label>
+        </div>
+        <div v-if="errors.icon_img">
+          <p class="text-error">
+            {{ errors.icon_img }}
+          </p>
+        </div>
+      </div>
+      <div class="relative mt-5">
+        <input
+          type="text"
+          v-model="payload.name"
+          id="name"
+          :class="{ error: errors.name }"
+          class="custom-input peer"
+          placeholder=" "
+        />
+        <label for="name" class="custom-label" :class="{ error: errors.name }"
+          >Category Name</label
+        >
+      </div>
+      <div v-if="errors.name">
+        <p class="text-error">
+          {{ errors.name }}
+        </p>
+      </div>
+      <div class="relative mt-5">
+        <input
+          type="text"
+          v-model="payload.short_name"
+          id="short_name"
+          :class="{ error: errors.short_name }"
+          class="custom-input peer"
+          placeholder=" "
+        />
+        <label
+          for="short_name"
+          class="custom-label"
+          :class="{ error: errors.short_name }"
+          >Short Name</label
+        >
+      </div>
+      <div v-if="errors.short_name">
+        <p class="text-error">
+          {{ errors.short_name }}
+        </p>
+      </div>
+    </template>
+  </ModalBase>
+
   <ModalDelete
-    modalId="deleteCompetition"
-    modalTitle="Competition"
+    modalId="deleteCategory"
+    modalTitle="Category"
     :modalData="payload.name"
     @destroy="destroy"
   />
 </template>
 
 <script>
-import LayoutAdmin from "../../../Layouts/Admin.vue";
-import Table from "../../../Components/Admin/TableComponent.vue";
-import Pagination from "../../../Components/PaginationComponent.vue";
-import SearchGroup from "../../../Components/Admin/SearchGroupComponent.vue";
-import TableDropdown from "../../../Components/Admin/TableDropdownComponent.vue";
-import ModalDelete from "../../../Components/Admin/ModalDeleteComponent.vue";
+import LayoutAdmin from "../../../../Layouts/Admin.vue";
+import Table from "../../../../Components/Admin/TableComponent.vue";
+import Pagination from "../../../../Components/PaginationComponent.vue";
+import SearchGroup from "../../../../Components/Admin/SearchGroupComponent.vue";
+import TableDropdown from "../../../../Components/Admin/TableDropdownComponent.vue";
+import ModalBase from "../../../../Components/Admin/ModalBaseComponent.vue";
+import ModalDelete from "../../../../Components/Admin/ModalDeleteComponent.vue";
 import { Head, Link } from "@inertiajs/inertia-vue3";
 import { ref, reactive } from "@vue/runtime-core";
 import { Inertia } from "@inertiajs/inertia";
@@ -250,6 +411,7 @@ export default {
     SearchGroup,
     Pagination,
     TableDropdown,
+    ModalBase,
     ModalDelete,
   },
 
@@ -260,6 +422,7 @@ export default {
   //props
   props: {
     session: Object,
+    errors: Object,
     categories: Object,
   },
 
@@ -268,44 +431,87 @@ export default {
       "" || new URL(document.location).searchParams.get("search_query")
     );
 
+    let icon_img_url = ref();
+
     let payload = reactive({
-      competition_id: "",
+      cube_category_id: "",
       name: "",
+      short_name: "",
+      icon_img: "",
     });
 
     //define method search
     const handleSearch = () => {
-      Inertia.get("/admin/competitions", {
+      Inertia.get("/admin/categories/competitions", {
         //send params "q" with value from state "search"
         search_query: search_query.value,
+      });
+    };
+
+    const previewImage = (e) => {
+      const file = e.target.files[0];
+      icon_img_url.value = URL.createObjectURL(file);
+    };
+
+    const store = () => {
+      Inertia.post(`/admin/categories/competitions`, payload, {
+        onSuccess: () => {
+          $("#createCategoryModal").modal("hide");
+        },
       });
     };
 
     const edit = (id) => {
       $.ajax({
         method: "GET",
-        url: `/admin/competitions/${id}/edit`,
+        url: `/admin/categories/competitions/${id}/edit`,
         success: (response) => {
-          payload.competition_id = response.id;
+          payload.cube_category_id = response.id;
           payload.name = response.name;
+          payload.short_name = response.short_name;
+          payload.icon_img = response.icon_img;
         },
       });
+    };
+
+    const update = () => {
+      Inertia.post(
+        `/admin/categories/competitions/${payload.cube_category_id}`,
+        {
+          _method: "put",
+          name: payload.name,
+          short_name: payload.short_name,
+          icon_img: payload.icon_img,
+        },
+        {
+          onSuccess: () => {
+            $("#editCategoryModal").modal("hide");
+          },
+        }
+      );
     };
 
     const destroy = () => {
-      Inertia.delete(`/admin/competitions/${payload.competition_id}`, {
-        onSuccess: () => {
-          $("#deleteCompetitionModal").modal("hide");
-        },
-      });
+      Inertia.delete(
+        `/admin/categories/competitions/${payload.cube_category_id}`,
+        {
+          onSuccess: () => {
+            $("#deleteCategoryModal").modal("hide");
+          },
+        }
+      );
     };
 
     return {
+      icon_img_url,
       search_query,
       handleSearch,
       payload,
+      store,
       edit,
+      update,
       destroy,
+      previewImage,
     };
   },
 };

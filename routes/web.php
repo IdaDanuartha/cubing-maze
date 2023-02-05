@@ -44,7 +44,7 @@ Route::prefix('admin')->middleware('auth')->group(function() {
     Route::resource('/competitions/items', CompetitionItemController::class);
     
     // Competition Category
-    Route::resource('/competitions/categories', CompetitionCategoryController::class);
+    Route::resource('/categories/competitions', CompetitionCategoryController::class);
 
 });
 

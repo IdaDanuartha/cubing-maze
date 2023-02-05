@@ -78,7 +78,7 @@
           </button>
           <ul            
             class="dropdown-sidebar mt-2 hidden opacity-0 ml-[45px] space-y-3"
-            :class="{ active: dropdown_competitions || $page.url.startsWith('/admin/competitions') }"
+            :class="{ active: dropdown_competitions || $page.url.startsWith('/admin/competitions') || $page.url.startsWith('/admin/categories/competitions') }"
           >
             <li @click="$emit('openSidebar')">
               <Link
@@ -106,7 +106,7 @@
             </li>
             <li @click="$emit('openSidebar')">
               <Link
-                href="/admin/competitions/category"
+                href="/admin/categories/competitions"
                 class="
                   flex
                   nav-item
@@ -124,7 +124,7 @@
                   text-gray-100
                   dark:text-gray-300
                 "
-                :class="{ 'active': $page.url.startsWith('/admin/competitions/category') }"
+                :class="{ 'active': $page.url.startsWith('/admin/categories/competitions') }"
                 >Category</Link
               >
             </li>

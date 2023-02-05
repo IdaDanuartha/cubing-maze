@@ -131,7 +131,7 @@ class CompetitionController extends Controller
             
             session()->flash('success', 'Competition deleted successfully');
         } catch (\Exception $e) {
-            return back()->with('error', 'Competition deleted failed');
+            session()->flash('error', 'Competition deleted failed');
         }
     }
 }
