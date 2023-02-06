@@ -1,11 +1,15 @@
 <?php
 
+use App\Http\Controllers\Admin\CompetitionCategoryController;
 use App\Http\Controllers\Admin\CompetitionController;
+use App\Http\Controllers\Admin\CompetitionItemController;
+use App\Http\Controllers\Admin\CompetitionRoundController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\SignupController;
 use App\Http\Controllers\Auth\SocialiteController;
+use App\Http\Controllers\Home\CompetitionController as HomeCompetitionController;
 use App\Http\Controllers\Home\HomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -35,12 +39,23 @@ Route::prefix('admin')->middleware('auth')->group(function() {
     // Competitions
     Route::resource('/competitions', CompetitionController::class);
     Route::get('/competitions/{id}/detail', [CompetitionController::class, 'detail']);
+    // Competition Round
+    Route::resource('/competitions/rounds', CompetitionRoundController::class);
+    // Competition Item
+    Route::resource('/competitions/items', CompetitionItemController::class);
+    
+    // Competition Category
+    Route::resource('/categories/competitions', CompetitionCategoryController::class);
 
 });
 
 
-// Route homepage
-Route::get('/home', HomeController::class)->name('home');
+// Route home page
+Route::get('/', HomeController::class)->name('home');
+Route::middleware('auth')->group(function() {
+    Route::get('/competitions/{slug}', [HomeCompetitionController::class, 'detail']);
+    Route::post('/competitions/{slug}/register', [HomeCompetitionController::class, 'registerComp']);
+});
 
 
 

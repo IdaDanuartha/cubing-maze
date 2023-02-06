@@ -12,6 +12,7 @@ use App\Models\CubeCategory;
 use App\Models\CuberCompetition;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 
 class CompetitionController extends Controller
 {
@@ -42,8 +43,9 @@ class CompetitionController extends Controller
         })->latest()->where('competition_id', $id)->with(['cuber', 'cuber_competition_categories.cube_category'])->paginate(3);
 
         $cube_categories = CubeCategory::latest()->get();
+        $competition_id = $id;
 
-        return inertia('Admin/Competition/Detail', compact('page_name', 'competition_rounds', 'competition_items', 'cuber_competitions', 'cube_categories'));
+        return inertia('Admin/Competition/Detail', compact('page_name', 'competition_rounds', 'competition_items', 'cuber_competitions', 'cube_categories', 'competition_id'));
     }
 
     public function create()
@@ -63,9 +65,10 @@ class CompetitionController extends Controller
                 $competition->competition_img = $uploadedImage;
             }  
 
+            $competition->slug = Str::slug($request->name);
             $competition->save();
             
-            return redirect()->route('competitions.index')->with('success', 'Competition created successfully');;
+            return redirect('admin/competitions')->with('success', 'Competition created successfully');;
         } catch (\Exception $e) {
             return back()->with('error', 'Competition created failed');
         }
@@ -93,6 +96,7 @@ class CompetitionController extends Controller
             }  
 
             $competition->name = $request->name;
+            $competition->slug = Str::slug($request->name);
             $competition->competition_img = $fileName;
             $competition->description = $request->description;
             $competition->competitor_limit = $request->competitor_limit;
@@ -104,7 +108,7 @@ class CompetitionController extends Controller
 
             $competition->update();
             
-            return redirect()->route('competitions.index')->with('success', 'Competition updated successfully');
+            return redirect('admin/competitions')->with('success', 'Competition updated successfully');
         } catch (\Exception $e) {
             return back()->with('error', 'Competition updated failed');
         }
@@ -130,7 +134,7 @@ class CompetitionController extends Controller
             
             session()->flash('success', 'Competition deleted successfully');
         } catch (\Exception $e) {
-            return back()->with('error', 'Competition deleted failed');
+            session()->flash('error', 'Competition deleted failed');
         }
     }
 }

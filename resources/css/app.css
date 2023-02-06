@@ -42,6 +42,10 @@
     * {
       @apply text-main-color font-worksans-regular;
     }
+
+    section {
+      @apply mt-[100px];
+    }
 }
 
 @layer components {
@@ -161,7 +165,7 @@
   }
 
   .select-option .option-group.active {
-    @apply inline-block opacity-100 translate-y-0 z-10;
+    @apply inline-block opacity-100 -translate-y-0 z-10;
   }
 
   .select-option .option-item p {
@@ -169,7 +173,11 @@
   }
 
   .select-dropdown {
-    @apply bg-white dark:bg-main-color dark:border-gray-400 border border-main-color/30 absolute top-16 rounded-lg w-full transition-all duration-300 opacity-0 -z-10 -translate-y-3;
+    @apply bg-white dark:bg-main-color max-h-44 overflow-y-scroll dark:border-gray-400 border border-main-color/30 absolute top-14 rounded-lg w-full transition-all duration-300 opacity-0 -z-10 -translate-y-3;
+  }
+
+  .select-dropdown.select-home {
+    @apply overflow-y-auto;
   }
 
   .select-dropdown .select-item p {
@@ -395,5 +403,38 @@
   .v-leave-to {
     opacity: 0;
     transform: translateY(-20px);
+  }
+
+  .title-section {
+    @apply text-center;
+  }
+
+  .title-section .small-text {
+    @apply text-third-color;
+  }
+
+  .title-section .big-text {
+    @apply text-main-color text-[40px] font-worksans-semibold;
+  }
+
+  .custom-card {
+    box-shadow: 0 10px 10px rgba(0,0,0,.08);
+    @apply p-5;
+  }
+
+  .select-event-btn {
+    @apply px-3 py-1 flex hover:opacity-80 hover:bg-main-color/5 transition-all duration-300 justify-between mr-2.5 mb-2.5 border border-main-color/60 dark:border-gray-400 rounded-full;
+  }
+  
+  .select-event-btn.active {
+    @apply bg-third-color border-third-color;
+  }
+  
+  .select-event-btn.active span {
+    @apply text-white;
+  }
+  
+  .select-event-btn.active i {
+    @apply bg-white text-third-color;
   }
 }

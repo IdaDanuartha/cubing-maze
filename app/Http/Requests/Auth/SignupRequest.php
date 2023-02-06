@@ -30,7 +30,6 @@ class SignupRequest extends FormRequest
             'email' => 'required|email:rfc,dns|unique:users,email|max:30',
             'password' => ['required', Password::min(8)
                     ->letters()
-                    ->mixedCase()
                     ->numbers()
             ],
         ];

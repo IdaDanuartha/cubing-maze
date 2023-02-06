@@ -11,4 +11,9 @@ class CubeCategory extends Model
 
     protected $table = 'cube_categories';
     protected $guarded = [];
+
+    public function competitions()
+    {
+        return $this->hasMany(CompetitionItem::class);
+    }
 }

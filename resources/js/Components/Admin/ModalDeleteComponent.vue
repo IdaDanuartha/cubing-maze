@@ -28,6 +28,7 @@
           w-full
           pointer-events-auto
           bg-white bg-clip-padding
+          dark:bg-main-color
           rounded-md
           outline-none
           text-current
@@ -35,11 +36,11 @@
       >
         <div class="modal-body relative px-4 py-8 text-center">
             <div class="mx-auto mb-3">
-                <i class="fa-solid fa-circle-exclamation bg-red-100 px-4 py-3 rounded-full text-red-600 text-3xl"></i>
+                <i class="fa-solid fa-circle-exclamation bg-red-100 dark:bg-red-200 px-4 py-3 rounded-full text-red-600 dark:text-red-700 text-3xl"></i>
             </div>
-            <h2 class="text-xl text-main-color/80 font-worksans-bold">Delete {{ modalTitle }}?</h2>
+            <h2 class="text-xl text-main-color/80 dark:text-gray-200 font-worksans-bold">Delete {{ modalTitle }}?</h2>
             <div class="lg:px-12 px-8">
-                <p class="my-4">Are you sure you want to delete <span class="text-secondary-color font-worksans-medium">"{{ modalData }}"</span>? You can't undo this action</p>
+                <p class="my-4 dark:text-gray-200">Are you sure you want to delete <span class="text-secondary-color dark:text-third-color font-worksans-medium">"{{ modalData }}"</span>? You can't undo this action</p>
             </div>
 
             <div class="flex justify-center mt-7">
