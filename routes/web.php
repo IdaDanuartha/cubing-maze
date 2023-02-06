@@ -52,8 +52,10 @@ Route::prefix('admin')->middleware('auth')->group(function() {
 
 // Route home page
 Route::get('/', HomeController::class)->name('home');
-Route::get('/competitions/{slug}', [HomeCompetitionController::class, 'detail']);
-Route::post('/competitions/{slug}/register', [HomeCompetitionController::class, 'registerComp']);
+Route::middleware('auth')->group(function() {
+    Route::get('/competitions/{slug}', [HomeCompetitionController::class, 'detail']);
+    Route::post('/competitions/{slug}/register', [HomeCompetitionController::class, 'registerComp']);
+});
 
 
 
