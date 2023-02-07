@@ -37,7 +37,7 @@ class CompetitionItemController extends Controller
             }
             
         } catch (\Exception $e) {
-            session()->flash('error', 'Competition scramble created failed');
+            session()->flash('error', 'Competition scramble created failed ' . $e->getMessage());
         }
               
     }

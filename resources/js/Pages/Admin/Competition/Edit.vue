@@ -10,6 +10,9 @@
       description="add new competition page cubingmaze, halaman tambah kompetisi baru cubingmaze, add competition administrator"
     />
   </Head>
+  <div class="alert-error -ml-3" v-if="session.error">
+    <p class="alert-label-error">{{ session.error }}</p>
+  </div>
   <div class="container-fluid mb-16 grid grid-cols-3">
     <form class="sm:col-span-2 col-span-3" @submit.prevent="update">
       <div class="form-group">
@@ -257,6 +260,7 @@ export default {
   },
 
   props: {
+    session: Object,
     errors: Object,
     competition: Object,
   },

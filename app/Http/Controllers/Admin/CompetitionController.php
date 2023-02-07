@@ -70,7 +70,7 @@ class CompetitionController extends Controller
             
             return redirect('admin/competitions')->with('success', 'Competition created successfully');;
         } catch (\Exception $e) {
-            return back()->with('error', 'Competition created failed');
+            return back()->with('error', 'Competition created failed ');
         }
               
     }
