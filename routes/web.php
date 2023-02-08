@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\CompetitionCategoryController;
+use App\Http\Controllers\Admin\CompetitionCompetitor;
 use App\Http\Controllers\Admin\CompetitionController;
 use App\Http\Controllers\Admin\CompetitionItemController;
 use App\Http\Controllers\Admin\CompetitionRoundController;
@@ -43,9 +44,13 @@ Route::prefix('admin')->middleware('auth')->group(function() {
     Route::resource('/competitions/rounds', CompetitionRoundController::class);
     // Competition Item
     Route::resource('/competitions/items', CompetitionItemController::class);
+    // Competition Competitor
+    Route::get('/competitions/competitor/{id}/edit', [CompetitionCompetitor::class, 'edit']);
+    Route::delete('/competitions/competitor/{id}', [CompetitionCompetitor::class, 'destroy']);
     
     // Competition Category
     Route::resource('/categories/competitions', CompetitionCategoryController::class);
+
 
 });
 

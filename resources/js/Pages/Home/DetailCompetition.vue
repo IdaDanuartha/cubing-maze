@@ -136,7 +136,7 @@
         <button
           type="button"
           class="select-event-btn"
-          :class="eventSelected.map((id) => (id == cube.id ? 'active' : ''))"
+          :class="eventSelected.map((id) => (id == cube.cube_category.id ? 'active' : ''))"
           v-for="(cube, index) in cube_categories"
           :key="index"
           @click="toggleEvent(cube.cube_category.id)"
@@ -231,7 +231,7 @@ export default {
 
       cube_ids.forEach((cube) => {
         if (!selectAll.value) {
-          eventSelected.push(cube.id);
+          eventSelected.push(cube.cube_category.id);
         } else {
           eventSelected.pop();
         }

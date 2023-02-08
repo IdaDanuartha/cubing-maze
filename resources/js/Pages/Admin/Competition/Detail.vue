@@ -451,14 +451,14 @@
                       hidden
                       md:inline-block
                     "
-                  >                  
+                  >
                     <span
                       class=""
                       v-for="(
                         category, index
                       ) in comp.cuber_competition_categories"
                       :key="index"
-                    >1
+                    >
                       {{
                         index == comp.cuber_competition_categories.length - 1
                           ? category.cube_category.short_name
@@ -509,8 +509,8 @@
                     <div
                       class="hidden sm:inline-block icon delete-icon"
                       data-bs-toggle="modal"
-                      data-bs-target="#deleteCompetitionModal"
-                      @click="detail(comp.id)"
+                      data-bs-target="#deleteCompetitorModal"
+                      @click="editCompetitor(comp.id)"
                     >
                       <img src="/assets/img/icon/delete.svg" alt="" />
                     </div>
@@ -580,12 +580,16 @@
             "
             >Select all</a
           >
-        </div>        
+        </div>
         <div class="flex flex-wrap">
           <button
             type="button"
             class="select-event-btn"
-            :class="eventSelected.map((id) => (id == cube.id ? 'active' : ''))"
+            :class="
+              eventSelected.map((id) =>
+                id == cube.cube_category.id ? 'active' : ''
+              )
+            "
             v-for="(cube, index) in cube_categories"
             :key="index"
             @click="toggleEvent(cube.cube_category.id)"
@@ -684,10 +688,14 @@
           <button
             type="button"
             class="select-event-btn"
-            :class="eventSelected.map((id) => (id == cube.id ? 'active' : ''))"
+            :class="
+              eventSelected.map((id) =>
+                id == cube.cube_category.id ? 'active' : ''
+              )
+            "
             v-for="(cube, index) in cube_categories"
             :key="index"
-            @click="toggleEvent(cube.id)"
+            @click="toggleEvent(cube.cube_category.id)"
           >
             <span
               class="
@@ -699,7 +707,7 @@
                 top-0.5
               "
             >
-              {{ cube.short_name }}</span
+              {{ cube.cube_category.short_name }}</span
             >
             <div>
               <i
@@ -810,11 +818,13 @@
           <div class="select-dropdown" :class="{ active: activeSelectEvent }">
             <div
               v-for="cube in cube_categories"
-              :key="cube.id"
+              :key="cube.cube_category.id"
               class="select-item"
-              @click="selectEvent(cube.id, cube.name)"
+              @click="
+                selectEvent(cube.cube_category.id, cube.cube_category.name)
+              "
             >
-              <p>{{ cube.name }}</p>
+              <p>{{ cube.cube_category.name }}</p>
             </div>
           </div>
           <div v-if="errors.cube_category_id">
@@ -947,11 +957,13 @@
           <div class="select-dropdown" :class="{ active: activeSelectEvent }">
             <div
               v-for="cube in cube_categories"
-              :key="cube.id"
+              :key="cube.cube_category.id"
               class="select-item"
-              @click="selectEvent(cube.id, cube.name)"
+              @click="
+                selectEvent(cube.cube_category.id, cube.cube_category.name)
+              "
             >
-              <p>{{ cube.name }}</p>
+              <p>{{ cube.cube_category.name }}</p>
             </div>
           </div>
           <div v-if="errors.cube_category_id">
@@ -1014,6 +1026,14 @@
       modalTitle="Competition Scramble"
       :modalData="'this scramble'"
       @destroy="destroyItem"
+    />
+
+    <!-- Delete Competitor -->
+    <ModalDelete
+      modalId="deleteCompetitor"
+      modalTitle="Competitor"
+      :modalData="payloadCompetitor.name"
+      @destroy="destroyCompetitor"
     />
   </div>
 </template>
@@ -1091,6 +1111,11 @@ export default {
       date: "",
     });
 
+    let payloadCompetitor = reactive({
+      id: "",
+      name: "",
+    });
+
     const toggleEvent = (cube_id) => {
       if (eventSelected.length) {
         eventSelected.forEach((id) => {
@@ -1109,7 +1134,7 @@ export default {
 
       cube_ids.forEach((cube) => {
         if (!selectAll.value) {
-          eventSelected.push(cube.id);
+          eventSelected.push(cube.cube_category_id);
         } else {
           eventSelected.pop();
         }
@@ -1128,14 +1153,15 @@ export default {
         onSuccess: () => {
           if (props.session.success) {
             $("#createCompRoundModal").modal("hide");
-            payloadCompRound.round_name = ""
-            eventSelected.length = 0
+            payloadCompRound.round_name = "";
+            eventSelected.length = 0;
           }
         },
       });
     };
 
     const editRound = (id) => {
+      eventSelected.length = 0;
       $.ajax({
         method: "GET",
         url: `/admin/competitions/rounds/${id}/edit`,
@@ -1157,8 +1183,8 @@ export default {
           onSuccess: () => {
             if (props.session.success) {
               $("#editCompRoundModal").modal("hide");
-              payloadCompRound.round_name = ""
-              eventSelected.length = 0
+              payloadCompRound.round_name = "";
+              eventSelected.length = 0;
             }
           },
         }
@@ -1216,8 +1242,8 @@ export default {
       payloadCompItem.date = "";
       scramble_img_url.value = null;
 
-      currentRound.value = "Select round"
-      currentEvent.value = "Select event"
+      currentRound.value = "Select round";
+      currentEvent.value = "Select event";
     };
 
     const storeItem = () => {
@@ -1284,6 +1310,27 @@ export default {
       );
     };
 
+    const editCompetitor = (id) => {
+      $.ajax({
+        method: "GET",
+        url: `/admin/competitions/competitor/${id}/edit`,
+        success: (response) => {
+          payloadCompetitor.id = response.id;
+          payloadCompetitor.name = response.cuber.name;
+        },
+      });
+    };
+
+    const destroyCompetitor = () => {
+      Inertia.delete(`/admin/competitions/competitor/${payloadCompetitor.id}`, {
+        onSuccess: () => {
+          if (props.session.success) {
+            $("#deleteCompetitorModal").modal("hide");
+          }
+        },
+      });
+    };
+
     return {
       search_query,
       handleSearch,
@@ -1310,6 +1357,9 @@ export default {
       editItem,
       updateItem,
       destroyItem,
+      payloadCompetitor,
+      editCompetitor,
+      destroyCompetitor,
     };
   },
 };
