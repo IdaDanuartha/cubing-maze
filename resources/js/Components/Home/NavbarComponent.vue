@@ -278,9 +278,14 @@
             </li>
           </ul>
         </div>
-        <div class="dropdown relative" v-if="$page.props.auth.user">
+        <div
+          class="dropdown relative"
+          @click="handleDropdownProfile"
+          v-click-outside="onClickOutside"
+          v-if="$page.props.auth.user"
+        >
           <a
-            class="dropdown-toggle flex items-center hidden-arrow"
+            class="flex items-center hidden-arrow"
             href="#"
             id="dropdownMenuButton2"
             role="button"
@@ -288,96 +293,68 @@
             aria-expanded="false"
           >
             <img
-              src="https://mdbootstrap.com/img/new/avatars/2.jpg"
+              :src="
+                $page.props.auth.user.profile_img ??
+                '/assets/img/user_profile.svg'
+              "
               class="rounded-full"
               style="height: 25px; width: 25px"
               alt=""
               loading="lazy"
             />
           </a>
-          <ul
-            class="
-              dropdown-menu
-              min-w-max
-              absolute
-              hidden
-              bg-white
-              text-base
-              z-50
-              float-left
-              py-2
-              list-none
-              text-left
-              rounded-lg
-              shadow-lg
-              mt-1
-              hidden
-              m-0
-              bg-clip-padding
-              border-none
-              left-auto
-              right-0
-            "
-            aria-labelledby="dropdownMenuButton2"
+          <div
+            class="dropdown-profile"
+            :class="{ active: activeDropdownProfile }"
           >
-            <li>
-              <a
-                class="
-                  dropdown-item
-                  text-sm
-                  py-2
-                  px-4
-                  font-normal
-                  block
-                  w-full
-                  whitespace-nowrap
-                  bg-transparent
-                  text-gray-700
-                  hover:bg-gray-100
-                "
-                href="#"
-                >Action</a
-              >
-            </li>
-            <li>
-              <a
-                class="
-                  dropdown-item
-                  text-sm
-                  py-2
-                  px-4
-                  font-normal
-                  block
-                  w-full
-                  whitespace-nowrap
-                  bg-transparent
-                  text-gray-700
-                  hover:bg-gray-100
-                "
-                href="#"
-                >Another action</a
-              >
-            </li>
-            <li>
-              <a
-                class="
-                  dropdown-item
-                  text-sm
-                  py-2
-                  px-4
-                  font-normal
-                  block
-                  w-full
-                  whitespace-nowrap
-                  bg-transparent
-                  text-gray-700
-                  hover:bg-gray-100
-                "
-                href="#"
-                >Something else here</a
-              >
-            </li>
-          </ul>
+            <div class="flex border-b pb-[15px] mb-2.5">
+              <img
+                src="/assets/img/user_profile.svg"
+                width="30"
+                alt="User profile picture"
+              />
+              <div class="ml-2.5">
+                <h1 class="text-[10px] font-worksans-medium">
+                  Ida Putu Sucita Danuartha
+                </h1>
+                <h5 class="text-[8px] text-main-color/80">
+                  Ida Putu Sucita Danuartha
+                </h5>
+              </div>
+            </div>
+            <ul>
+              <li class="mb-2">
+                <a href="" class="flex"
+                  ><img
+                    class="mr-1"
+                    src="/assets/img/home/navbar/dashboard.svg"
+                    alt="Dashboard icon"
+                  />
+                  <span class="text-[12px]">Dashboard</span></a
+                >
+              </li>
+              <li class="mb-2">
+                <a href="" class="flex"
+                  ><img
+                    class="mr-1"
+                    src="/assets/img/home/navbar/profile.svg"
+                    alt="Profile icon"
+                  />
+                  <span class="text-[12px]">My Profile</span></a
+                >
+              </li>
+              <li class="">
+                <a href="" class="flex"
+                  ><img
+                    class="mr-1"
+                    src="/assets/img/home/navbar/logout.svg"
+                    alt="Logout icon"
+                  />
+                  <span class="text-[12px]">Logout</span></a
+                >
+              </li>
+            </ul>
+          </div>
         </div>
         <a
           class="
@@ -413,13 +390,19 @@
 <script>
 import { Link } from "@inertiajs/inertia-vue3";
 import { ref } from "vue";
+import vClickOutside from "click-outside-vue3";
+
 export default {
   components: {
     Link,
   },
+  directives: {
+    clickOutside: vClickOutside.directive,
+  },
   setup() {
     let isDarkMode = ref(false);
     let darkMode = localStorage.getItem("darkMode");
+    let activeDropdownProfile = ref(false);
 
     const enabledDarkMode = () => {
       document.documentElement.classList.add("dark");
@@ -447,9 +430,20 @@ export default {
       }
     };
 
+    const handleDropdownProfile = () => {
+      activeDropdownProfile.value = !activeDropdownProfile.value;
+    };
+
+    const onClickOutside = () => {
+      activeDropdownProfile.value = false;
+    };
+
     return {
       isDarkMode,
       toggleDarkMode,
+      activeDropdownProfile,
+      handleDropdownProfile,
+      onClickOutside,
     };
   },
 };
@@ -458,5 +452,13 @@ export default {
 <style scoped>
 .btn-submit {
   @apply bg-third-color/30;
+}
+
+.dropdown-profile {
+  @apply absolute bg-white shadow-lg w-[200px] right-0 top-10 rounded-lg p-[15px] transition-all duration-300 opacity-0 -z-10 -translate-y-3;
+}
+
+.dropdown-profile.active {
+  @apply opacity-100 -translate-y-0 z-10;
 }
 </style>

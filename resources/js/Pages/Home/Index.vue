@@ -107,17 +107,17 @@
               <div class="custom-card">
                 <div class="h-[350px] overflow-y-hidden">
                   <p
-                    class="
-                      bg-green-100
+                    class="                      
                       px-4
                       py-0.5
                       rounded
-                      text-sm text-green-600
+                      text-sm
                       absolute
                       right-5
                       top-5
                       capitalize
                     "
+                    :class="comp.type === 'free' ? 'text-green-600 bg-green-100' : 'text-red-600 bg-red-100'"
                   >
                     {{ comp.type }}
                   </p>

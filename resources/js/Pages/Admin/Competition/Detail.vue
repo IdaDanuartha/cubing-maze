@@ -479,7 +479,7 @@
                   >
                     <TableDropdown>
                       <template v-slot:dropdown_item>
-                        <Link
+                        <!-- <Link
                           :href="'/admin/competitions/' + comp.id + '/edit'"
                           class="dropdown-item"
                         >
@@ -487,10 +487,12 @@
                             class="fa-solid mr-2 relative top-0.5 fa-pencil"
                           ></i>
                           <span>Edit</span>
-                        </Link>
+                        </Link> -->
                         <a
                           href="#"
-                          @click="detail(comp.id)"
+                          data-bs-toggle="modal"
+                          data-bs-target="#deleteCompetitorModal"
+                          @click="editCompetitor(comp.id)"
                           class="dropdown-item"
                         >
                           <i
@@ -500,12 +502,12 @@
                         </a>
                       </template>
                     </TableDropdown>
-                    <Link
+                    <!-- <Link
                       :href="'/admin/competitions/' + comp.id + '/edit'"
                       class="hidden sm:inline-block icon edit-icon mr-4"
                     >
                       <img src="/assets/img/icon/edit.svg" alt="" />
-                    </Link>
+                    </Link> -->
                     <div
                       class="hidden sm:inline-block icon delete-icon"
                       data-bs-toggle="modal"
@@ -1032,7 +1034,7 @@
     <ModalDelete
       modalId="deleteCompetitor"
       modalTitle="Competitor"
-      :modalData="payloadCompetitor.name"
+      :modalData="'Competitor ' + payloadCompetitor.name"
       @destroy="destroyCompetitor"
     />
   </div>
