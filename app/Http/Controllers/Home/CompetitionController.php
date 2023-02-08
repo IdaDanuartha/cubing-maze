@@ -8,6 +8,7 @@ use App\Models\Competition;
 use App\Models\CubeCategory;
 use App\Models\Cuber;
 use App\Models\CuberCompetition;
+use App\Models\CompetitionEvent;
 use App\Models\CuberCompetitionCategory;
 use Illuminate\Http\Request;
 
@@ -17,7 +18,7 @@ class CompetitionController extends Controller
     {
         $cuber = Cuber::where('user_id', auth()->id())->first();
         $competition = Competition::where('slug', $slug)->with(['cuber_competitions', 'rounds.competition_event_rounds.cube_category'])->first();
-        $cube_categories = CubeCategory::all();
+        $cube_categories = CompetitionEvent::where('competition_id', $competition->id)->with('cube_category')->get();
         $cuber_competition = CuberCompetition::where('competition_id', $competition->id)->where('cuber_id', $cuber->id)->count();
 
         return inertia('Home/DetailCompetition', compact('cuber', 'competition', 'cube_categories', 'cuber_competition'));

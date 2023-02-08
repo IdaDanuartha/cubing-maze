@@ -21,4 +21,9 @@ class Competition extends Model
     {
         return $this->hasMany(CompetitionRound::class);
     }
+
+    public function cube_categories()
+    {
+        return $this->hasMany(CubeCategory::class);
+    }
 }

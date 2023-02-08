@@ -44,7 +44,7 @@
         </div>
       </div>
       <div class="relative mt-5">
-        <button data-bs-toggle="modal" data-bs-target="#competitionEventModal" class="btn btn-submit">Select Event</button>
+        <button type="button" data-bs-toggle="modal" data-bs-target="#competitionEventModal" class="btn btn-submit">Select Event</button>
       </div>
       <div v-if="errors.cube_categories">
         <p class="text-error">{{ errors.cube_categories }}</p>
@@ -176,7 +176,7 @@
       </div>
       <div class="relative mt-5">
         <Editor
-          api-key="kku3kygnx4i89tm3idkx8c2qoj28beppy2iepxdxqssl3gln"
+          api-key="no-api-key"
           v-model="payload.description"
           :init="{
             height: 350,
@@ -235,6 +235,7 @@
     <ModalBase
     modalId="competitionEvent"
     modalTitle="Select Competition Event"
+    btnCancel="Back"
   >
     <template v-slot:body>    
       <div class="flex justify-between mt-6 mb-3">

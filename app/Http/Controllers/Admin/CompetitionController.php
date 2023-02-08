@@ -43,7 +43,7 @@ class CompetitionController extends Controller
             $cuber_competitions = $cuber_competitions->where('competition_id', 'like', '%' . request()->query_cuber_comp . '%');
         })->latest()->where('competition_id', $id)->with(['cuber', 'cuber_competition_categories.cube_category'])->paginate(3);
 
-        $cube_categories = CubeCategory::all();
+        $cube_categories = CompetitionEvent::where('competition_id', $id)->with('cube_category')->get();
         $competition_id = $id;
 
         return inertia('Admin/Competition/Detail', compact('page_name', 'competition_rounds', 'competition_items', 'cuber_competitions', 'cube_categories', 'competition_id'));
@@ -59,9 +59,9 @@ class CompetitionController extends Controller
 
     public function store(StoreCompetitionRequest $request) 
     {
-        $competition = new Competition($request->validated());
+        $competition = new Competition($request->except('cube_categories'));
 
-        try {
+        try {            
             if($request->hasFile('competition_img')) {
                 $uploadedImage = $request->file('competition_img')->store('uploads/competitions', 'public');
                 $competition->competition_img = $uploadedImage;
@@ -70,7 +70,7 @@ class CompetitionController extends Controller
             $competition->slug = Str::slug($request->name);
             $competition->save();
 
-            foreach($request->cube_categories as $category_id) {
+            foreach($request->cube_categories as $category_id) {                
                 CompetitionEvent::create([
                     'competition_id' => $competition->id,
                     'cube_category_id' => $category_id

@@ -139,7 +139,7 @@
           :class="eventSelected.map((id) => (id == cube.id ? 'active' : ''))"
           v-for="(cube, index) in cube_categories"
           :key="index"
-          @click="toggleEvent(cube.id)"
+          @click="toggleEvent(cube.cube_category.id)"
         >
           <span
             class="
@@ -151,7 +151,7 @@
               top-0.5
             "
           >
-            {{ cube.short_name }}</span
+            {{ cube.cube_category.short_name }}</span
           >
           <div>
             <i
