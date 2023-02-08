@@ -31,7 +31,10 @@ createInertiaApp({
           } else {
             return moment(start_date).format("DD") + ' - ' + moment(end_date).format("DD MMMM YYYY")
           }
-        }
+        },
+        rupiah_format: function(num) {
+          return new Intl.NumberFormat("id-ID").format(num)
+        },
       },
   })
       .use(plugin)

@@ -61,7 +61,7 @@
         <div class="flex mb-4">
           <p>Registration Fee :</p>
           <p class="font-worksans-semibold ml-1">
-            {{ competition.fee ?? "-" }}
+            Rp. {{ rupiah_format(competition.fee) + ',00' ?? '0,00' }}
           </p>
         </div>
         <div class="flex mb-4">
@@ -83,6 +83,10 @@
           v-if="$page.props.auth.user.level.role === 'Cuber'"
         >
           <button
+            v-if="
+              competition.competitor_limit -
+              competition.cuber_competitions.length > 0
+            "
             data-bs-toggle="modal"
             data-bs-target="#registerCompetitionModal"
             class="
@@ -100,7 +104,37 @@
                 : 'bg-secondary-color'
             "
           >
-            {{ cuber_competition ? "Already Registered" : "Register" }}
+          {{ cuber_competition ? "Already Registered" : "Register" }}
+          </button>
+          <button
+            v-else-if="checkCompetitionDate(competition.date_start, competition.date_end) !== 'Closed'"            
+            class="
+              w-full
+              btn
+              text-white
+              px-6
+              py-2.5
+              font-worksans-regular
+              text-sm
+              bg-gray-500 pointer-events-none
+            "
+          >
+            {{ checkCompetitionDate(competition.date_start, competition.date_end) === 'Opened' ? 'The competition has started' : 'The competition is over' }}
+          </button>
+          <button
+            v-else            
+            class="
+              w-full
+              btn
+              text-white
+              px-6
+              py-2.5
+              font-worksans-regular
+              text-sm
+              bg-red-500 pointer-events-none
+            "
+          >
+            Participants have reached the limit
           </button>
         </div>
       </div>
@@ -117,7 +151,7 @@
     <template v-slot:body>
       <div class="alert-error -ml-2" v-if="session.error">
         <p class="alert-label-error">{{ session.error }}</p>
-      </div>      
+      </div>
       <div class="flex justify-between mt-6 mb-3">
         <p class="dark:text-gray-200 text-main-color">Select the event :</p>
         <a
@@ -136,7 +170,11 @@
         <button
           type="button"
           class="select-event-btn"
-          :class="eventSelected.map((id) => (id == cube.cube_category.id ? 'active' : ''))"
+          :class="
+            eventSelected.map((id) =>
+              id == cube.cube_category.id ? 'active' : ''
+            )
+          "
           v-for="(cube, index) in cube_categories"
           :key="index"
           @click="toggleEvent(cube.cube_category.id)"

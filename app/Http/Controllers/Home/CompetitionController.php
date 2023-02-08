@@ -28,21 +28,27 @@ class CompetitionController extends Controller
     {
         $cuber_competition = new CuberCompetition($request->except(['cube_categories']));
         $get_cuber_competition = CuberCompetition::where('cuber_id', $request->cuber_id)->first();
+        $count_competitior = CuberCompetition::where('competition_id', $request->competition_id)->count();
+        $competition = Competition::findOrFail($request->competition_id);
         
         try {
-            if($get_cuber_competition) {
-                session()->flash('error', 'You already have register for this competition');
+            if($competition->competitor_limit - $count_competitior < 1) {
+                session()->flash('error', "Ouch I'm sorry, competitors limit has been reached");
             } else {
-                $cuber_competition->save();
-
-                foreach($request->cube_categories as $category_id) {
-                    CuberCompetitionCategory::create([
-                        'cuber_competition_id' => $cuber_competition->id,
-                        'cube_category_id' => $category_id
-                    ]);
+                if($get_cuber_competition) {
+                    session()->flash('error', 'You already have register for this competition');
+                } else {
+                    $cuber_competition->save();
+    
+                    foreach($request->cube_categories as $category_id) {
+                        CuberCompetitionCategory::create([
+                            'cuber_competition_id' => $cuber_competition->id,
+                            'cube_category_id' => $category_id
+                        ]);
+                    }
+                
+                    session()->flash('success', 'Registered successfully');
                 }
-            
-                session()->flash('success', 'Registered successfully');
             }
 
         } catch (\Exception $e) {
