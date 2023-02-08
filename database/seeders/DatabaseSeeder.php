@@ -101,6 +101,11 @@ class DatabaseSeeder extends Seeder
         ]);
         CubeCategory::create([
             'icon_img' => '-',
+            'name' => '3x3x3 One-Handed',
+            'short_name' => '3x3 OH'
+        ]);
+        CubeCategory::create([
+            'icon_img' => '-',
             'name' => '3x3x3 Blindfolded',
             'short_name' => '3x3 Bld'
         ]);
@@ -148,11 +153,6 @@ class DatabaseSeeder extends Seeder
             'icon_img' => '-',
             'name' => '3x3 Multi-Blind',
             'short_name' => '3x3 MBld'
-        ]);
-        CubeCategory::create([
-            'icon_img' => '-',
-            'name' => 'Mystery Event',
-            'short_name' => 'Mystery'
         ]);
     }
 }

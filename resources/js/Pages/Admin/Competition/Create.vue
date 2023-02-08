@@ -10,6 +10,9 @@
       description="add new competition page cubingmaze, halaman tambah kompetisi baru cubingmaze, add competition administrator"
     />
   </Head>
+  <div class="alert-error -ml-2" v-if="session.error">
+    <p class="alert-label-error">{{ session.error }}</p>
+  </div>
   <div class="container-fluid mb-16 grid grid-cols-3">
     <form class="sm:col-span-2 col-span-3" @submit.prevent="store">
       <div class="form-group">
@@ -39,6 +42,12 @@
             {{ errors.competition_img }}
           </p>
         </div>
+      </div>
+      <div class="relative mt-5">
+        <button data-bs-toggle="modal" data-bs-target="#competitionEventModal" class="btn btn-submit">Select Event</button>
+      </div>
+      <div v-if="errors.cube_categories">
+        <p class="text-error">{{ errors.cube_categories }}</p>
       </div>
       <div class="relative mt-5">
         <input
@@ -222,6 +231,68 @@
       </div>
     </form>
   </div>
+
+    <ModalBase
+    modalId="competitionEvent"
+    modalTitle="Select Competition Event"
+  >
+    <template v-slot:body>    
+      <div class="flex justify-between mt-6 mb-3">
+        <p class="dark:text-gray-200 text-main-color">Select the event :</p>
+        <a
+          href="#"
+          @click.prevent="selectAllEvent(cube_categories)"
+          class="
+            font-worksans-medium
+            underline
+            text-secondary-color
+            dark:text-third-color
+          "
+          >Select all</a
+        >
+      </div>
+      <div class="flex flex-wrap">
+        <button
+          type="button"
+          class="select-event-btn"
+          :class="eventSelected.map((id) => (id == cube.id ? 'active' : ''))"
+          v-for="(cube, index) in cube_categories"
+          :key="index"
+          @click="toggleEvent(cube.id)"
+        >
+          <span
+            class="
+              mr-3
+              text-main-color/80
+              dark:text-gray-200
+              text-sm
+              relative
+              top-0.5
+            "
+          >
+            {{ cube.short_name }}</span
+          >
+          <div>
+            <i
+              class="
+                fa-solid fa-plus
+                text-[8px]
+                bg-main-color/80
+                text-white
+                rounded-full
+                p-0.5
+                relative
+                -top-0.5
+              "
+            ></i>
+          </div>
+        </button>
+      </div>
+      <div v-if="errors.cube_categories">
+        <p class="text-error">{{ errors.cube_categories }}</p>
+      </div>
+    </template>
+  </ModalBase>
 </template>
 
 <script>
@@ -231,6 +302,7 @@ import Editor from "@tinymce/tinymce-vue";
 import { ref, reactive } from "vue";
 import vClickOutside from "click-outside-vue3";
 import { Inertia } from "@inertiajs/inertia";
+import ModalBase from "../../../Components/Admin/ModalBaseComponent.vue";
 
 export default {
   //layout
@@ -241,6 +313,7 @@ export default {
     Head,
     Link,
     Editor,
+    ModalBase
   },
 
   directives: {
@@ -248,7 +321,9 @@ export default {
   },
 
   props: {
+    session: Object,
     errors: Object,
+    cube_categories: Object,
   },
 
   setup() {
@@ -256,6 +331,8 @@ export default {
     let activeSelectInput = ref(false);
     let currentType = ref("Free");
     let usePass = ref(false);
+    let selectAll = ref(false);
+    let eventSelected = reactive([]);
 
     const payload = reactive({
       name: "",
@@ -267,7 +344,34 @@ export default {
       date_start: "",
       date_end: "",
       password: "",
-    });
+      cube_categories: eventSelected
+    });  
+    
+    const toggleEvent = (cube_id) => {
+      if (eventSelected.length) {
+        eventSelected.forEach((id) => {
+          if (id === cube_id) {
+            eventSelected.splice(eventSelected.indexOf(id), 1);
+          }
+        });
+      }
+      eventSelected.push(cube_id);
+    };
+
+    const selectAllEvent = (cube_ids) => {
+      cube_ids.forEach((event) => {
+        eventSelected.pop();
+      });
+
+      cube_ids.forEach((cube) => {
+        if (!selectAll.value) {
+          eventSelected.push(cube.id);
+        } else {
+          eventSelected.pop();
+        }
+      });
+      selectAll.value = !selectAll.value;
+    };
 
     const previewImage = (e) => {
       const file = e.target.files[0];
@@ -307,6 +411,10 @@ export default {
       currentType,
       usePass,
       usingPassword,
+      selectAll,
+      eventSelected,
+      toggleEvent,
+      selectAllEvent
     };
   },
 };

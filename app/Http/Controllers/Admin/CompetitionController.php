@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Competition;
+use App\Models\CompetitionEvent;
 use App\Http\Requests\Competition\StoreCompetitionRequest;
 use App\Http\Requests\Competition\UpdateCompetitionRequest;
 use App\Models\CompetitionItem;
@@ -42,7 +43,7 @@ class CompetitionController extends Controller
             $cuber_competitions = $cuber_competitions->where('competition_id', 'like', '%' . request()->query_cuber_comp . '%');
         })->latest()->where('competition_id', $id)->with(['cuber', 'cuber_competition_categories.cube_category'])->paginate(3);
 
-        $cube_categories = CubeCategory::latest()->get();
+        $cube_categories = CubeCategory::all();
         $competition_id = $id;
 
         return inertia('Admin/Competition/Detail', compact('page_name', 'competition_rounds', 'competition_items', 'cuber_competitions', 'cube_categories', 'competition_id'));
@@ -51,8 +52,9 @@ class CompetitionController extends Controller
     public function create()
     {
         $page_name = 'Add Competition';
+        $cube_categories = CubeCategory::all();
 
-        return inertia('Admin/Competition/Create', compact('page_name'));
+        return inertia('Admin/Competition/Create', compact('page_name', 'cube_categories'));
     }
 
     public function store(StoreCompetitionRequest $request) 
@@ -67,10 +69,17 @@ class CompetitionController extends Controller
 
             $competition->slug = Str::slug($request->name);
             $competition->save();
+
+            foreach($request->cube_categories as $category_id) {
+                CompetitionEvent::create([
+                    'competition_id' => $competition->id,
+                    'cube_category_id' => $category_id
+                ]);
+            }            
             
             return redirect('admin/competitions')->with('success', 'Competition created successfully');;
         } catch (\Exception $e) {
-            return back()->with('error', 'Competition created failed ');
+            return back()->with('error', 'Competition created failed ' . $e->getMessage());
         }
               
     }

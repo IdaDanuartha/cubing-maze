@@ -117,29 +117,7 @@
     <template v-slot:body>
       <div class="alert-error -ml-2" v-if="session.error">
         <p class="alert-label-error">{{ session.error }}</p>
-      </div>
-      <div class="relative mt-5">
-        <input
-          type="text"
-          :value="cuber.name"
-          id="name"
-          class="custom-input peer"
-          disabled
-          placeholder=" "
-        />
-        <label for="name" class="custom-label">Full Name</label>
-      </div>
-      <div class="relative mt-5">
-        <input
-          type="text"
-          :value="cuber.wca_id"
-          id="wca_id"
-          class="custom-input peer"
-          disabled
-          placeholder=" "
-        />
-        <label for="wca_id" class="custom-label">WCA ID</label>
-      </div>
+      </div>      
       <div class="flex justify-between mt-6 mb-3">
         <p class="dark:text-gray-200 text-main-color">Select the event :</p>
         <a

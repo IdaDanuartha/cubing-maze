@@ -1128,6 +1128,8 @@ export default {
         onSuccess: () => {
           if (props.session.success) {
             $("#createCompRoundModal").modal("hide");
+            payloadCompRound.round_name = ""
+            eventSelected.length = 0
           }
         },
       });
@@ -1155,6 +1157,8 @@ export default {
           onSuccess: () => {
             if (props.session.success) {
               $("#editCompRoundModal").modal("hide");
+              payloadCompRound.round_name = ""
+              eventSelected.length = 0
             }
           },
         }
@@ -1210,8 +1214,10 @@ export default {
       payloadCompItem.cube_category_id = "";
       payloadCompItem.scramble_img = "";
       payloadCompItem.date = "";
-
       scramble_img_url.value = null;
+
+      currentRound.value = "Select round"
+      currentEvent.value = "Select event"
     };
 
     const storeItem = () => {

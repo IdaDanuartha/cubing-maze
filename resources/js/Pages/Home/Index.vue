@@ -144,8 +144,8 @@
                   />
                   <span class="text-red-500">{{ comp.competitor_limit - comp.cuber_competitions.length }} left</span>
                 </h6>
-                <div class="mt-6 flex">
-                  <Link :href="`/competitions/${comp.slug}`" class="btn btn-submit text-center py-3 w-full"
+                <div class="mt-6 flex" v-if="$page.props.auth.user">
+                  <Link v-if="$page.props.auth.user.level.role === 'Cuber'" :href="`/competitions/${comp.slug}`" class="btn btn-submit text-center py-3 w-full"
                     >See Details</Link
                   >
                 </div>
