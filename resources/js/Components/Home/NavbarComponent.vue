@@ -324,7 +324,7 @@
             </div>
             <ul>
               <li class="mb-2">
-                <a href="" class="flex"
+                <a href="/dashboard/statistics" class="flex"
                   ><img
                     class="mr-1"
                     src="/assets/img/home/navbar/dashboard.svg"

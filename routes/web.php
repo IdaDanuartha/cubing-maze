@@ -10,6 +10,8 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\SignupController;
 use App\Http\Controllers\Auth\SocialiteController;
+use App\Http\Controllers\Cuber\DashboardController as CuberDashboardController;
+use App\Http\Controllers\Cuber\MyCompetitionController;
 use App\Http\Controllers\Home\CompetitionController as HomeCompetitionController;
 use App\Http\Controllers\Home\HomeController;
 use Illuminate\Support\Facades\Route;
@@ -34,23 +36,29 @@ Route::middleware('guest')->group(function() {
 });
 Route::post('/logout', LogoutController::class);
 
-Route::prefix('admin')->middleware('auth')->group(function() {
-    Route::get('/dashboard', DashboardController::class)->name('admin.dashboard');
+Route::middleware('auth')->group(function() {
+    Route::prefix('admin')->group(function() {
+        Route::get('/dashboard', DashboardController::class)->name('admin.dashboard');
     
-    // Competitions
-    Route::resource('/competitions', CompetitionController::class);
-    Route::get('/competitions/{id}/detail', [CompetitionController::class, 'detail']);
-    // Competition Round
-    Route::resource('/competitions/rounds', CompetitionRoundController::class);
-    // Competition Item
-    Route::resource('/competitions/items', CompetitionItemController::class);
-    // Competition Competitor
-    Route::get('/competitions/competitor/{id}/edit', [CompetitionCompetitor::class, 'edit']);
-    Route::delete('/competitions/competitor/{id}', [CompetitionCompetitor::class, 'destroy']);
-    
-    // Competition Category
-    Route::resource('/categories/competitions', CompetitionCategoryController::class);
+        // Competitions
+        Route::resource('/competitions', CompetitionController::class);
+        Route::get('/competitions/{id}/detail', [CompetitionController::class, 'detail']);
+        // Competition Round
+        Route::resource('/competitions/rounds', CompetitionRoundController::class);
+        // Competition Item
+        Route::resource('/competitions/items', CompetitionItemController::class);
+        // Competition Competitor
+        Route::get('/competitions/competitor/{id}/edit', [CompetitionCompetitor::class, 'edit']);
+        Route::delete('/competitions/competitor/{id}', [CompetitionCompetitor::class, 'destroy']);
+        
+        // Competition Category
+        Route::resource('/categories/competitions', CompetitionCategoryController::class);
+    });
 
+    Route::prefix('dashboard')->group(function() {
+        Route::get('/statistics', CuberDashboardController::class)->name('cuber.dashboard');
+        Route::get('/my-competitions', [MyCompetitionController::class, 'index']);
+    });
 
 });
 

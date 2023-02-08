@@ -17,6 +17,11 @@ class CuberCompetition extends Model
         return $this->belongsTo(Cuber::class);
     }
 
+    public function competition()
+    {
+        return $this->belongsTo(Competition::class);
+    }
+
     public function cuber_competition_categories()
     {
         return $this->hasMany(CuberCompetitionCategory::class);

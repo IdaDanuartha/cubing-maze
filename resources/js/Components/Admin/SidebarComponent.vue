@@ -1,6 +1,21 @@
 <template>
-  <aside class="w-64 fixed z-[99]" :class="active ? 'active' : 'left-[-300px] lg:left-0 lg:block'" aria-label="Sidebar">
-    <div class="overflow-y-auto sidebar h-full py-7 px-5 bg-[#3282B8] dark:bg-[#0F4C75] relative">
+  <aside
+    class="w-64 fixed z-[99]"
+    :class="active ? 'active' : 'left-[-300px] lg:left-0 lg:block'"
+    aria-label="Sidebar"
+  >
+    <div
+      class="
+        overflow-y-auto
+        sidebar
+        h-full
+        py-7
+        px-5
+        bg-[#3282B8]
+        dark:bg-[#0F4C75]
+        relative
+      "
+    >
       <!-- <div class="close-icon right-5 absolute block lg:hidden top-3 cursor-pointer" @click="$emit('openSidebar')">
         <i class="fa-solid fa-xmark text-gray-100
         dark:text-gray-300 dark:text-gray-100"></i>
@@ -23,7 +38,7 @@
           >Cubing Maze</span
         >
       </Link>
-      <ul class="space-y-3">
+      <ul class="space-y-3" v-if="$page.props.auth.user.level_id !== 5">
         <li @click="$emit('openSidebar')">
           <Link
             href="/admin/dashboard"
@@ -33,19 +48,30 @@
               items-center
               p-3
               text-base
-              font-normal              
+              font-normal
               rounded-lg
               text-gray-100
               dark:text-gray-300
               hover:bg-[rgba(255,255,255,0.1)]
             "
-            :class="{ 'active': $page.url.startsWith('/admin/dashboard') }">          
-            <img class="dark:opacity-80" src="/assets/img/sidebar/statistics.svg" alt="" />
-            <span class="ml-3 text-gray-100
-            dark:text-gray-300">Statistics</span>
+            :class="{ active: $page.url.startsWith('/admin/dashboard') }"
+          >
+            <img
+              class="dark:opacity-80"
+              src="/assets/img/sidebar/statistics.svg"
+              alt=""
+            />
+            <span class="ml-3 text-gray-100 dark:text-gray-300"
+              >Statistics</span
+            >
           </Link>
         </li>
-        <li v-if="$page.props.auth.user.level_id == 1 || $page.props.auth.user.level_id == 2">
+        <li
+          v-if="
+            $page.props.auth.user.level_id == 1 ||
+            $page.props.auth.user.level_id == 2
+          "
+        >
           <button
             type="button"
             class="
@@ -55,7 +81,7 @@
               p-3
               w-full
               text-base
-              font-normal              
+              font-normal
               rounded-lg
               transition
               duration-75
@@ -68,17 +94,37 @@
             aria-controls="dropdown-example"
             data-collapse-toggle="dropdown-example"
           >
-            <img class="dark:opacity-80" src="/assets/img/sidebar/competitions.svg" alt="">
+            <img
+              class="dark:opacity-80"
+              src="/assets/img/sidebar/competitions.svg"
+              alt=""
+            />
             <span
-              class="flex-1 ml-3 text-gray-100
-              dark:text-gray-300 text-left whitespace-nowrap"
+              class="
+                flex-1
+                ml-3
+                text-gray-100
+                dark:text-gray-300
+                text-left
+                whitespace-nowrap
+              "
               >Competitions</span
             >
-            <img src="/assets/img/sidebar/caret-down.svg" class="dark:opacity-80 dropdown-icon" :class="{ active: dropdown_competitions }" alt="">
+            <img
+              src="/assets/img/sidebar/caret-down.svg"
+              class="dark:opacity-80 dropdown-icon"
+              :class="{ active: dropdown_competitions }"
+              alt=""
+            />
           </button>
-          <ul            
+          <ul
             class="dropdown-sidebar mt-2 hidden opacity-0 ml-[45px] space-y-3"
-            :class="{ active: dropdown_competitions || $page.url.startsWith('/admin/competitions') || $page.url.startsWith('/admin/categories/competitions') }"
+            :class="{
+              active:
+                dropdown_competitions ||
+                $page.url.startsWith('/admin/competitions') ||
+                $page.url.startsWith('/admin/categories/competitions'),
+            }"
           >
             <li @click="$emit('openSidebar')">
               <Link
@@ -91,7 +137,7 @@
                   py-2
                   w-full
                   text-base
-                  font-normal                  
+                  font-normal
                   rounded-lg
                   transition
                   duration-75
@@ -100,7 +146,7 @@
                   text-gray-100
                   dark:text-gray-300
                 "
-                :class="{ 'active': $page.url.startsWith('/admin/competitions') }"
+                :class="{ active: $page.url.startsWith('/admin/competitions') }"
                 >Index</Link
               >
             </li>
@@ -115,7 +161,7 @@
                   py-2
                   w-full
                   text-base
-                  font-normal                  
+                  font-normal
                   rounded-lg
                   transition
                   duration-75
@@ -124,13 +170,22 @@
                   text-gray-100
                   dark:text-gray-300
                 "
-                :class="{ 'active': $page.url.startsWith('/admin/categories/competitions') }"
+                :class="{
+                  active: $page.url.startsWith(
+                    '/admin/categories/competitions'
+                  ),
+                }"
                 >Category</Link
               >
             </li>
           </ul>
         </li>
-        <li v-if="$page.props.auth.user.level_id == 1 || $page.props.auth.user.level_id == 3">
+        <li
+          v-if="
+            $page.props.auth.user.level_id == 1 ||
+            $page.props.auth.user.level_id == 3
+          "
+        >
           <button
             type="button"
             class="
@@ -140,7 +195,7 @@
               p-3
               w-full
               text-base
-              font-normal              
+              font-normal
               rounded-lg
               transition
               duration-75
@@ -153,17 +208,38 @@
             aria-controls="dropdown-example"
             data-collapse-toggle="dropdown-example"
           >
-            <img class="dark:opacity-80" src="/assets/img/sidebar/courses.svg" alt="">
+            <img
+              class="dark:opacity-80"
+              src="/assets/img/sidebar/courses.svg"
+              alt=""
+            />
             <span
-              class="flex-1 ml-3 text-gray-100
-              dark:text-gray-300 text-left whitespace-nowrap"
+              class="
+                flex-1
+                ml-3
+                text-gray-100
+                dark:text-gray-300
+                text-left
+                whitespace-nowrap
+              "
               >Courses</span
             >
-            <img src="/assets/img/sidebar/caret-down.svg" class="dark:opacity-80 dropdown-icon" :class="{ active: dropdown_courses || $page.url.startsWith('/admin/courses') }" alt="">
+            <img
+              src="/assets/img/sidebar/caret-down.svg"
+              class="dark:opacity-80 dropdown-icon"
+              :class="{
+                active:
+                  dropdown_courses || $page.url.startsWith('/admin/courses'),
+              }"
+              alt=""
+            />
           </button>
-          <ul            
+          <ul
             class="dropdown-sidebar mt-2 hidden opacity-0 ml-[45px] space-y-3"
-            :class="{ active: dropdown_courses || $page.url.startsWith('/admin/courses') }"
+            :class="{
+              active:
+                dropdown_courses || $page.url.startsWith('/admin/courses'),
+            }"
           >
             <li @click="$emit('openSidebar')">
               <Link
@@ -176,7 +252,7 @@
                   py-2
                   w-full
                   text-base
-                  font-normal                  
+                  font-normal
                   rounded-lg
                   transition
                   duration-75
@@ -185,7 +261,7 @@
                   text-gray-100
                   dark:text-gray-300
                 "
-                :class="{ 'active': $page.url.startsWith('/admin/courses') }"
+                :class="{ active: $page.url.startsWith('/admin/courses') }"
                 >Index</Link
               >
             </li>
@@ -200,7 +276,7 @@
                   py-2
                   w-full
                   text-base
-                  font-normal                  
+                  font-normal
                   rounded-lg
                   transition
                   duration-75
@@ -209,13 +285,20 @@
                   text-gray-100
                   dark:text-gray-300
                 "
-                :class="{ 'active': $page.url.startsWith('/admin/courses/category') }"
+                :class="{
+                  active: $page.url.startsWith('/admin/courses/category'),
+                }"
                 >Category</Link
               >
             </li>
           </ul>
         </li>
-        <li v-if="$page.props.auth.user.level_id == 1 || $page.props.auth.user.level_id == 4">
+        <li
+          v-if="
+            $page.props.auth.user.level_id == 1 ||
+            $page.props.auth.user.level_id == 4
+          "
+        >
           <button
             type="button"
             class="
@@ -225,7 +308,7 @@
               p-3
               w-full
               text-base
-              font-normal              
+              font-normal
               rounded-lg
               transition
               duration-75
@@ -238,17 +321,36 @@
             aria-controls="dropdown-example"
             data-collapse-toggle="dropdown-example"
           >
-            <img class="dark:opacity-80" src="/assets/img/sidebar/blogs.svg" alt="">
+            <img
+              class="dark:opacity-80"
+              src="/assets/img/sidebar/blogs.svg"
+              alt=""
+            />
             <span
-              class="flex-1 ml-3 text-gray-100
-              dark:text-gray-300 text-left whitespace-nowrap"
+              class="
+                flex-1
+                ml-3
+                text-gray-100
+                dark:text-gray-300
+                text-left
+                whitespace-nowrap
+              "
               >Blogs</span
             >
-            <img src="/assets/img/sidebar/caret-down.svg" class="dark:opacity-80 dropdown-icon" :class="{ active: dropdown_blogs || $page.url.startsWith('/admin/blogs') }" alt="">
+            <img
+              src="/assets/img/sidebar/caret-down.svg"
+              class="dark:opacity-80 dropdown-icon"
+              :class="{
+                active: dropdown_blogs || $page.url.startsWith('/admin/blogs'),
+              }"
+              alt=""
+            />
           </button>
-          <ul            
+          <ul
             class="dropdown-sidebar mt-2 hidden opacity-0 ml-[45px] space-y-3"
-            :class="{ active: dropdown_blogs || $page.url.startsWith('/admin/blogs') }"
+            :class="{
+              active: dropdown_blogs || $page.url.startsWith('/admin/blogs'),
+            }"
           >
             <li @click="$emit('openSidebar')">
               <Link
@@ -261,7 +363,7 @@
                   py-2
                   w-full
                   text-base
-                  font-normal                  
+                  font-normal
                   rounded-lg
                   transition
                   duration-75
@@ -270,7 +372,7 @@
                   text-gray-100
                   dark:text-gray-300
                 "
-                :class="{ 'active': $page.url.startsWith('/admin/blogs') }"
+                :class="{ active: $page.url.startsWith('/admin/blogs') }"
                 >Index</Link
               >
             </li>
@@ -285,7 +387,7 @@
                   py-2
                   w-full
                   text-base
-                  font-normal                  
+                  font-normal
                   rounded-lg
                   transition
                   duration-75
@@ -294,7 +396,9 @@
                   text-gray-100
                   dark:text-gray-300
                 "
-                :class="{ 'active': $page.url.startsWith('/admin/blogs/category') }"
+                :class="{
+                  active: $page.url.startsWith('/admin/blogs/category'),
+                }"
                 >Category</Link
               >
             </li>
@@ -309,7 +413,7 @@
                   py-2
                   w-full
                   text-base
-                  font-normal                  
+                  font-normal
                   rounded-lg
                   transition
                   duration-75
@@ -318,13 +422,16 @@
                   text-gray-100
                   dark:text-gray-300
                 "
-                :class="{ 'active': $page.url.startsWith('/admin/blogs/tag') }"
+                :class="{ active: $page.url.startsWith('/admin/blogs/tag') }"
                 >Tags</Link
               >
             </li>
           </ul>
         </li>
-        <li v-if="$page.props.auth.user.level_id == 1" @click="$emit('openSidebar')">
+        <li
+          v-if="$page.props.auth.user.level_id == 1"
+          @click="$emit('openSidebar')"
+        >
           <Link
             href="/admin/levels"
             class="
@@ -333,20 +440,35 @@
               items-center
               p-3
               text-base
-              font-normal              
+              font-normal
               rounded-lg
               text-gray-100
               dark:text-gray-300
               hover:bg-[rgba(255,255,255,0.1)]
             "
-            :class="{ 'active': $page.url.startsWith('/admin/levels') }"
+            :class="{ active: $page.url.startsWith('/admin/levels') }"
           >
-            <img class="dark:opacity-80" src="/assets/img/sidebar/levels.svg" alt="">
-            <span class="flex-1 ml-3 text-gray-100
-            dark:text-gray-300 whitespace-nowrap">Level</span>
+            <img
+              class="dark:opacity-80"
+              src="/assets/img/sidebar/levels.svg"
+              alt=""
+            />
+            <span
+              class="
+                flex-1
+                ml-3
+                text-gray-100
+                dark:text-gray-300
+                whitespace-nowrap
+              "
+              >Level</span
+            >
           </Link>
         </li>
-        <li v-if="$page.props.auth.user.level_id == 1" @click="$emit('openSidebar')">
+        <li
+          v-if="$page.props.auth.user.level_id == 1"
+          @click="$emit('openSidebar')"
+        >
           <Link
             href="/admin/reports"
             class="
@@ -355,20 +477,35 @@
               items-center
               p-3
               text-base
-              font-normal              
+              font-normal
               rounded-lg
               text-gray-100
               dark:text-gray-300
               hover:bg-[rgba(255,255,255,0.1)]
             "
-            :class="{ 'active': $page.url.startsWith('/admin/reports') }"
+            :class="{ active: $page.url.startsWith('/admin/reports') }"
           >
-            <img class="dark:opacity-80" src="/assets/img/sidebar/reports.svg" alt="">
-            <span class="flex-1 ml-3 text-gray-100
-            dark:text-gray-300 whitespace-nowrap">Reports</span>
+            <img
+              class="dark:opacity-80"
+              src="/assets/img/sidebar/reports.svg"
+              alt=""
+            />
+            <span
+              class="
+                flex-1
+                ml-3
+                text-gray-100
+                dark:text-gray-300
+                whitespace-nowrap
+              "
+              >Reports</span
+            >
           </Link>
         </li>
-        <li v-if="$page.props.auth.user.level_id == 1" @click="$emit('openSidebar')">
+        <li
+          v-if="$page.props.auth.user.level_id == 1"
+          @click="$emit('openSidebar')"
+        >
           <Link
             href="/admin/users"
             class="
@@ -377,17 +514,29 @@
               items-center
               p-3
               text-base
-              font-normal              
+              font-normal
               rounded-lg
               text-gray-100
               dark:text-gray-300
               hover:bg-[rgba(255,255,255,0.1)]
             "
-            :class="{ 'active': $page.url.startsWith('/admin/users') }"
+            :class="{ active: $page.url.startsWith('/admin/users') }"
           >
-            <img class="dark:opacity-80" src="/assets/img/sidebar/users.svg" alt="">
-            <span class="flex-1 ml-3 text-gray-100
-            dark:text-gray-300 whitespace-nowrap">Users</span>
+            <img
+              class="dark:opacity-80"
+              src="/assets/img/sidebar/users.svg"
+              alt=""
+            />
+            <span
+              class="
+                flex-1
+                ml-3
+                text-gray-100
+                dark:text-gray-300
+                whitespace-nowrap
+              "
+              >Users</span
+            >
           </Link>
         </li>
         <li>
@@ -400,7 +549,7 @@
               p-3
               w-full
               text-base
-              font-normal              
+              font-normal
               rounded-lg
               transition
               duration-75
@@ -413,19 +562,45 @@
             aria-controls="dropdown-example"
             data-collapse-toggle="dropdown-example"
           >
-            <img class="dark:opacity-80" src="/assets/img/sidebar/settings.svg" alt="">
+            <img
+              class="dark:opacity-80"
+              src="/assets/img/sidebar/settings.svg"
+              alt=""
+            />
             <span
-              class="flex-1 ml-3 text-gray-100
-              dark:text-gray-300 text-left whitespace-nowrap"
+              class="
+                flex-1
+                ml-3
+                text-gray-100
+                dark:text-gray-300
+                text-left
+                whitespace-nowrap
+              "
               >Settings</span
             >
-            <img src="/assets/img/sidebar/caret-down.svg" class="dark:opacity-80 dropdown-icon" :class="{ active: dropdown_settings || $page.url.startsWith('/admin/settings/application') }" alt="">
+            <img
+              src="/assets/img/sidebar/caret-down.svg"
+              class="dark:opacity-80 dropdown-icon"
+              :class="{
+                active:
+                  dropdown_settings ||
+                  $page.url.startsWith('/admin/settings/application'),
+              }"
+              alt=""
+            />
           </button>
-          <ul            
+          <ul
             class="dropdown-sidebar mt-2 hidden opacity-0 ml-[45px] space-y-3"
-            :class="{ active: dropdown_settings || $page.url.startsWith('/admin/settings/application') }"
+            :class="{
+              active:
+                dropdown_settings ||
+                $page.url.startsWith('/admin/settings/application'),
+            }"
           >
-            <li v-if="$page.props.auth.user.level_id == 1" @click="$emit('openSidebar')">
+            <li
+              v-if="$page.props.auth.user.level_id == 1"
+              @click="$emit('openSidebar')"
+            >
               <Link
                 href="/admin/settings/application"
                 class="
@@ -436,7 +611,7 @@
                   py-2
                   w-full
                   text-base
-                  font-normal                  
+                  font-normal
                   rounded-lg
                   transition
                   duration-75
@@ -445,7 +620,9 @@
                   text-gray-100
                   dark:text-gray-300
                 "
-                :class="{ 'active': $page.url.startsWith('/admin/settings/application') }"
+                :class="{
+                  active: $page.url.startsWith('/admin/settings/application'),
+                }"
                 >Application</Link
               >
             </li>
@@ -462,7 +639,294 @@
                   py-2
                   w-full
                   text-base
-                  font-normal                  
+                  font-normal
+                  rounded-lg
+                  transition
+                  duration-75
+                  group
+                  hover:bg-[rgba(255,255,255,0.1)]
+                  text-gray-100
+                  dark:text-gray-300
+                "
+                >Log out</Link
+              >
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <ul class="space-y-3" v-else>
+        <li @click="$emit('openSidebar')">
+          <Link
+            href="/dashboard/statistics"
+            class="
+              flex
+              nav-item
+              items-center
+              p-3
+              text-base
+              font-normal
+              rounded-lg
+              text-gray-100
+              dark:text-gray-300
+              hover:bg-[rgba(255,255,255,0.1)]
+            "
+            :class="{ active: $page.url.startsWith('/dashboard/statistics') }"
+          >
+            <img
+              class="dark:opacity-80"
+              src="/assets/img/sidebar/statistics.svg"
+              alt=""
+            />
+            <span class="ml-3 text-gray-100 dark:text-gray-300"
+              >Statistics</span
+            >
+          </Link>
+        </li>
+        <li
+          @click="$emit('openSidebar')"
+        >
+          <Link
+            href="/dashboard/my-competitions"
+            class="
+              flex
+              nav-item
+              items-center
+              p-3
+              text-base
+              font-normal
+              rounded-lg
+              text-gray-100
+              dark:text-gray-300
+              hover:bg-[rgba(255,255,255,0.1)]
+            "
+            :class="{ active: $page.url.startsWith('/dashboard/my-competitions') }"
+          >
+            <img
+              class="dark:opacity-80"
+              src="/assets/img/sidebar/statistics.svg"
+              alt=""
+            />
+            <span
+              class="
+                flex-1
+                ml-3
+                text-gray-100
+                dark:text-gray-300
+                whitespace-nowrap
+              "
+              >My Competitions</span
+            >
+          </Link>
+        </li>
+        <li
+          @click="$emit('openSidebar')"
+        >
+          <Link
+            href="/dashboard/my-results"
+            class="
+              flex
+              nav-item
+              items-center
+              p-3
+              text-base
+              font-normal
+              rounded-lg
+              text-gray-100
+              dark:text-gray-300
+              hover:bg-[rgba(255,255,255,0.1)]
+            "
+            :class="{ active: $page.url.startsWith('/dashboard/my-results') }"
+          >
+            <img
+              class="dark:opacity-80"
+              src="/assets/img/sidebar/statistics.svg"
+              alt=""
+            />
+            <span
+              class="
+                flex-1
+                ml-3
+                text-gray-100
+                dark:text-gray-300
+                whitespace-nowrap
+              "
+              >My Results</span
+            >
+          </Link>
+        </li>
+        <li
+          @click="$emit('openSidebar')"
+        >
+          <Link
+            href="/dashboard/my-courses"
+            class="
+              flex
+              nav-item
+              items-center
+              p-3
+              text-base
+              font-normal
+              rounded-lg
+              text-gray-100
+              dark:text-gray-300
+              hover:bg-[rgba(255,255,255,0.1)]
+            "
+            :class="{ active: $page.url.startsWith('/dashboard/my-courses') }"
+          >
+            <img
+              class="dark:opacity-80"
+              src="/assets/img/sidebar/statistics.svg"
+              alt=""
+            />
+            <span
+              class="
+                flex-1
+                ml-3
+                text-gray-100
+                dark:text-gray-300
+                whitespace-nowrap
+              "
+              >My Courses</span
+            >
+          </Link>
+        </li>
+        <li
+          @click="$emit('openSidebar')"
+        >
+          <Link
+            href="/dashboard/leaderboard"
+            class="
+              flex
+              nav-item
+              items-center
+              p-3
+              text-base
+              font-normal
+              rounded-lg
+              text-gray-100
+              dark:text-gray-300
+              hover:bg-[rgba(255,255,255,0.1)]
+            "
+            :class="{ active: $page.url.startsWith('/dashboard/leaderboard') }"
+          >
+            <img
+              class="dark:opacity-80"
+              src="/assets/img/sidebar/statistics.svg"
+              alt=""
+            />
+            <span
+              class="
+                flex-1
+                ml-3
+                text-gray-100
+                dark:text-gray-300
+                whitespace-nowrap
+              "
+              >Leaderboard</span
+            >
+          </Link>
+        </li>
+        <li>
+          <button
+            type="button"
+            class="
+              flex
+              nav-item
+              items-center
+              p-3
+              w-full
+              text-base
+              font-normal
+              rounded-lg
+              transition
+              duration-75
+              group
+              hover:bg-[rgba(255,255,255,0.1)]
+              text-gray-100
+              dark:text-gray-300
+            "
+            @click.prevent="activeDropdown('settings')"
+            aria-controls="dropdown-example"
+            data-collapse-toggle="dropdown-example"
+          >
+            <img
+              class="dark:opacity-80"
+              src="/assets/img/sidebar/settings.svg"
+              alt=""
+            />
+            <span
+              class="
+                flex-1
+                ml-3
+                text-gray-100
+                dark:text-gray-300
+                text-left
+                whitespace-nowrap
+              "
+              >Settings</span
+            >
+            <img
+              src="/assets/img/sidebar/caret-down.svg"
+              class="dark:opacity-80 dropdown-icon"
+              :class="{
+                active:
+                  dropdown_settings ||
+                  $page.url.startsWith('/admin/settings/application'),
+              }"
+              alt=""
+            />
+          </button>
+          <ul
+            class="dropdown-sidebar mt-2 hidden opacity-0 ml-[45px] space-y-3"
+            :class="{
+              active:
+                dropdown_settings ||
+                $page.url.startsWith('/dashboard/my-profile'),
+            }"
+          >
+            <li
+              v-if="$page.props.auth.user.level_id == 1"
+              @click="$emit('openSidebar')"
+            >
+              <Link
+                href="/dashboard/my-profile"
+                class="
+                  flex
+                  nav-item
+                  items-center
+                  px-4
+                  py-2
+                  w-full
+                  text-base
+                  font-normal
+                  rounded-lg
+                  transition
+                  duration-75
+                  group
+                  hover:bg-[rgba(255,255,255,0.1)]
+                  text-gray-100
+                  dark:text-gray-300
+                "
+                :class="{
+                  active: $page.url.startsWith('/dashboard/my-profile'),
+                }"
+                >My Profile</Link
+              >
+            </li>
+            <li>
+              <Link
+                href="/logout"
+                method="post"
+                as="button"
+                class="
+                  flex
+                  nav-item
+                  items-center
+                  px-4
+                  py-2
+                  w-full
+                  text-base
+                  font-normal
                   rounded-lg
                   transition
                   duration-75
@@ -483,7 +947,7 @@
 
 <script setup>
 import { ref } from "vue";
-import { Link } from '@inertiajs/inertia-vue3';
+import { Link } from "@inertiajs/inertia-vue3";
 
 const props = defineProps({
   active: Boolean,
@@ -515,7 +979,7 @@ const activeDropdown = (type) => {
 <style>
 aside {
   height: 100vh;
-  transition: all .3s;  
+  transition: all 0.3s;
 }
 
 aside.active {
@@ -528,7 +992,7 @@ aside.active {
 
 .dropdown-sidebar {
   transform: translateY(-40px);
-  transition: all .3s ease;
+  transition: all 0.3s ease;
 }
 
 .dropdown-sidebar.active {
@@ -538,13 +1002,13 @@ aside.active {
 }
 
 .dropdown-icon {
-  transition: all .2s ease;
+  transition: all 0.2s ease;
 }
 .dropdown-icon.active {
-   transform: rotate(180deg);
+  transform: rotate(180deg);
 }
 
 .nav-item.active {
-  background: rgba(255,255,255,0.1);
+  background: rgba(255, 255, 255, 0.1);
 }
 </style>
