@@ -451,14 +451,14 @@
                       hidden
                       md:inline-block
                     "
-                  >
+                  >                  
                     <span
-                      class="text-white"
+                      class=""
                       v-for="(
                         category, index
                       ) in comp.cuber_competition_categories"
                       :key="index"
-                    >
+                    >1
                       {{
                         index == comp.cuber_competition_categories.length - 1
                           ? category.cube_category.short_name

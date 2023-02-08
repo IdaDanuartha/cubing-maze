@@ -33,7 +33,6 @@ class UpdateCompetitionRequest extends FormRequest
             'date_start' => 'required|date',
             'date_end' => 'required|date',
             'password' => 'nullable|min:5|max:20',
-            'cube_categories' => 'required'
         ];
     }
 }

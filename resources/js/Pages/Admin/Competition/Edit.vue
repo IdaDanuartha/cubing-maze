@@ -3,11 +3,11 @@
     <title>Edit Competition - CubingMaze</title>
     <meta
       name="description"
-      description="add competition page for administrator cubingmaze"
+      description="edit competition page for administrator cubingmaze"
     />
     <meta
       name="keywords"
-      description="add new competition page cubingmaze, halaman tambah kompetisi baru cubingmaze, add competition administrator"
+      description="edit new competition page cubingmaze, halaman edit kompetisi cubingmaze, edit competition administrator"
     />
   </Head>
   <div class="alert-error -ml-3" v-if="session.error">
@@ -46,6 +46,19 @@
             {{ errors.competition_img }}
           </p>
         </div>
+      </div>
+      <div class="relative mt-5">
+        <button
+          type="button"
+          data-bs-toggle="modal"
+          data-bs-target="#competitionEventModal"
+          class="btn btn-submit"
+        >
+          Select Event
+        </button>
+      </div>
+      <div v-if="errors.cube_categories">
+        <p class="text-error">{{ errors.cube_categories }}</p>
       </div>
       <div class="relative mt-5">
         <input
@@ -220,11 +233,7 @@
         </div>
       </Transition>
       <div v-if="errors.password">
-        <p
-        
-          class="text-error"
-          :class="{ error: errors.password }"
-        >
+        <p class="text-error" :class="{ error: errors.password }">
           {{ errors.password }}
         </p>
       </div>
@@ -233,16 +242,80 @@
       </div>
     </form>
   </div>
+
+  <ModalBase
+    modalId="competitionEvent"
+    modalTitle="Select Competition Event"
+    btnCancel="Back"
+  >
+    <template v-slot:body>
+      <div class="flex justify-between mt-6 mb-3">
+        <p class="dark:text-gray-200 text-main-color">Select the event :</p>
+        <a
+          href="#"
+          @click.prevent="selectAllEvent(cube_categories)"
+          class="
+            font-worksans-medium
+            underline
+            text-secondary-color
+            dark:text-third-color
+          "
+          >Select all</a
+        >
+      </div>
+      <div class="flex flex-wrap">
+        <button
+          type="button"
+          class="select-event-btn"
+          :class="eventSelected.map((id) => (id == cube.id ? 'active' : ''))"
+          v-for="(cube, index) in cube_categories"
+          :key="index"
+          @click="toggleEvent(cube.id)"
+        >
+          <span
+            class="
+              mr-3
+              text-main-color/80
+              dark:text-gray-200
+              text-sm
+              relative
+              top-0.5
+            "
+          >
+            {{ cube.short_name }}</span
+          >
+          <div>
+            <i
+              class="
+                fa-solid fa-plus
+                text-[8px]
+                bg-main-color/80
+                text-white
+                rounded-full
+                p-0.5
+                relative
+                -top-0.5
+              "
+            ></i>
+          </div>
+        </button>
+      </div>
+      <div v-if="errors.cube_categories">
+        <p class="text-error">{{ errors.cube_categories }}</p>
+      </div>
+    </template>
+  </ModalBase>
 </template>
 
 <script>
 import LayoutAdmin from "../../../Layouts/Admin.vue";
 import { Head, Link } from "@inertiajs/inertia-vue3";
 import Editor from "@tinymce/tinymce-vue";
-import { ref, reactive } from "vue";
+import { ref, reactive, onMounted } from "vue";
 import vClickOutside from "click-outside-vue3";
 import { Inertia } from "@inertiajs/inertia";
 import moment from "moment";
+import ModalBase from "../../../Components/Admin/ModalBaseComponent.vue";
 
 export default {
   //layout
@@ -253,6 +326,7 @@ export default {
     Head,
     Link,
     Editor,
+    ModalBase,
   },
 
   directives: {
@@ -263,6 +337,8 @@ export default {
     session: Object,
     errors: Object,
     competition: Object,
+    competition_events: Object,
+    cube_categories: Object,
   },
 
   setup(props) {
@@ -273,6 +349,14 @@ export default {
         props.competition.type.slice(1)
     );
     let usePass = ref(props.competition.password ?? false);
+    let selectAll = ref(false);
+    let eventSelected = reactive([]);
+
+    onMounted(() => {
+      props.competition_events.forEach((event) => {
+        eventSelected.push(event.cube_category_id);
+      });
+    })
 
     const payload = reactive({
       name: props.competition.name,
@@ -284,7 +368,34 @@ export default {
       date_start: moment(props.competition.date_start).format("YYYY-MM-DD"),
       date_end: moment(props.competition.date_end).format("YYYY-MM-DD"),
       password: props.competition.password,
+      cube_categories: eventSelected
     });
+
+    const toggleEvent = (cube_id) => {
+      if (eventSelected.length) {
+        eventSelected.forEach((id) => {
+          if (id === cube_id) {
+            eventSelected.splice(eventSelected.indexOf(id), 1);
+          }
+        });
+      }
+      eventSelected.push(cube_id);
+    };
+
+    const selectAllEvent = (cube_ids) => {
+      cube_ids.forEach((event) => {
+        eventSelected.pop();
+      });
+
+      cube_ids.forEach((cube) => {
+        if (!selectAll.value) {
+          eventSelected.push(cube.id);
+        } else {
+          eventSelected.pop();
+        }
+      });
+      selectAll.value = !selectAll.value;
+    };
 
     const previewImage = (e) => {
       const file = e.target.files[0];
@@ -301,7 +412,7 @@ export default {
 
     const update = () => {
       Inertia.post(`/admin/competitions/${props.competition.id}`, {
-        _method: 'put',
+        _method: "put",
         name: payload.name,
         competition_img: payload.competition_img,
         description: payload.description,
@@ -311,6 +422,7 @@ export default {
         date_start: payload.date_start,
         date_end: payload.date_end,
         password: payload.password,
+        cube_categories: payload.cube_categories
       });
     };
 
@@ -335,6 +447,10 @@ export default {
       currentType,
       usePass,
       usingPassword,
+      selectAll,
+      eventSelected,
+      toggleEvent,
+      selectAllEvent,
     };
   },
 };

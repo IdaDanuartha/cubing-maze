@@ -88,14 +88,31 @@ class CompetitionController extends Controller
     {
         $page_name = 'Edit Competition';
         $competition = Competition::findOrFail($id);
+        $cube_categories = CubeCategory::all();
+        $competition_events = CompetitionEvent::where('competition_id', $id)->get();
 
-        return inertia('Admin/Competition/Edit', compact('page_name', 'competition'));
+        return inertia('Admin/Competition/Edit', compact('page_name', 'competition', 'cube_categories', 'competition_events'));
     }
 
     public function update(UpdateCompetitionRequest $request, $id){
         $competition = Competition::findOrFail($id);
+        $competition_events = CompetitionEvent::where('competition_id', $id)->get();
 
         try {
+            
+            if($request->cube_categories) {
+                foreach($competition_events as $event) {
+                    $event->delete();
+                } 
+                
+                foreach($request->cube_categories as $category_id) {
+                    CompetitionEvent::create([
+                        'competition_id' => $competition->id,
+                        'cube_category_id' => $category_id
+                    ]);
+                }
+            }
+
             $fileName = $competition->competition_img;
             if($request->hasFile('competition_img')) {
                 if(File::exists('storage/' . $fileName)) {
