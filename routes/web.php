@@ -58,6 +58,7 @@ Route::middleware('auth')->group(function() {
     Route::prefix('dashboard')->group(function() {
         Route::get('/statistics', CuberDashboardController::class)->name('cuber.dashboard');
         Route::get('/my-competitions', [MyCompetitionController::class, 'index']);
+        Route::get('/my-competitions/{slug}', [MyCompetitionController::class, 'show']);
     });
 
 });

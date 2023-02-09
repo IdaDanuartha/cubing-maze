@@ -17,4 +17,11 @@ class MyCompetitionController extends Controller
 
         return inertia('Cuber/Competition/Index', compact('page_name', 'my_competitions'));
     }
+
+    public function show()
+    {
+        $page_name = 'Detail Competitions';
+
+        return inertia('Cuber/Competition/Detail', compact('page_name'));
+    }
 }

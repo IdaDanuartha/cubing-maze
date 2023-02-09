@@ -131,7 +131,7 @@
                     <TableDropdown>
                       <template v-slot:dropdown_item>
                         <Link
-                          :href="'/admin/competitions/' + comp.competition.id"
+                          :href="'/dashboard/my-competitions/' + comp.competition.slug"
                           class="dropdown-item"
                         >
                           <i class="fa-solid mr-2 relative top-0.5 fa-eye"></i>
@@ -152,7 +152,7 @@
                       </template>
                     </TableDropdown>
                     <Link
-                      :href="'/admin/competitions/' + comp.competition.id"
+                      :href="'/dashboard/my-competitions/' + comp.competition.slug"
                       class="hidden sm:inline-block icon detail-icon mr-4"
                     >
                       <img src="/assets/img/icon/detail.svg" alt="" />
