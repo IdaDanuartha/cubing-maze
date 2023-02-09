@@ -1,6 +1,6 @@
 <template>
   <div class="search-group dark:bg-fourth-color/70">
-    <div class="flex">
+    <div class="flex pb-2">
       <div class="mr-3 relative top-1.5">
         <i class="fa-solid fa-magnifying-glass text-third-color/70 dark:text-secondary-color"></i>
       </div>
@@ -15,7 +15,7 @@
       <!-- <button type="submit"></button> -->
       </form>
     </div>
-    <div class="select-option" v-click-outside="onClickOutside" :class="{ active: active }">
+    <div v-if="filter" class="select-option" v-click-outside="onClickOutside" :class="{ active: active }">
       <div class="display-text" @click="activeDropdown(displayText)">
         <span class="text-white text-sm mt-0.5">{{ displayText }}</span>
         <div class="-mt-0.5">
@@ -45,7 +45,11 @@ import vClickOutside from 'click-outside-vue3'
 export default {
     emits: ['handleSearch'],
     props: {
-        search_query: String
+        search_query: String,
+        filter: {
+          type: Boolean,
+          default: true
+        }
     },
     directives: {
       clickOutside: vClickOutside.directive

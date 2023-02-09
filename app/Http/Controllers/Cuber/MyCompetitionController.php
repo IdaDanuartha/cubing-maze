@@ -23,7 +23,8 @@ class MyCompetitionController extends Controller
     {
         $page_name = 'Detail Competitions';
         $competition = Competition::where('slug', $slug)->with(['cuber_competitions', 'rounds.competition_event_rounds.cube_category'])->first();
+        $competitors = CuberCompetition::where('competition_id', $competition->id)->with(['cuber', 'cuber_competition_categories.cube_category'])->paginate(15);
 
-        return inertia('Cuber/Competition/Detail', compact('page_name', 'competition'));
+        return inertia('Cuber/Competition/Detail', compact('page_name', 'competition', 'competitors'));
     }
 }
