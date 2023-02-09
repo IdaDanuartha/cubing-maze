@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Cuber;
 
 use App\Http\Controllers\Controller;
+use App\Models\Competition;
 use App\Models\Cuber;
 use App\Models\CuberCompetition;
 use Illuminate\Http\Request;
@@ -18,10 +19,11 @@ class MyCompetitionController extends Controller
         return inertia('Cuber/Competition/Index', compact('page_name', 'my_competitions'));
     }
 
-    public function show()
+    public function show($slug)
     {
         $page_name = 'Detail Competitions';
+        $competition = Competition::where('slug', $slug)->with(['cuber_competitions', 'rounds.competition_event_rounds.cube_category'])->first();
 
-        return inertia('Cuber/Competition/Detail', compact('page_name'));
+        return inertia('Cuber/Competition/Detail', compact('page_name', 'competition'));
     }
 }
