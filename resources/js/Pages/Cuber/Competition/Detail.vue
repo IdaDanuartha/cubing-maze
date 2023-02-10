@@ -96,7 +96,7 @@
       </div>
     </div>
   </div>
-</template>
+</template> 
 
 <script>
 import LayoutAdmin from "../../../Layouts/Admin.vue";
