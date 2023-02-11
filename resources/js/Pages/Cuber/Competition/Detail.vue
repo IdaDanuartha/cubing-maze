@@ -33,6 +33,7 @@
         <a
           href="#tabs-general-info"
           class="custom-tabs active"
+          @click="activeTabs('general')"
           id="tabs-general-info-tab"
           data-bs-toggle="pill"
           data-bs-target="#tabs-general-info"
@@ -46,6 +47,7 @@
         <a
           href="#tabs-competitors"
           class="custom-tabs"
+          @click="activeTabs('competitors')"
           id="tabs-competitors-tab"
           data-bs-toggle="pill"
           data-bs-target="#tabs-competitors"
@@ -59,11 +61,12 @@
         <a
           href="#tabs-results"
           class="custom-tabs"
+          @click="activeTabs('live_results')"
           id="tabs-results-tab"
           data-bs-toggle="pill"
-          data-bs-target="#tabs-results"
+          data-bs-target="#tabs-live-results"
           role="tab"
-          aria-controls="tabs-results"
+          aria-controls="tabs-live-results"
           aria-selected="false"
           >Live Results</a
         >
@@ -88,7 +91,7 @@
       </div>
       <div
         class="tab-pane fade"
-        id="tabs-results"
+        id="tabs-live-results"
         role="tabpanel"
         aria-labelledby="tabs-competitors-tab"
       >
@@ -103,6 +106,7 @@ import LayoutAdmin from "../../../Layouts/Admin.vue";
 import { Head, Link } from "@inertiajs/inertia-vue3";
 import DetailCompetition from "../../../Components/Cuber/DetailCompComponent.vue";
 import TableCompetitors from "../../../Components/Cuber/TableCompetitorsComponent.vue";
+import { ref } from "vue";
 
 export default {
   //layout
@@ -123,7 +127,9 @@ export default {
     competitors: Object,
   },
 
-  setup() {},
+  setup() {
+
+  },
 };
 </script>
 

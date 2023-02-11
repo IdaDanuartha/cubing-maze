@@ -148,27 +148,18 @@
       </template>
     </Table>
 
-    <Pagination :data="competitors" />
+      <Pagination :data="competitors" />
   </div>
 </template>
 
-<script>
+<script setup>
 import Table from "../Admin/TableComponent.vue";
 import Pagination from "../PaginationComponent.vue";
 import SearchGroup from "../Admin/SearchGroupComponent.vue";
-export default {
-  props: {
-    competitors: Object,
-  },
 
-  components: {
-    Table,
-    Pagination,
-    SearchGroup,
-  },
-
-  setup() {},
-};
+const props = defineProps({
+  competitors: Object
+})
 </script>
 
 <style>

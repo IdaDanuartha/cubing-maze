@@ -41,20 +41,14 @@
     </nav>
 </template>
 
-<script>
+<script setup>
 
     //import Link
     import { Link } from '@inertiajs/inertia-vue3';
 
-    export default {
-        props: {
-            data: Object,
-        },
-
-        components: {
-            Link,
-        },
-    }
+    const props = defineProps({
+        data: Object
+    })
 </script>
 
 <style>
