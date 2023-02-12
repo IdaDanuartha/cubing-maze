@@ -33,7 +33,7 @@
         <a
           href="#tabs-general-info"
           class="custom-tabs active"
-          @click="activeTabs('general')"
+          @click="activeTabs('general')" 
           id="tabs-general-info-tab"
           data-bs-toggle="pill"
           data-bs-target="#tabs-general-info"
