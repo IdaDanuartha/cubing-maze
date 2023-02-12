@@ -33,7 +33,6 @@
         <a
           href="#tabs-general-info"
           class="custom-tabs active"
-          @click="activeTabs('general')" 
           id="tabs-general-info-tab"
           data-bs-toggle="pill"
           data-bs-target="#tabs-general-info"
@@ -47,7 +46,6 @@
         <a
           href="#tabs-competitors"
           class="custom-tabs"
-          @click="activeTabs('competitors')"
           id="tabs-competitors-tab"
           data-bs-toggle="pill"
           data-bs-target="#tabs-competitors"
@@ -61,7 +59,6 @@
         <a
           href="#tabs-results"
           class="custom-tabs"
-          @click="activeTabs('live_results')"
           id="tabs-results-tab"
           data-bs-toggle="pill"
           data-bs-target="#tabs-live-results"
