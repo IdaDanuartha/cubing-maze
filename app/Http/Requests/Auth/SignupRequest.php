@@ -27,7 +27,7 @@ class SignupRequest extends FormRequest
         return [
             'name' => 'required|unique:cubers,name|max:100',
             'username' => 'required|alpha_dash|unique:users,username|max:30',
-            'email' => 'required|email:dns|unique:users,email|max:30',
+            'email' => 'required|email|unique:users,email|max:30',
             'password' => ['required', Password::min(8)
                     ->letters()
                     ->numbers()

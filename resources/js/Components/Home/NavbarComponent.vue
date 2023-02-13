@@ -344,13 +344,13 @@
                 >
               </li>
               <li class="">
-                <a href="" class="flex"
+                <Link href="/logout" method="post" class="flex"
                   ><img
                     class="mr-1"
                     src="/assets/img/home/navbar/logout.svg"
                     alt="Logout icon"
                   />
-                  <span class="text-[12px]">Logout</span></a
+                  <span class="text-[12px]">Logout</span></Link
                 >
               </li>
             </ul>
