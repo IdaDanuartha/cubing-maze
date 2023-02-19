@@ -58,7 +58,9 @@ Route::middleware('auth')->group(function() {
     Route::prefix('dashboard')->group(function() {
         Route::get('/statistics', CuberDashboardController::class)->name('cuber.dashboard');
         Route::get('/my-competitions', [MyCompetitionController::class, 'index']);
+        Route::get('/my-competitions/{id}/edit', [MyCompetitionController::class, 'edit']);
         Route::get('/my-competitions/{slug}', [MyCompetitionController::class, 'show']);
+        Route::delete('/my-competitions/{id}', [MyCompetitionController::class, 'destroy']);
     });
 
 });

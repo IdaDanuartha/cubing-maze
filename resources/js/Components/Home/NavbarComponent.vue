@@ -315,10 +315,10 @@
               />
               <div class="ml-2.5">
                 <h1 class="text-[10px] font-worksans-medium">
-                  Ida Putu Sucita Danuartha
+                  {{ $page.props.auth.user.username }}
                 </h1>
                 <h5 class="text-[8px] text-main-color/80">
-                  Ida Putu Sucita Danuartha
+                  {{ $page.props.auth.user.email }}
                 </h5>
               </div>
             </div>
@@ -344,13 +344,13 @@
                 >
               </li>
               <li class="">
-                <a href="" class="flex"
+                <Link href="/logout" method="post" class="flex"
                   ><img
                     class="mr-1"
                     src="/assets/img/home/navbar/logout.svg"
                     alt="Logout icon"
                   />
-                  <span class="text-[12px]">Logout</span></a
+                  <span class="text-[12px]">Logout</span></Link
                 >
               </li>
             </ul>

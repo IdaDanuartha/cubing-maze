@@ -33,18 +33,29 @@
         >
           Name
         </div>
-        <div class="data-head col-span-4 xl:col-span-3 hidden md:inline-block">
+        <div class="data-head col-span-2 hidden xl:inline-block">
           Citizen Of
         </div>
-        <div class="data-head col-span-2 hidden xl:inline-block">Event</div>
+        <div
+          class="
+            data-head
+            col-span-4
+            md:col-span-7
+            xl:col-span-3
+            hidden
+            xs:inline-block
+          "
+        >
+          Event
+        </div>
         <div
           class="
             data-head
             col-span-4
             md:col-span-3
             xl:col-span-2
-            xs:inline-block
             hidden
+            xl:inline-block
           "
         >
           Total
@@ -87,11 +98,10 @@
                 <div
                   class="
                     data-column
-                    col-span-4
-                    xl:col-span-3
+                    col-span-2
                     dark:text-gray-200 dark:font-light
                     hidden
-                    md:inline-block
+                    xl:inline-block
                   "
                 >
                   {{ comp.cuber.country + ", " + comp.cuber.province }}
@@ -99,10 +109,12 @@
                 <div
                   class="
                     data-column
-                    col-span-2
+                    col-span-4
+                    md:col-span-7
+                    xl:col-span-3
                     dark:text-gray-200 dark:font-light
                     hidden
-                    xl:inline-block
+                    xs:inline-block
                   "
                 >
                   <!-- <span class="flex" v-for="(event, index) in comp.cuber_competition_categories" :key="index"> -->
@@ -123,7 +135,7 @@
                     md:col-span-3
                     xl:col-span-2
                     dark:text-gray-200 dark:font-light
-                    xs:inline-block
+                    xl:inline-block
                     hidden
                   "
                 >
@@ -148,7 +160,7 @@
       </template>
     </Table>
 
-      <Pagination :data="competitors" />
+    <Pagination :data="competitors" />
   </div>
 </template>
 
@@ -158,8 +170,8 @@ import Pagination from "../PaginationComponent.vue";
 import SearchGroup from "../Admin/SearchGroupComponent.vue";
 
 const props = defineProps({
-  competitors: Object
-})
+  competitors: Object,
+});
 </script>
 
 <style>

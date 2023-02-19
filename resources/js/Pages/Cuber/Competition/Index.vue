@@ -131,7 +131,10 @@
                     <TableDropdown>
                       <template v-slot:dropdown_item>
                         <Link
-                          :href="'/dashboard/my-competitions/' + comp.competition.slug"
+                          :href="
+                            '/dashboard/my-competitions/' +
+                            comp.competition.slug
+                          "
                           class="dropdown-item"
                         >
                           <i class="fa-solid mr-2 relative top-0.5 fa-eye"></i>
@@ -141,7 +144,7 @@
                           href="#"
                           data-bs-toggle="modal"
                           data-bs-target="#deleteCompetitionModal"
-                          @click="detail(comp.competition.id)"
+                          @click="detail(comp.id)"
                           class="dropdown-item"
                         >
                           <i
@@ -152,7 +155,9 @@
                       </template>
                     </TableDropdown>
                     <Link
-                      :href="'/dashboard/my-competitions/' + comp.competition.slug"
+                      :href="
+                        '/dashboard/my-competitions/' + comp.competition.slug
+                      "
                       class="hidden sm:inline-block icon detail-icon mr-4"
                     >
                       <img src="/assets/img/icon/detail.svg" alt="" />
@@ -161,7 +166,7 @@
                       class="hidden sm:inline-block icon delete-icon"
                       data-bs-toggle="modal"
                       data-bs-target="#deleteCompetitionModal"
-                      @click="detail(comp.competition.id)"
+                      @click="detail(comp.id)"
                     >
                       <img src="/assets/img/icon/delete.svg" alt="" />
                     </div>
@@ -188,6 +193,13 @@
       <Pagination :data="my_competitions" />
     </div>
   </div>
+
+  <ModalDelete
+    modalId="deleteCompetition"
+    modalTitle="Competition"
+    :modalData="payload.name"
+    @destroy="destroy"
+  />
 </template>
 
 <script>
@@ -227,7 +239,38 @@ export default {
     my_competitions: Object,
   },
 
-  setup() {},
+  setup() {
+    let payload = reactive({
+      cuber_competition_id: "",
+      name: "",
+    });
+
+    const detail = (id) => {
+      $.ajax({
+        method: "GET",
+        url: `/dashboard/my-competitions/${id}/edit`,
+        success: (response) => {
+          console.log(response)
+          payload.cuber_competition_id = response.id;
+          payload.name = response.competition.name;
+        },
+      });
+    };
+
+    const destroy = () => {
+      Inertia.delete(`/dashboard/my-competitions/${payload.cuber_competition_id}`, {
+        onSuccess: () => {
+          $("#deleteCompetitionModal").modal("hide");
+        },
+      });
+    };
+
+    return {
+      payload,
+      detail,
+      destroy,
+    };
+  },
 };
 </script>
 
