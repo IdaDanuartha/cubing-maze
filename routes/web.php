@@ -39,7 +39,7 @@ Route::post('/logout', LogoutController::class);
 Route::middleware('auth')->group(function() {
     Route::prefix('admin')->group(function() {
         Route::get('/dashboard', DashboardController::class)->name('admin.dashboard');
-    
+     
         // Competitions
         Route::resource('/competitions', CompetitionController::class);
         Route::get('/competitions/{id}/detail', [CompetitionController::class, 'detail']);
