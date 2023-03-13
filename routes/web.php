@@ -34,7 +34,7 @@ Route::middleware('guest')->group(function() {
     Route::get('/auth/signup', [SignupController::class, 'index'])->name('signup');
     Route::post('/auth/signup', [SignupController::class, 'register']);
 });
-Route::post('/logout', LogoutController::class);
+Route::post('/logout', LogoutController::class); 
 
 Route::middleware('auth')->group(function() {
     Route::prefix('admin')->group(function() {
